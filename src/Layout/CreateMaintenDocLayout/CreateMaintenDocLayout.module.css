@@ -1,0 +1,366 @@
+.warpPage {
+   height: 100%;
+   background-color: rgba(212, 215, 217, 0.4);
+   overflow-y: hidden;
+}
+.writeAreaTitle {
+   font-size: 24px;
+   font-weight: 700;
+   color: rgba(78, 9, 238, 0.887);
+}
+.writeAreaTime {
+   font-size: 18px;
+   font-weight: 600;
+   color: #333;
+   display: flex;
+   align-items: center;
+   padding: 0 10px;
+}
+.user {
+   padding: 1px 5px;
+   font-style: italic;
+   color: #dc5907;
+   font-size: 18px;
+   font-weight: 600;
+   margin: 0 20px;
+}
+
+.warpContent {
+   display: flex;
+}
+
+.writeArea {
+   width: 70%;
+   height: 90vh;
+   /* background-color: aqua; */
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   overflow-y: scroll;
+   scrollbar-width: thin;
+}
+
+.fieldJobWarp {
+   width: 90%;
+   /* height: 300px; */
+   background-color: white;
+   margin: 10px 0;
+   border: 1px solid #ccc;
+   padding: 10px 12px;
+}
+
+.fieldJobTitle {
+   font-size: 16;
+   font-weight: 500;
+}
+
+.fieldJobList {
+   /* background-color: aqua; */
+   width: 99%;
+   margin: 10px 0px 10px 0px;
+   padding: 5px 10px;
+}
+
+.fieldJobItem {
+   list-style: none;
+   margin: 7px 0;
+   display: flex;
+   align-items: center;
+}
+
+.fieldJobItemTitle {
+   font-size: 16;
+   font-weight: 400;
+   font-style: italic;
+   width: 80px;
+}
+
+.fieldJobItemInput {
+   flex: 1;
+   max-width: 750px;
+   padding: 3px 10px;
+   border: 1px solid #ccc;
+   background-color: white;
+   margin: 0 5px;
+   font-size: 16px;
+}
+
+.fieldJobItemDelete {
+   cursor: pointer;
+}
+
+.fieldJobItemDelete:hover {
+   color: red;
+}
+
+.addJobWrap {
+   display: flex;
+   align-items: center;
+   font-size: 14px;
+   margin-left: 95px;
+   cursor: pointer;
+   width: fit-content;
+}
+
+.addJobWrap:hover {
+   font-weight: 500;
+}
+
+/* Issue */
+.fieldIssueWarp {
+   width: 90%;
+   /* height: 300px; */
+   background-color: white;
+   margin: 10px 0;
+   border: 1px solid #ccc;
+   padding: 10px 12px;
+}
+
+.fieldIssueTitle {
+   font-size: 16;
+   font-weight: 500;
+   display: flex;
+   align-items: center;
+}
+
+.fieldIssueList {
+   /* background-color: aqua; */
+   width: 99%;
+   margin: 10px 0px 10px 0px;
+   padding: 5px 10px;
+}
+
+.fieldIssueItem {
+   list-style: none;
+   margin: 5px 0 14px 0;
+   padding-bottom: 5px;
+   display: flex;
+   align-items: top;
+   border-bottom: 1px solid rgb(120, 119, 119);
+}
+
+.fieldIssueItemTitle {
+   font-size: 16;
+   font-weight: 400;
+   font-style: italic;
+   width: 90px;
+}
+.fieldIssueItemContentWarp {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+   /* align-items: center; */
+}
+
+.fieldIssueItemContentWarpItem {
+   display: flex;
+   justify-content: space-between;
+   align-items: top;
+   margin: 5px 0;
+}
+.fieldIssueItemTitleChild {
+   font-size: 14px;
+   font-weight: 500;
+   line-height: 26px;
+   /* font-style: italic; */
+   /* width: 60px; */
+}
+.fieldIssueItemInput {
+   flex: 1;
+   max-width: 670px;
+   padding: 3px 10px;
+   border: 1px solid #ccc;
+   background-color: white;
+   margin: 0 0px;
+   font-size: 16px;
+}
+
+.fieldIssueItemDelete {
+   cursor: pointer;
+   height: 24px;
+   padding-left: 5px;
+}
+
+.fieldIssueItemDelete:hover {
+   color: red;
+}
+
+.addIssueWrap {
+   display: flex;
+   align-items: center;
+   font-size: 14px;
+   margin-left: 95px;
+   width: fit-content;
+   cursor: pointer;
+}
+
+.addIssueWrap:hover {
+   font-weight: 500;
+}
+
+.addGroupWrap {
+   display: flex;
+   align-items: center;
+   font-size: 14px;
+   /* margin-left: 30%; */
+   width: fit-content;
+   cursor: pointer;
+   background-color: #4ce930;
+   box-shadow: 2px 2px 10px #4c7f43;
+   padding: 5px 20px;
+   border-radius: 15px;
+   margin: 10px 0;
+}
+
+.addGroupWrap:hover {
+   font-weight: 500;
+}
+.optionWeek {
+   font-size: 20px;
+   font-weight: 600;
+   color: #4ce930;
+}
+.optionMonth {
+   font-size: 20px;
+   font-weight: 600;
+   color: #dc5907;
+}
+
+/* descriptionArea */
+.descriptionArea {
+   border-left: 1px solid rgb(147, 147, 147);
+   flex: 1;
+}
+
+/* chooseGroup */
+.chooseGroupPosition {
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   left: 0;
+   background-color: rgba(0, 0, 0, 0.463);
+}
+.chooseGroupWrap {
+   position: absolute;
+   bottom: 2rem;
+   background-color: rgb(157, 150, 238);
+   width: 270px;
+   height: fit-content;
+   top: 60px;
+   left: 30%;
+   box-shadow: 2px 2px 10px rgb(108, 97, 111);
+   user-select: none;
+}
+.chooseGroupHeader {
+   color: aliceblue;
+   text-align: center;
+}
+.chooseGroupList {
+   width: auto;
+   list-style: none;
+   margin: 5px;
+   padding: 5px;
+}
+.chooseGroupItem {
+   width: auto;
+   font-size: 1.2rem;
+   border-bottom: 1px solid rgb(204, 204, 204);
+   color: greenyellow;
+   cursor: pointer;
+}
+.chooseGroupInput {
+   width: 260px;
+   height: 2rem;
+   margin: 5px;
+   cursor: text;
+}
+.chooseGroupCancel {
+   position: absolute;
+   right: 0;
+   top: -1.5rem;
+   color: red;
+   cursor: pointer;
+}
+.chooseGroupButton {
+   width: 260px;
+   margin: 5px;
+   height: 1.7rem;
+   box-shadow: 2px 2px 10px rgb(180, 177, 177);
+   cursor: pointer;
+}
+
+.chooseGroupItem:hover {
+   font-weight: 500;
+   color: rgb(56, 252, 59);
+}
+
+
+
+
+/* For PC small screens */
+@media (min-width: 0px) and (max-width: 1235px) {
+   .writeAreaTitle {
+      font-size: 18px;
+   }
+
+   .writeAreaTime {
+      font-size: 12px;
+     
+   }
+   .optionMonth {
+      font-size: 16px;
+      
+   }
+   .optionWeek {
+      font-size: 16px;
+      
+   }
+
+   .fieldIssueTitle {
+      font-size: 12px;
+
+   }
+   .fieldIssueItem {
+      font-size: 12px;
+
+   }
+   .fieldIssueItemTitleChild {
+      font-size: 11px;
+
+   }
+   .fieldIssueItemInput {
+      font-size: 11px;
+
+   }
+
+   .fieldJobTitle {
+      font-size: 12px ;
+
+   }
+   .fieldJobItemTitle {
+      font-size: 12px;
+
+   }
+   .addIssueWrap {
+      color:#333;
+      font-size: 12px;
+
+   }
+  
+   .fieldJobItemInput {
+
+      font-size: 12px;
+   }
+   .user {
+
+      font-size: 14px;
+
+   }
+
+   .addJobWrap {
+
+      font-size: 12px;
+
+   }
+}

@@ -1,0 +1,136 @@
+.warp {
+   display: flex;
+   flex-direction: column;
+   background-color: rgba(255, 255, 255, 1);
+}
+
+.title {
+   font-size: 14px;
+   font-style: italic;
+}
+
+.elementsWarp {
+   /* background-color: aqua; */
+   width: 99%;
+   height: 155px;
+   margin: 5px;
+   display: flex;
+   overflow-x: scroll;
+   scrollbar-width: thin;
+   user-select: none;
+}
+
+/* Document */
+
+.documentWarp {
+   height: 135px;
+   /* background-color: rgb(189, 204, 203); */
+   margin: 0 10px;
+   /* flex: 1; */
+}
+
+.document {
+   background-color: rgb(255, 255, 255);
+   box-shadow: 2px 2px 6px #ccc;
+   width: 90px;
+   height: 122px;
+   font-size: 12px;
+   font-weight: 600;
+   /* text-align: center; */
+   margin: 0;
+   padding: 3px;
+   cursor: pointer;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: center;
+   position: relative;
+}
+
+
+.document:hover {
+   box-shadow: 2px 2px 20px rgb(199, 199, 199);
+}
+
+.time {
+   font-size: 8px;
+   font-style: italic;
+   margin-left: auto;
+
+   margin: 0;
+   padding: 2px 0;
+}
+
+/* css of shift */
+.timeWrap {
+   display: flex;
+   flex-direction: column;
+   margin: 2px 0;
+   justify-content: start;
+   align-items: center;
+}
+
+.session {
+   color: gray;
+   font-size: 10px;
+
+   display: block;
+   /* margin-top: 15px; */
+   /* padding: 10px 5px; */
+}
+
+.date {
+   color: rgb(226, 13, 162);
+   font-size: 18px;
+   font-weight: 700;
+   display: block;
+   /* margin-top: 15px; */
+   /* padding: 10px 5px; */
+}
+
+.monthYear {
+   color: rgb(74, 29, 199);
+   font-size: 12px;
+   font-weight: 700;
+   display: block;
+   /* margin-top: 15px; */
+   /* padding: 10px 5px; */
+}
+
+.shift {
+   color: rgb(248, 112, 33);
+   font-size: 15px;
+   font-weight: 700;
+   margin: 2px 0;
+   padding: 3px;
+}
+
+
+/* For PC small screens */
+@media (min-width: 0px) and (max-width: 1235px) {
+
+   .documentWarp {
+      height: 120px;
+
+   }
+
+   .document {
+
+      width: 77px;
+      height: 107px;
+      font-size: 10px;
+      font-weight: 500;
+
+   }
+   .time {
+      font-size: 6px;
+
+   }
+
+   .elementsWarp {
+
+      height: 140px;
+
+   }
+
+}
