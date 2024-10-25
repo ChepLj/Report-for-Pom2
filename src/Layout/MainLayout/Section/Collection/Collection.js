@@ -22,21 +22,21 @@ export default function Collection({
       <section className={style.warp}>
          <div className={style.title}>Collection</div>
 
-         {data.ShiftReport &&
+         {data?.ShiftReport &&
             (filter.type.includes('Tất Cả') || filter.type.includes('Báo Cáo Ca')) && (
                <ShiftReport
                   data={data.ShiftReport}
                   authEmailCurrent={(auth.email ??= 'authEmailCurrent')}
                />
             )}
-         {data.WeekReport &&
+         {data?.WeekReport &&
             (filter.type.includes('Tất Cả') || filter.type.includes('Báo Cáo Tuần')) && (
                <WeekReport
                   data={data.WeekReport}
                   authEmailCurrent={(auth.email ??= 'authEmailCurrent')}
                />
             )}
-         {data.MonthReport &&
+         {data?.MonthReport &&
             (filter.type.includes('Tất Cả') || filter.type.includes('Báo Cáo Tháng')) && (
                <MonthReport
                   data={data.MonthReport}

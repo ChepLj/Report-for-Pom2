@@ -3,9 +3,10 @@ import style from './Filter.module.css'
 
 export default function Filter({ user, callback }) {
    const arrayUser = []
-   for (const key in user) {
+   if(user) { for (const key in user) {
       arrayUser.push(user[key])
-   }
+   }}
+  
    // kiểm tra điều kiện lọc và gọi callback
    const checkFilter = () => {
       const type = []
@@ -55,15 +56,19 @@ export default function Filter({ user, callback }) {
    }
    /////////  hàm xử lý khi nhấn người báo cáo
    const handelEvenUserClick = (e) => {
+      console.log('ok')
       const nodeList = document.querySelectorAll(`.${style.buttonUserFilter}`)
       if (e.innerText === 'Tất Cả') {
+         console.log('ok3')
          if (!e.classList.contains(style.active)) {
             for (const value of nodeList) {
                value.classList.remove(style.active)
             }
             e.classList.add(style.active)
+            
          }
       } else {
+
          document.querySelector(`.${style.allUserFilter}`).classList.remove(style.active)
          e.classList.toggle(style.active)
       }
@@ -80,25 +85,25 @@ export default function Filter({ user, callback }) {
    }
 
    //////////
-   useEffect(() => {
-      setTimeout(()=>{
-         const nodeListTypeFilter = document.querySelectorAll(`.${style.buttonTypeFilter}`)
-         const nodeListUserFilter = document.querySelectorAll(`.${style.buttonUserFilter}`)
+   // useEffect(() => {
+   //    setTimeout(()=>{
+   //       const nodeListTypeFilter = document.querySelectorAll(`.${style.buttonTypeFilter}`)
+   //       const nodeListUserFilter = document.querySelectorAll(`.${style.buttonUserFilter}`)
        
-         for (const value of nodeListTypeFilter) {
-            value.addEventListener('click', (e) => {
-               handelEvenTypeClick(e.target)
-            })
-         }
-         ///////////
-         for (const value of nodeListUserFilter) {
-            value.addEventListener('click', (e) => {
-               handelEvenUserClick(e.target)
-            })
-         }
-      },1000)
+   //       for (const value of nodeListTypeFilter) {
+   //          value.addEventListener('click', (e) => {
+   //             handelEvenTypeClick(e.target)
+   //          })
+   //       }
+   //       ///////////
+   //       for (const value of nodeListUserFilter) {
+   //          value.addEventListener('click', (e) => {
+   //             handelEvenUserClick(e.target)
+   //          })
+   //       }
+   //    },1000)
       
-   }, [])
+   // }, [])
    return (
       <section className={style.warp}>
          <div className={style.titleWarp}>
@@ -128,6 +133,9 @@ export default function Filter({ user, callback }) {
             <ul className={style.lists}>
                <button
                   className={`${style.buttonUserFilter} ${style.allUserFilter} ${style.button}  ${style.active}`}
+                  onClick={(e) => {
+                     handelEvenUserClick(e.target)
+                  }}
                >
                   Tất Cả
                </button>

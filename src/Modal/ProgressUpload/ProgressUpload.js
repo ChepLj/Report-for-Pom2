@@ -145,7 +145,7 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
                   const id = crr.id; // Dynamic id
                   const indexItem = crr.index; // Dynamic index
 
-                  const ref = `REPORT/${state.data.reportType}/${idUpload.current}/IMAGE/${fileName}`;
+                  const ref = `REPORT/${state.data.reportType}/${idUpload.current}/IMAGE/`;
                   const callback = (messenger, result) => {
                      if (messenger === 'Upload completed successfully') {
                         const temp = { fileRef: ref, fileURL: result };

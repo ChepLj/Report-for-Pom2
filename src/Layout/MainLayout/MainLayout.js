@@ -34,11 +34,11 @@ export default function MainLayout() {
 
    return (
       <section className={style.warpPage}>
-         <Header user={state.User} authLogin={auth} />
+         <Header user={state?.User} authLogin={auth} />
          <section className={style.warpContent}>
             <section className={style.leftSideContent}>
                <Filter
-                  user={state.User}
+                  user={state?.User}
                   callback={(value) => {
                      setFilterState(value)
                   }}
@@ -46,10 +46,10 @@ export default function MainLayout() {
             </section>
             <section className={style.rightSideContent}>
                <section className={style.newReport}>
-                  <NewReport data={state.NewReport} />
+                  <NewReport data={state?.NewReport} />
                </section>
                <section className={style.collection}>
-                  <Collection data={state.Report} filter={filterState} auth={auth} />
+                  <Collection data={state?.Report} filter={filterState} auth={auth} />
                </section>
             </section>
          </section>
