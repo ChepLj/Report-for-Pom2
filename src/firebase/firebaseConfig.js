@@ -20,14 +20,15 @@ import { getStorage } from "firebase/storage";
 // }
 
 const firebaseConfig = {
-   apiKey: "AIzaSyCcf-0eER0eonDlznt6EDgXo0S5DIzlzqE",
-   authDomain: "report-for-pomina2.firebaseapp.com",
-   projectId: "report-for-pomina2",
-   storageBucket: "report-for-pomina2.appspot.com",
-   messagingSenderId: "708685289283",
-   appId: "1:708685289283:web:662e2595870c37d56241f6",
-   databaseURL: 'https://report-for-pomina2-default-rtdb.asia-southeast1.firebasedatabase.app/'
- };
+  apiKey: "AIzaSyDeDuVmHDOFEdvjAnhrNX7bgzSdeMrMR3o",
+  authDomain: "reportpom2.firebaseapp.com",
+  databaseURL: "https://reportpom2-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "reportpom2",
+  storageBucket: "reportpom2.appspot.com",
+  messagingSenderId: "1032947411089",
+  appId: "1:1032947411089:web:9d40ca33aa19a9d039b730",
+  measurementId: "G-MPYWRF42VW",
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)

@@ -1,11 +1,9 @@
-import style from './WeekReport.module.css';
-import { logoPomina } from '../../static/svg/sgv';
 import noImage from '../../static/img/No_Image_Available.jpg';
-import { useEffect } from 'react';
-import { ModalImageShow } from '../../Modal/ImageShow/ModalImageShow';
+import { logoPomina } from '../../static/svg/sgv';
+import style from './WeekReport.module.css';
 
-import { List, ListItem, Link, ListItemIcon } from '@mui/material';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { Link, ListItem, ListItemIcon } from '@mui/material';
 export default function WeekReport({ content, setModalImageOpen }) {
    console.log('🚀 ~ WeekReport ~ content:', content);
 
@@ -16,8 +14,8 @@ export default function WeekReport({ content, setModalImageOpen }) {
             <header className={`${style.header} header`}>
                <div className={`${style.address} address`}>
                   CÔNG TY CỔ PHẦN THÉP POMINA <br />
-                  Khu Công nghiệp Phú Mỹ I Thị Xã Phú mỹ, Tỉnh Bà rịa Vũng tàu <br />
-                  ÐT: 064 3922-521 / Fax: 064 3922-446
+                  Bộ phận Bảo Trì Điện <br />
+                  Phân xưởng Luyện
                </div>
                <div className={`${style.logo} logo`}>
                   <div className={`${style.logoImg} logoImg`}>{logoPomina}</div>
@@ -184,7 +182,7 @@ export default function WeekReport({ content, setModalImageOpen }) {
                <div className={`${style.signatureTemp} signatureTemp`}></div>
                <div className={`${style.signatureWarp} signatureWarp`}>
                   <span className={`${style.signatureDate} signatureDate`}>
-                     Pomina3, Ngày {content.date.timestamp.slice(8)} tháng {content.date.timestamp.slice(5, 7)} năm{' '}
+                     Pomina, Ngày {content.date.timestamp.slice(8)} tháng {content.date.timestamp.slice(5, 7)} năm{' '}
                      {content.date.timestamp.slice(0, 4)}
                   </span>
                   <span className={`${style.signatureName} signatureName`}>{content.user}</span>
