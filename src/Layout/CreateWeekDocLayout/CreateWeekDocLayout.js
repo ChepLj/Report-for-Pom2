@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import style from './CreateWeekDocLayout.module.css';
 import Header from './Header/Header';
-import LeftSide from './LeftSide/LeftSide';
+import LeftSide from '../CreateMonthDocLayout/LeftSide/LeftSide';
 import RightSide from './RightSide/RightSide';
 import { handelOpenImageFile, handelOpenTextFile } from '../../FCComponent/browserFile';
 

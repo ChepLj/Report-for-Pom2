@@ -31,19 +31,10 @@ export default function LeftSide({
    return (
       <section className={style.warpPage}>
          <section className={style.writeArea}>
-            <div className={style.writeAreaTitle}>Báo Cáo Tuần</div>
+            <div className={style.writeAreaTitle}>Báo Cáo Tháng</div>
             <div className={style.writeAreaTime}>
-               Tuần{' '}
-               <select className={style.optionWeek} name="weekWeekReport">
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-               </select>
-               {' .'}
                Tháng{' '}
-               <select className={style.optionMonth} name="monthWeekReport">
+               <select className={style.optionWeek} name="monthMonthReport">
                   <option value={1}>1</option>
                   <option value={2}>2</option>
                   <option value={3}>3</option>
@@ -56,6 +47,14 @@ export default function LeftSide({
                   <option value={10}>10</option>
                   <option value={11}>11</option>
                   <option value={12}>12</option>
+               </select>
+               {' .'}
+               Năm{' '}
+               <select className={style.optionMonth} name="yearMonthReport">
+                  <option value={2022}>2022</option>
+                  <option value={2023}>2023</option>
+                  <option value={2024}>2024</option>
+                  <option value={2025}>2025</option>
                </select>{' '}
                <select className={style.user} name="userWeekReport">
                   {user.map((crr, index) => {
@@ -67,7 +66,7 @@ export default function LeftSide({
                   })}
                </select>{' '}
             </div>
-            <i style={{ fontSize: '0.8rem' }}>(Ngày đầu tiên của Tuần 1 sẽ là Thứ 2 đầu tiên của tháng)</i>
+            <EquipmentStatus handleAddImage={handleAddImage} jobState={jobState} setJobState={setJobState} />
             <JobWrite handleAddImage={handleAddImage} jobState={jobState} setJobState={setJobState} />
             <IssueWrite handleAddImage={handleAddImage} issueState={issueState} setIssueState={setIssueState} />
             <PlanWrite handleAddImage={handleAddImage} planState={planState} setPlanState={setPlanState} />
@@ -79,6 +78,91 @@ export default function LeftSide({
 }
 
 /////////////////////
+function EquipmentStatus({ handleAddImage, jobState, setJobState }) {
+   const [state, setState] = useState([1]);
+
+   const handleAddEquipmentStatus = () => {
+      const array = [...state, state[state.length - 1] + 1];
+      setState(array);
+   };
+   const handelDeleteEquipmentField = (index) => {
+      const arrayNode = document.querySelectorAll(`.create-job`);
+      for (const item of arrayNode) {
+         if (item.dataset.jobIndex === index) {
+            return item.remove();
+         }
+      }
+   };
+   return (
+      <div className={style.fieldJobWarp}>
+         <div className={style.fieldJobTitle}>Tình trạng thiết bị</div>
+         <ul className={style.fieldJobList}>
+            {state.map((crr, index) => {
+               return (
+                  <li className={`${style.fieldIssueItem} create-job`} key={index} data-job-index={index}>
+                     <div className={style.fieldJobItemTitle}>Thiết bị</div>
+                     <div className={style.fieldIssueItemContentWarp}>
+                        <div className={style.fieldIssueItemContentWarpItem}>
+                           <div className={style.fieldIssueItemTitleChild}>Tên thiết bị*</div>
+                           <p
+                              className={style.fieldIssueItemInput}
+                              data-issue-input="name"
+                              data-input-width-fixed="width fixed"
+                              data-issue-id={crr.id}
+                              contentEditable="true"
+                           />
+                           <div>
+                              <Button
+                                 sx={{
+                                    padding: '1px 4px', // Adjust the padding
+                                    fontSize: '0.6rem', // Adjust the font size
+                                    minWidth: 'auto', // Remove the default minWidth
+                                 }}
+                                 variant="outlined"
+                                 size="small"
+                                 color={crr?.images?.length ? 'error' : 'primary'}
+                                 startIcon={<AddPhotoAlternateIcon />}
+                                 onClick={() => {
+                                    handleAddImage(crr.id, 'SC');
+                                 }}
+                              >
+                                 {crr?.images?.length}
+                              </Button>
+                           </div>
+                        </div>
+                        <div className={style.fieldIssueItemContentWarpItem}>
+                           <span className={style.fieldIssueItemTitleChild}>Tình trạng*</span>
+                           <p
+                              className={style.fieldJobItemInput}
+                              // data-job-input={index}
+                              data-job-input="status"
+                              contentEditable="true"
+                           />
+                        </div>
+                     </div>
+
+                     <span
+                        className={`material-symbols-outlined ${style.fieldJobItemDelete}`}
+                        onClick={(e) => {
+                           handelDeleteEquipmentField(e.target.dataset.index);
+                        }}
+                        data-index={index}
+                     >
+                        delete
+                     </span>
+                  </li>
+               );
+            })}
+
+            <div className={style.addJobWrap} onClick={handleAddEquipmentStatus}>
+               <div className={style.addJobWrapText}>Thêm Thiết bị </div>
+               <span className="material-symbols-outlined">add</span>
+            </div>
+         </ul>
+      </div>
+   );
+}
+/////////////////
 
 function JobWrite({ handleAddImage, jobState, setJobState }) {
    const handelAddJobField = () => {

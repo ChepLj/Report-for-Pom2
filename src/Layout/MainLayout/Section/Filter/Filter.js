@@ -85,25 +85,25 @@ export default function Filter({ user, callback }) {
    }
 
    //////////
-   // useEffect(() => {
-   //    setTimeout(()=>{
-   //       const nodeListTypeFilter = document.querySelectorAll(`.${style.buttonTypeFilter}`)
-   //       const nodeListUserFilter = document.querySelectorAll(`.${style.buttonUserFilter}`)
+   useEffect(() => {
+      setTimeout(()=>{
+         const nodeListTypeFilter = document.querySelectorAll(`.${style.buttonTypeFilter}`)
+         const nodeListUserFilter = document.querySelectorAll(`.${style.buttonUserFilter}`)
        
-   //       for (const value of nodeListTypeFilter) {
-   //          value.addEventListener('click', (e) => {
-   //             handelEvenTypeClick(e.target)
-   //          })
-   //       }
-   //       ///////////
-   //       for (const value of nodeListUserFilter) {
-   //          value.addEventListener('click', (e) => {
-   //             handelEvenUserClick(e.target)
-   //          })
-   //       }
-   //    },1000)
+         for (const value of nodeListTypeFilter) {
+            value.addEventListener('click', (e) => {
+               handelEvenTypeClick(e.target)
+            })
+         }
+         ///////////
+         for (const value of nodeListUserFilter) {
+            value.addEventListener('click', (e) => {
+               handelEvenUserClick(e.target)
+            })
+         }
+      },1000)
       
-   // }, [])
+   }, [])
    return (
       <section className={style.warp}>
          <div className={style.titleWarp}>

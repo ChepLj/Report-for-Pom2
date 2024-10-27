@@ -1,16 +1,17 @@
 import noImage from '../../static/img/No_Image_Available.jpg';
 import { logoPomina } from '../../static/svg/sgv';
 import style from './WeekReport.module.css';
-
+import { useEffect, useState } from 'react';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { Link, ListItem, ListItemIcon } from '@mui/material';
 export default function WeekReport({ content, setModalImageOpen }) {
+
    console.log('🚀 ~ WeekReport ~ content:', content);
 
    return (
       <>
          {' '}
-         <section className={`${style.warp} warp`}>
+         <section className={`${style.warp} warp width-wrap`}>
             <header className={`${style.header} header`}>
                <div className={`${style.address} address`}>
                   CÔNG TY CỔ PHẦN THÉP POMINA <br />
@@ -160,8 +161,9 @@ export default function WeekReport({ content, setModalImageOpen }) {
                   );
                })}
             </ul>
-            <ul className={`${style.list} list`}>
+            <ul className={`${style.list} list`} style={{paddingRight: '10px'}} >
                Vật tư đã xuất/Sử dụng
+               <li className={`${style.item} get-table-width item`} style={{marginTop: 0 , listStyleType: 'none'}} ></li>
                <EquipmentTable data={content.equipment} />
             </ul>
             {content.attachments?.[0] && (
@@ -196,35 +198,54 @@ export default function WeekReport({ content, setModalImageOpen }) {
 
 //////////////////
 function EquipmentTable({ data }) {
-   console.log('🚀 ~ EquipmentTable ~ data:', data);
+   // console.log('🚀 ~ EquipmentTable ~ data:', data);\
+   const [motherWidth, setMotherWidth] = useState(0)
+   console.log("🚀 ~ EquipmentTable ~ motherWidth:", motherWidth)
+
+   useEffect(() => {
+      const widthElm = document.querySelector('.get-table-width');    
+      setMotherWidth(widthElm.offsetWidth);
+   },[])
+
+   const thStyles = {
+
+      border: '1px solid black',
+      padding: '4px ',
+      fontSize: '9px',
+      fontWeight: 400,
+      whiteSpace: 'normal',
+      wordWrap: 'break-word', 
+      overflowWrap: 'break-word', 
+      boxSizing: 'border-box',
+   }
+
    return (
       <>
-         {data?.length && (
+         {data?.length && motherWidth && (
             <table style={{ borderCollapse: 'collapse', width: '100%', margin: '5px 0' }}>
                <thead>
                   <tr>
-                     <th style={{ border: '1px solid black', padding: '4px', fontSize: '9px' }}>STT</th>
-                     <th style={{ border: '1px solid black', padding: '4px', fontSize: '9px' }}>Mã Vật Tư</th>
-                     <th style={{ border: '1px solid black', padding: '4px', fontSize: '9px' }}>Tên</th>
-                     <th style={{ border: '1px solid black', padding: '4px', fontSize: '9px' }}>Số Lượng</th>
-                     <th style={{ border: '1px solid black', padding: '4px', fontSize: '9px' }}>Đơn Vị</th>
-                     <th style={{ border: '1px solid black', padding: '4px', fontSize: '9px' }}>Hành Động</th>
+                     <th style={thStyles}>STT</th>
+                     <th style={thStyles}>Mã Vật Tư</th>
+                     <th style={thStyles}>Tên</th>
+                     <th style={thStyles}>Số Lượng</th>
+                     <th style={thStyles}>Đơn Vị</th>
+                     <th style={thStyles}>Hành Động</th>
                   </tr>
                </thead>
 
                <tbody>
                   {data.map((crr, index) => {
-                     console.log('🚀 ~ {data.map ~ crr:', crr);
                      return crr.text ? (
                         <tr key={index} className={`create-equipment`}>
-                           <td style={{ border: '1px solid black', padding: '4px', fontSize: '9px' }}>
+                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 5)/100)}px`}}>
                               <div style={{ fontStyle: 'italic', pointerEvents: 'none', userSelect: 'none' }}>{index + 1}</div>
                            </td>
-                           <td style={{ border: '1px solid black', padding: '4px', fontSize: '10px', fontWeight: 400 }}>{crr.text[0]}</td>
-                           <td style={{ border: '1px solid black', padding: '4px', fontSize: '10px', fontWeight: 400 }}>{crr.text[1]}</td>
-                           <td style={{ border: '1px solid black', padding: '4px', fontSize: '10px', fontWeight: 400 }}>{crr.text[2]}</td>
-                           <td style={{ border: '1px solid black', padding: '4px', fontSize: '10px', fontWeight: 400 }}>{crr.text[3]}</td>
-                           <td style={{ border: '1px solid black', padding: '4px', fontSize: '10px', fontWeight: 400 }}>{crr.text[4]}</td>
+                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 15)/100)}px`}}>{crr.text[0]}</td>
+                           <td style={{ ...thStyles ,maxWidth: `${eval((motherWidth * 55)/100)}px`}} >{crr.text[1]}</td>
+                           <td style={{ ...thStyles , maxWidth: `${eval((motherWidth * 5)/100)}px`}}>{crr.text[2]}</td>
+                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 10)/100)}px`}}>{crr.text[3]}</td>
+                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 10)/100)}px`}}>{crr.text[4]}</td>
                         </tr>
                      ) : (
                         ''

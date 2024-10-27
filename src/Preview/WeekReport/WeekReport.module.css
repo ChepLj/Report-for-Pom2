@@ -7,8 +7,9 @@
    height: 98.5vh;
    overflow-y: scroll;
    overflow-x: hidden;
-   scrollbar-width: thin;
+   /* scrollbar-width: thin; */
    user-select: text;
+   scrollbar-width: none;
 }
 
 .header {
@@ -48,6 +49,8 @@
    font-size: 1.5rem;
    font-weight: 600;
    color: #20ae95;
+   white-space: nowrap;
+
 }
 
 .user {
@@ -56,6 +59,7 @@
    margin-bottom: 25px;
    color: rgb(205, 27, 228);
    font-style: italic;
+   white-space: nowrap;
 }
 
 .list {
@@ -73,6 +77,10 @@
    font-weight: 500;
    list-style: circle;
    margin: 5px 10px 10px 35px;
+   white-space: normal;
+   word-wrap: break-word;
+   overflow-wrap: break-word;
+   box-sizing: border-box;
 }
 .signature {
    display: flex;
