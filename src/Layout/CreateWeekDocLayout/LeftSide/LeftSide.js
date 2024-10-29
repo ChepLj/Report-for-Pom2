@@ -611,7 +611,7 @@ function EquipmentTable({ equipmentState, setEquipmentState }) {
                      Mã Vật Tư
                   </th>
                   <th data-name-width-fixed="width fixed" style={{ border: '1px solid black', padding: '4px', fontSize: '10px' }}>
-                     Tên
+                     Tên Vật Tư
                   </th>
                   <th data-quantity-width-fixed="width fixed" style={{ border: '1px solid black', padding: '4px', fontSize: '10px', width: '10%' }}>
                      Số Lượng
@@ -638,7 +638,7 @@ function EquipmentTable({ equipmentState, setEquipmentState }) {
                            <td className={style.equipmentTableTd} style={{ maxWidth: maxWidth.current.code }}>
                               {crr.data[0]}
                            </td>
-                           <td className={style.equipmentTableTd} style={{ maxWidth: maxWidth.current.name }}>
+                           <td className={style.equipmentTableTd} style={{ maxWidth: maxWidth.current.name}}>
                               {crr.data[1]}
                            </td>
                            <td className={style.equipmentTableTd} style={{ maxWidth: maxWidth.current.quantity }}>

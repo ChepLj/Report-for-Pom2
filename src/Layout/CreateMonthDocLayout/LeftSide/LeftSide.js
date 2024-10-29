@@ -17,6 +17,8 @@ export default function LeftSide({
    setIssueState,
    equipmentState,
    setEquipmentState,
+   equipmentStatusState,
+   setEquipmentStatusState,
 }) {
    //TODO: set max width
    useEffect(() => {
@@ -56,7 +58,7 @@ export default function LeftSide({
                   <option value={2024}>2024</option>
                   <option value={2025}>2025</option>
                </select>{' '}
-               <select className={style.user} name="userWeekReport">
+               <select className={style.user} name="userMonthReport">
                   {user.map((crr, index) => {
                      return (
                         <option value={crr} key={index}>
@@ -66,7 +68,11 @@ export default function LeftSide({
                   })}
                </select>{' '}
             </div>
-            <EquipmentStatus handleAddImage={handleAddImage} jobState={jobState} setJobState={setJobState} />
+            <EquipmentStatus
+               handleAddImage={handleAddImage}
+               equipmentStatusState={equipmentStatusState}
+               setEquipmentStatusState={setEquipmentStatusState}
+            />
             <JobWrite handleAddImage={handleAddImage} jobState={jobState} setJobState={setJobState} />
             <IssueWrite handleAddImage={handleAddImage} issueState={issueState} setIssueState={setIssueState} />
             <PlanWrite handleAddImage={handleAddImage} planState={planState} setPlanState={setPlanState} />
@@ -78,18 +84,24 @@ export default function LeftSide({
 }
 
 /////////////////////
-function EquipmentStatus({ handleAddImage, jobState, setJobState }) {
-   const [state, setState] = useState([1]);
-
+function EquipmentStatus({ handleAddImage, equipmentStatusState, setEquipmentStatusState }) {
    const handleAddEquipmentStatus = () => {
-      const array = [...state, state[state.length - 1] + 1];
-      setState(array);
+      const array = [...equipmentStatusState];
+      array.push({ id: equipmentStatusState.length + 1, images: [] });
+      setEquipmentStatusState(array);
    };
-   const handelDeleteEquipmentField = (index) => {
-      const arrayNode = document.querySelectorAll(`.create-job`);
+   const handelDeleteEquipmentField = (id) => {
+
+      const arrayNode = document.querySelectorAll(`.create-equipmentStatus`);
       for (const item of arrayNode) {
-         if (item.dataset.jobIndex === index) {
-            return item.remove();
+
+         if (+item.dataset.equipmentStatusIndex == id) {
+
+            item.remove();
+            let array = [...equipmentStatusState];
+            array[id - 1].images = [];
+            setEquipmentStatusState([...array]);
+            break;
          }
       }
    };
@@ -97,18 +109,18 @@ function EquipmentStatus({ handleAddImage, jobState, setJobState }) {
       <div className={style.fieldJobWarp}>
          <div className={style.fieldJobTitle}>Tình trạng thiết bị</div>
          <ul className={style.fieldJobList}>
-            {state.map((crr, index) => {
+            {equipmentStatusState?.map((crr, index) => {
                return (
-                  <li className={`${style.fieldIssueItem} create-job`} key={index} data-job-index={index}>
-                     <div className={style.fieldJobItemTitle}>Thiết bị</div>
+                  <li className={`${style.fieldIssueItem} create-equipmentStatus`} key={crr.id} data-equipment-status-index={crr.id}>
+                     <div className={style.fieldJobItemTitle}>Thiết bị {crr.id}</div>
                      <div className={style.fieldIssueItemContentWarp}>
                         <div className={style.fieldIssueItemContentWarpItem}>
                            <div className={style.fieldIssueItemTitleChild}>Tên thiết bị*</div>
                            <p
                               className={style.fieldIssueItemInput}
-                              data-issue-input="name"
+                              data-equipment-status-input="name"
                               data-input-width-fixed="width fixed"
-                              data-issue-id={crr.id}
+                              data-equipment-status-id={crr.id}
                               contentEditable="true"
                            />
                            <div>
@@ -123,7 +135,7 @@ function EquipmentStatus({ handleAddImage, jobState, setJobState }) {
                                  color={crr?.images?.length ? 'error' : 'primary'}
                                  startIcon={<AddPhotoAlternateIcon />}
                                  onClick={() => {
-                                    handleAddImage(crr.id, 'SC');
+                                    handleAddImage(crr.id, 'TB');
                                  }}
                               >
                                  {crr?.images?.length}
@@ -135,7 +147,7 @@ function EquipmentStatus({ handleAddImage, jobState, setJobState }) {
                            <p
                               className={style.fieldJobItemInput}
                               // data-job-input={index}
-                              data-job-input="status"
+                              data-equipment-status-input="status"
                               contentEditable="true"
                            />
                         </div>
@@ -144,9 +156,9 @@ function EquipmentStatus({ handleAddImage, jobState, setJobState }) {
                      <span
                         className={`material-symbols-outlined ${style.fieldJobItemDelete}`}
                         onClick={(e) => {
-                           handelDeleteEquipmentField(e.target.dataset.index);
+                           handelDeleteEquipmentField(crr.id);
                         }}
-                        data-index={index}
+                        // data-index={index}
                      >
                         delete
                      </span>
@@ -678,7 +690,7 @@ function EquipmentTable({ equipmentState, setEquipmentState }) {
       maxWidth.current.quantity = `${quantity.offsetWidth}px`;
       maxWidth.current.unit = `${unit.offsetWidth}px`;
       maxWidth.current.action = `${action.offsetWidth}px`;
-      console.log('🚀 ~ useEffect ~ maxWidth:', maxWidth);
+      // console.log('🚀 ~ useEffect ~ maxWidth:', maxWidth);
    }, []);
 
    //TODO_END: set max width

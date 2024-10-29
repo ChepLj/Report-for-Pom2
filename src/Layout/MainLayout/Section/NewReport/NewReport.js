@@ -7,7 +7,7 @@ export default function NewReport({ data }) {
    const arrayData = []
    if (data) {
       for (const key in data) arrayData.push(data[key])
-      arrayData.reverse()
+         arrayData.reverse()
    }
    return (
       <section className={style.warp}>
@@ -17,13 +17,13 @@ export default function NewReport({ data }) {
                if (index >= 10) {
                   return
                }
-               if (crr.type === 'weekReport') {
+               if (crr.type === 'WeekReport') {
                   return <ElementWeekDoc data={crr} key={index} />
                }
-               if (crr.type === 'monthReport') {
+               if (crr.type === 'MonthReport') {
                   return <ElementMonthDoc data={crr} key={index} />
                }
-               if (crr.type === 'shiftReport') {
+               if (crr.type === 'ShiftReport') {
                   return <ElementShiftDoc data={crr} key={index} />
                }
             })}
@@ -33,6 +33,7 @@ export default function NewReport({ data }) {
 }
 
 function ElementWeekDoc({ data }) {
+
    const [state, setState] = useState(false)
    const ref = useRef(data.ref)
    return (

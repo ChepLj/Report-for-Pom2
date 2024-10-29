@@ -22,7 +22,10 @@ export default function RightSide({
    setFile,
    issueState,
    setIssueState,
+   equipmentStatusState,
+   setEquipmentStatusState,
 }) {
+
    const arrayImageRender = [1, 2, 3, 4];
 
    //TODO: handle delete File
@@ -33,6 +36,24 @@ export default function RightSide({
    //TODO: handle delete image
    const handleDeleteImage = (id, itemIndex, group) => {
       switch (group) {
+         case 'TB': {
+            const updatedEquipmentStatusState = equipmentStatusState.map((item) => {
+               if (item.id === id) {
+                  if (Array.isArray(item.images) && item.images.length > 1) {
+                     const handleNewArray = item.images.filter((image, index) => {
+                        return itemIndex !== index;
+                     });
+                     item.images = handleNewArray;
+                  } else {
+                     item.images = [];
+                  }
+               }
+
+               return item;
+            });
+            setEquipmentStatusState(updatedEquipmentStatusState);
+            break;
+         }
          case 'CV': {
             const updatedJobState = jobState.map((item) => {
                if (item.id === id) {
@@ -141,6 +162,31 @@ export default function RightSide({
             <div className={style.rightSideFileHeader}>
                <span style={{ color: 'black', fontWeight: 600, textAlign: 'start' }}>Image</span>
             </div>
+            {equipmentStatusState?.map((crr, index) => {
+               if (crr.images.length) {
+                  return (
+                     <section className={style.rightSideImageList} key={index}>
+                        {`TB${crr.id}`}
+                        {arrayImageRender.map((crrItem, indexItem) => {
+                           return (
+                              <div className={style.rightSideImageItem} key={`${crr?.id}-${indexItem}`}>
+                                 <img
+                                    className={style.rightSideImageItemImage}
+                                    alt=""
+                                    src={crr.images[indexItem] ? URL.createObjectURL(crr.images[indexItem]) : noImageAvailable}
+                                 />
+                                 <div className={style.rightSideImageItemDeleteIcon} onClick={() => handleDeleteImage(crr.id, indexItem, 'TB')}>
+                                    <HighlightOffRoundedIcon className={style.rightSideImageItemDeleteIconItem} />
+                                 </div>
+                              </div>
+                           );
+                        })}
+                     </section>
+                  );
+               }
+            })}
+
+
             {jobState?.map((crr, index) => {
                if (crr.images.length) {
                   return (

@@ -1,61 +1,50 @@
-import { useState } from 'react'
-import SaveModal from '../../../Modal/SaveModal/SaveModal'
-import style from './Header.module.css'
-import logo from '../../../static/img/logo.png'
+import { useState } from 'react';
+import Modal from '../../../Modal/Modal';
+import logo from '../../../static/img/logo.png';
+import style from './Header.module.css';
 
-export default function Header({ auth }) {
-   const [state, setState] = useState(false)
-   auth.displayName ??= 'guest'
-   auth.email ??= 'none'
-   auth.photoURL ??=
-      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_h6QOa3uNotOm0ue_LW0AABchkoq3MtRadKl6pFU&s'
+export default function Header({ auth, mediaData }) {
+   const [state, setState] = useState(false);
+   auth.displayName ??= 'guest';
+   auth.email ??= 'none';
+   auth.photoURL ??= 'https://cdn4.iconfinder.com/data/icons/hotel-service-5/300/guest-512.png';
 
    // Check bỏ trống trường sự cố
-   const validateIsuue = () => {
-      const issueElm = document.querySelectorAll('.create-issue')
-      const jobElm = document.querySelectorAll('.create-job')
-      const planElm = document.querySelectorAll('.create-plan')
-      const proposeElm = document.querySelectorAll('.create-propose')
-      const collectElm = [...jobElm, ...planElm, ...proposeElm]
+   const validateIssue = () => {
+      const issueElm = document.querySelectorAll('.create-issue');
+      const jobElm = document.querySelectorAll('.create-job');
+      const planElm = document.querySelectorAll('.create-plan');
+      const proposeElm = document.querySelectorAll('.create-propose');
+      const collectElm = [...jobElm, ...planElm, ...proposeElm];
 
-      for (const item of jobElm) {
-         const pTagInput = item.getElementsByTagName('p')
-         for (const item of pTagInput) {
-            if (item.innerText.trim() === '') {
-               alert('LỖI ! Trường tình trạng phải điền đẩy đủ tất cả thông tin !!!')
-               return false
-            }
-         }
-      }
       for (const item of issueElm) {
-         const pTagInput = item.getElementsByTagName('p')
+         const pTagInput = item.getElementsByTagName('p');
          for (const item of pTagInput) {
             if (item.innerText.trim() === '') {
-               alert('LỖI ! Trường sự cố phải điền đẩy đủ tất cả thông tin !!!')
-               return false
+               alert('LỖI ! Trường sự cố phải điền đẩy đủ tất cả thông tin !!!');
+               return false;
             }
          }
       }
-
       /////////////// Check dữ liệu trống
       for (const item of collectElm) {
-         const pTagInput = item.getElementsByTagName('p')
+         const pTagInput = item.getElementsByTagName('p');
          for (const item of pTagInput) {
             if (!(item.innerText.trim() === '')) {
-               return true
+               return true;
             }
          }
       }
       ////////////////
-      alert('LỖI ! Phải điền ít nhất 1 trường')
-   }
+      alert('LỖI ! Phải điền ít nhất 1 trường');
+   };
    /////////
    return (
       <section className={style.warp}>
          <div
             className={style.home}
             onClick={() => {
-               window.location.href = '/'
+               window.location.href = '/';
             }}
          >
             <img className={style.logo} src={logo} />
@@ -66,7 +55,21 @@ export default function Header({ auth }) {
             <div
                className={style.writeReport}
                onClick={() => {
-                  setState(validateIsuue)
+                  if(validateIssue()){
+                     const confirmed = window.confirm(
+                        'Kiểm tra dữ liệu trước khi Upload. Đảm bảo các trường phải được nhập. Nếu các trường bị bỏ trống, hình ảnh của trường đó sẽ không được Upload !\n(mẹo: nếu muốn upload nhiều hơn 4 bức hình, sử dụng ký tự dấu chấm ở trường tiếp theo)\n\nNhấn OK để Upload !!!',
+                     );
+                     if (confirmed) {
+                        // User clicked OK
+                        setState(true)
+                     } else {
+                        // User clicked Cancel
+                        console.log('User canceled');
+                     }
+                  }
+ 
+                  
+                  
                }}
             >
                Lưu báo cáo{'...'}
@@ -77,14 +80,16 @@ export default function Header({ auth }) {
          </div>
          {/* ẩn hiện Save Modal */}
          {state && (
-            <SaveModal
+            <Modal
+               upload={true}
+               mediaData={mediaData}
                type={'monthReport'}
                callBackClose={(value) => {
                   // setState(value)
-                  window.location.href = '/'
+                  window.location.href = '/';
                }}
             />
          )}
       </section>
-   )
+   );
 }

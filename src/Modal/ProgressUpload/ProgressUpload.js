@@ -39,7 +39,7 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
                break;
             }
             case 'monthReport': {
-               createMonthDataPost(reRender);
+               createMonthDataPost(handleImageBlobArray);
                break;
             }
             case 'shiftReport': {
@@ -82,6 +82,7 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
    //TODO: Upload
    switch (state.state) {
       case 'file Upload': {
+
          if (fileProgressState.bytesTransferred <= 0 && !state.uploadInProgress) {
             setState((prevState) => ({ ...prevState, uploadInProgress: true }));
 
@@ -203,7 +204,7 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
                objectDataNew.ref = ref;
                objectDataNew.user = objectData.user;
                objectDataNew.date = objectData.date;
-               objectDataNew.type = 'weekReport';
+               objectDataNew.type = state.data.reportType;
                updates[`NewReport/${idUpload.current}`] = objectDataNew;
                //   for (const key in objectData) {
                //     updates["Report"] = objectData[key];
@@ -213,7 +214,7 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
 
                return update(dbRT, updates);
             };
-            const ref = `Report/WeekReport/${idUpload.current}`;
+            const ref = `Report/${state.data.reportType}/${idUpload.current}`;
             updateDataFirebase(ref, state.data).then(() => {
                getFirebaseData(ref)
                   .then((result) => {

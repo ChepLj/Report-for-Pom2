@@ -7,8 +7,9 @@
    height: 98.5vh;
    overflow-y: scroll;
    overflow-x: hidden;
-   scrollbar-width: thin;
+   /* scrollbar-width: thin; */
    user-select: text;
+   scrollbar-width: none;
 }
 
 .header {
@@ -16,22 +17,21 @@
    align-items: top;
    justify-content: space-between;
    border-bottom: 1px solid#333;
-   margin-bottom: 10px;
+   width: 100%;
    margin: 0 7px 10px 7px;
 }
 
 .address {
    width: 40%;
-   font-size: 0.75rem;
    /* font-size: 12px; */
+   font-size: 0.75rem;
    padding: 15px;
 }
 
 .logo {
    width: 30%;
-
-   font-size: 0.75rem;
    /* font-size: 12px; */
+   font-size: 0.75rem;
    padding: 15px;
    display: flex;
    flex-direction: column;
@@ -45,18 +45,21 @@
 }
 
 .title {
-   font-size: 1.5rem;
    /* font-size: 28px; */
+   font-size: 1.5rem;
    font-weight: 600;
    color: #20ae95;
+   white-space: nowrap;
+
 }
 
 .user {
-   font-size: 1rem;
    /* font-size: 18px; */
+   font-size: 1rem;
    margin-bottom: 25px;
    color: rgb(205, 27, 228);
    font-style: italic;
+   white-space: nowrap;
 }
 
 .list {
@@ -69,11 +72,15 @@
 }
 
 .item {
-   font-size: 0.75rem;
    /* font-size: 14px; */
+   font-size: 0.75rem;
    font-weight: 500;
    list-style: circle;
    margin: 5px 10px 10px 35px;
+   white-space: normal;
+   word-wrap: break-word;
+   overflow-wrap: break-word;
+   box-sizing: border-box;
 }
 .signature {
    display: flex;
@@ -114,8 +121,8 @@
    margin-top: 5px;
 }
 .itemTitle {
-   color: #79151a;
-   font-size: 0.8rem;
+   color: #b8c523;
+   font-size: 0.9375rem;
    /* font-size: 15px; */
    padding-left: 30px;
 }
@@ -139,15 +146,33 @@
    /* font-size: 14px; */
 }
 
+.thumbnailContainer {
+   display: flex;
+   gap: 8px; /* Space between thumbnails */
+   margin-top: 8px; /* Space above thumbnails */
+}
 
+.thumbnail {
+   width: 100px; /* Thumbnail width */
+   height: 100px; /* Thumbnail height */
+   object-fit: cover; /* Maintain aspect ratio and fill the thumbnail */
+   border-radius: 4px; /* Optional, for rounded corners */
+   border: 2px solid #ccc; /* Border color and thickness */
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional, for a subtle shadow effect */
+   transition: transform 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+.thumbnail:hover {
+   transform: scale(1.1); /* Slightly enlarge on hover */
+   border-color: #007bff; /* Change border color on hover */
+   cursor: pointer;
+}
 
 /* For PC small screens */
 @media (min-width: 0px) and (max-width: 1235px) {
-
    .address {
       padding: 5px;
       font-size: 0.5rem;
-
    }
    .logo {
       width: 25%;
@@ -155,53 +180,42 @@
       padding: 5px;
    }
    .header {
-      
       margin: 0 5px 5px 7px;
    }
    .title {
-
       font-size: 1rem;
-    
    }
    .user {
-
       font-size: 0.7rem;
-    
    }
    .list {
-      
       font-size: 0.7rem;
-     
    }
 
    .item {
       font-size: 0.6rem;
       font-weight: 500;
-  
+
       margin: 5px 10px 10px 35px;
-   }
-
-   .itemTitle {
-      
-      font-size: 0.7rem;
-
    }
    .signatureDate {
       font-size: 0.6rem;
+      
    }
-   
+
    .signatureName {
       font-size: 0.6rem;
    }
 
    .issueWarp {
       font-size: 0.7rem;
-
+   }
+   .auth {
+      font-size: 0.65rem;
    }
 
-   .auth {
-
-      font-size: 0.65rem;
-
+   .thumbnail {
+      width: 60px; /* Thumbnail width */
+      height: 60px; /* Thumbnail height */
    }
 }

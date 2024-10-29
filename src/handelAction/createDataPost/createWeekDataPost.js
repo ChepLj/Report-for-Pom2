@@ -111,7 +111,7 @@ export default function createWeekDataPost(callBack) {
    result.images = { job: {}, plan: {}, issue: {}, propose: {}, equipment: {} };
 
    result.attachments = [];
-   result.reportType = 'WEEK REPORT';
+   result.reportType = 'WeekReport';
    console.log(result)
    callBack({ state: 'file Upload', data: result });
 }

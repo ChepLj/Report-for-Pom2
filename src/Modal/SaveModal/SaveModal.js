@@ -56,7 +56,7 @@ export default function SaveModal({ type, state, callBackClose, setModalImageOpe
             return <WeekReport content={state[1]} setModalImageOpen={setModalImageOpen} />;
          }
          case 'monthReport': {
-            return <MonthReport content={state[1]} />;
+            return <MonthReport content={state[1]} setModalImageOpen={setModalImageOpen}/>;
          }
          case 'shiftReport': {
             return <ShiftReport content={state[1]} />;
