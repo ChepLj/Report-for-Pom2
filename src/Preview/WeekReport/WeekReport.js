@@ -5,9 +5,13 @@ import { useEffect, useState } from 'react';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { Link, ListItem, ListItemIcon } from '@mui/material';
 export default function WeekReport({ content, setModalImageOpen }) {
-
    console.log('🚀 ~ WeekReport ~ content:', content);
-
+   const isVideoType = (type) => {
+      if(type){
+        return type.startsWith('video/') 
+      }
+      return ''
+   };
    return (
       <>
          {' '}
@@ -36,18 +40,42 @@ export default function WeekReport({ content, setModalImageOpen }) {
                         {typeof crr === 'string' ? crr : crr.text}
                         {crr.id ? (
                            <div className={`${style.thumbnailContainer} thumbnailContainer`}>
-                              {content.images?.jobImage?.[crr.id]?.map((image, imgIndex) => (
-                                 <img
-                                    key={imgIndex}
-                                    src={image.fileURL}
-                                    onClick={() => setModalImageOpen({ isOpen: true, data: content.images.jobImage[crr.id] })}
-                                    alt={`Thumbnail ${imgIndex + 1}`}
-                                    onError={(e) => {
-                                       e.target.src = noImage;
-                                    }}
-                                    className={`${style.thumbnail} thumbnail`}
-                                 />
-                              ))}
+                              {content.images?.jobImage?.[crr.id]?.map((image, imgIndex) => {
+                                 const mediaUrl = image.fileURL;
+                                 const isVideo = isVideoType(image.type);
+                                 return (
+                                    <div
+                                       key={imgIndex}
+                                       className={style.mediaContainer}
+                                       onClick={() => setModalImageOpen({ isOpen: true, data: content.images.jobImage[crr.id] , index: imgIndex})}
+                                    >
+                                       {isVideo ? (
+                                          <>
+                                             <video
+                                                className={`${style.thumbnail} thumbnail`}
+                                                src={mediaUrl}
+                                                onError={(e) => {
+                                                   e.target.src = noImage; // Handle error
+                                                }}
+                                                //controls // Add controls if needed
+                                             >
+                                                Your browser does not support the video tag.
+                                             </video>
+                                             <span className={style.playbackOverlay}>▶</span>
+                                          </>
+                                       ) : (
+                                          <img
+                                             src={mediaUrl}
+                                             alt={`Thumbnail ${imgIndex + 1}`}
+                                             onError={(e) => {
+                                                e.target.src = noImage;
+                                             }}
+                                             className={`${style.thumbnail} thumbnail`}
+                                          />
+                                       )}
+                                    </div>
+                                 );
+                              })}
                            </div>
                         ) : (
                            ''
@@ -73,18 +101,42 @@ export default function WeekReport({ content, setModalImageOpen }) {
                               <i>Biện pháp khắc phục:</i> {crr.solution}
                               {crr.id ? (
                                  <div className={`${style.thumbnailContainer} thumbnailContainer`}>
-                                    {content.images?.issueImage?.[crr.id]?.map((image, imgIndex) => (
-                                       <img
-                                          key={imgIndex}
-                                          src={image.fileURL}
-                                          onClick={() => setModalImageOpen({ isOpen: true, data: content.images.issueImage[crr.id] })}
-                                          alt={`Thumbnail ${imgIndex + 1}`}
-                                          onError={(e) => {
-                                             e.target.src = noImage;
-                                          }}
-                                          className={`${style.thumbnail} thumbnail`}
-                                       />
-                                    ))}
+                                    {content.images?.issueImage?.[crr.id]?.map((image, imgIndex) => {
+                                       const mediaUrl = image.fileURL;
+                                       const isVideo = isVideoType(image.type);
+                                       return (
+                                          <div
+                                             key={imgIndex}
+                                             className={style.mediaContainer}
+                                             onClick={() => setModalImageOpen({ isOpen: true, data: content.images.issueImage[crr.id] , index: imgIndex })}
+                                          >
+                                             {isVideo ? (
+                                                <>
+                                                   <video
+                                                      className={`${style.thumbnail} thumbnail`}
+                                                      src={mediaUrl}
+                                                      onError={(e) => {
+                                                         e.target.src = noImage; // Handle error
+                                                      }}
+                                                      //controls // Add controls if needed
+                                                   >
+                                                      Your browser does not support the video tag.
+                                                   </video>
+                                                   <span className={style.playbackOverlay}>▶</span>
+                                                </>
+                                             ) : (
+                                                <img
+                                                   src={mediaUrl}
+                                                   alt={`Thumbnail ${imgIndex + 1}`}
+                                                   onError={(e) => {
+                                                      e.target.src = noImage;
+                                                   }}
+                                                   className={`${style.thumbnail} thumbnail`}
+                                                />
+                                             )}
+                                          </div>
+                                       );
+                                    })}
                                  </div>
                               ) : (
                                  ''
@@ -113,18 +165,42 @@ export default function WeekReport({ content, setModalImageOpen }) {
                         {typeof crr === 'string' ? crr : crr.text}
                         {crr.id ? (
                            <div className={`${style.thumbnailContainer} thumbnailContainer`}>
-                              {content.images?.planImage?.[crr.id]?.map((image, imgIndex) => (
-                                 <img
-                                    key={imgIndex}
-                                    src={image.fileURL}
-                                    onClick={() => setModalImageOpen({ isOpen: true, data: content.images.planImage[crr.id] })}
-                                    alt={`Thumbnail ${imgIndex + 1}`}
-                                    onError={(e) => {
-                                       e.target.src = noImage;
-                                    }}
-                                    className={`${style.thumbnail} thumbnail`}
-                                 />
-                              ))}
+                              {content.images?.planImage?.[crr.id]?.map((image, imgIndex) => {
+                                 const mediaUrl = image.fileURL;
+                                 const isVideo = isVideoType(image.type);
+                                 return (
+                                    <div
+                                       key={imgIndex}
+                                       className={style.mediaContainer}
+                                       onClick={() => setModalImageOpen({ isOpen: true, data: content.images.planImage[crr.id], index: imgIndex })}
+                                    >
+                                       {isVideo ? (
+                                          <>
+                                             <video
+                                                className={`${style.thumbnail} thumbnail`}
+                                                src={mediaUrl}
+                                                onError={(e) => {
+                                                   e.target.src = noImage; // Handle error
+                                                }}
+                                                //controls // Add controls if needed
+                                             >
+                                                Your browser does not support the video tag.
+                                             </video>
+                                             <span className={style.playbackOverlay}>▶</span>
+                                          </>
+                                       ) : (
+                                          <img
+                                             src={mediaUrl}
+                                             alt={`Thumbnail ${imgIndex + 1}`}
+                                             onError={(e) => {
+                                                e.target.src = noImage;
+                                             }}
+                                             className={`${style.thumbnail} thumbnail`}
+                                          />
+                                       )}
+                                    </div>
+                                 );
+                              })}
                            </div>
                         ) : (
                            ''
@@ -141,18 +217,42 @@ export default function WeekReport({ content, setModalImageOpen }) {
                         {typeof crr === 'string' ? crr : crr.text}
                         {crr.id ? (
                            <div className={`${style.thumbnailContainer} thumbnailContainer`}>
-                              {content.images?.proposeImage?.[crr.id]?.map((image, imgIndex) => (
-                                 <img
-                                    key={imgIndex}
-                                    src={image.fileURL}
-                                    onClick={() => setModalImageOpen({ isOpen: true, data: content.images.proposeImage[crr.id] })}
-                                    alt={`Thumbnail ${imgIndex + 1}`}
-                                    onError={(e) => {
-                                       e.target.src = noImage;
-                                    }}
-                                    className={`${style.thumbnail} thumbnail`}
-                                 />
-                              ))}
+                              {content.images?.proposeImage?.[crr.id]?.map((image, imgIndex) => {
+                                 const mediaUrl = image.fileURL;
+                                 const isVideo = isVideoType(image.type);
+                                 return (
+                                    <div
+                                       key={imgIndex}
+                                       className={style.mediaContainer}
+                                       onClick={() => setModalImageOpen({ isOpen: true, data: content.images.proposeImage[crr.id], index: imgIndex })}
+                                    >
+                                       {isVideo ? (
+                                          <>
+                                             <video
+                                                className={`${style.thumbnail} thumbnail`}
+                                                src={mediaUrl}
+                                                onError={(e) => {
+                                                   e.target.src = noImage; // Handle error
+                                                }}
+                                                //controls // Add controls if needed
+                                             >
+                                                Your browser does not support the video tag.
+                                             </video>
+                                             <span className={style.playbackOverlay}>▶</span>
+                                          </>
+                                       ) : (
+                                          <img
+                                             src={mediaUrl}
+                                             alt={`Thumbnail ${imgIndex + 1}`}
+                                             onError={(e) => {
+                                                e.target.src = noImage;
+                                             }}
+                                             className={`${style.thumbnail} thumbnail`}
+                                          />
+                                       )}
+                                    </div>
+                                 );
+                              })}
                            </div>
                         ) : (
                            ''
@@ -161,9 +261,9 @@ export default function WeekReport({ content, setModalImageOpen }) {
                   );
                })}
             </ul>
-            <ul className={`${style.list} list`} style={{paddingRight: '10px'}} >
+            <ul className={`${style.list} list`} style={{ paddingRight: '10px' }}>
                Vật tư đã xuất/Sử dụng
-               <li className={`${style.item} get-table-width item`} style={{marginTop: 0 , listStyleType: 'none'}} ></li>
+               <li className={`${style.item} get-table-width item`} style={{ marginTop: 0, listStyleType: 'none' }}></li>
                <EquipmentTable data={content.equipment} />
             </ul>
             {content.attachments?.[0] && (
@@ -199,25 +299,24 @@ export default function WeekReport({ content, setModalImageOpen }) {
 //////////////////
 function EquipmentTable({ data }) {
    // console.log('🚀 ~ EquipmentTable ~ data:', data);\
-   const [motherWidth, setMotherWidth] = useState(0)
-   console.log("🚀 ~ EquipmentTable ~ motherWidth:", motherWidth)
+   const [motherWidth, setMotherWidth] = useState(0);
+   console.log('🚀 ~ EquipmentTable ~ motherWidth:', motherWidth);
 
    useEffect(() => {
-      const widthElm = document.querySelector('.get-table-width');    
+      const widthElm = document.querySelector('.get-table-width');
       setMotherWidth(widthElm.offsetWidth);
-   },[])
+   }, []);
 
    const thStyles = {
-
       border: '1px solid black',
       padding: '4px ',
       fontSize: '9px',
       fontWeight: 400,
       whiteSpace: 'normal',
-      wordWrap: 'break-word', 
-      overflowWrap: 'break-word', 
+      wordWrap: 'break-word',
+      overflowWrap: 'break-word',
       boxSizing: 'border-box',
-   }
+   };
 
    return (
       <>
@@ -238,14 +337,14 @@ function EquipmentTable({ data }) {
                   {data.map((crr, index) => {
                      return crr.text ? (
                         <tr key={index} className={`create-equipment`}>
-                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 5)/100)}px`}}>
+                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 5) / 100)}px` }}>
                               <div style={{ fontStyle: 'italic', pointerEvents: 'none', userSelect: 'none' }}>{index + 1}</div>
                            </td>
-                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 15)/100)}px`}}>{crr.text[0]}</td>
-                           <td style={{ ...thStyles ,maxWidth: `${eval((motherWidth * 55)/100)}px`}} >{crr.text[1]}</td>
-                           <td style={{ ...thStyles , maxWidth: `${eval((motherWidth * 5)/100)}px`}}>{crr.text[2]}</td>
-                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 10)/100)}px`}}>{crr.text[3]}</td>
-                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 10)/100)}px`}}>{crr.text[4]}</td>
+                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 15) / 100)}px` }}>{crr.text[0]}</td>
+                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 55) / 100)}px` }}>{crr.text[1]}</td>
+                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 5) / 100)}px` }}>{crr.text[2]}</td>
+                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 10) / 100)}px` }}>{crr.text[3]}</td>
+                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 10) / 100)}px` }}>{crr.text[4]}</td>
                         </tr>
                      ) : (
                         ''

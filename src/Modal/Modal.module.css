@@ -41,3 +41,16 @@
     }
 
  }
+
+  /* For smart phone screens */
+  @media (min-width: 0px) and (max-width: 480px) {
+ 
+ 
+   .form {
+      
+      width: 90vw;
+      height: 90vh;
+      background-color: white;
+   }
+
+}

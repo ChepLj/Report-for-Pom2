@@ -101,3 +101,34 @@
    
    }
 }
+
+/* For smartphone screens */
+@media (min-width: 0px) and (max-width: 480px) {
+
+   .close {
+
+      top: 2px;
+      right: 10px;
+      background-color: white;
+      border: 1px solid red;
+      padding: 2px 5px;
+      border-radius: 15px;
+ 
+    
+   }
+   
+   .downloadPDF {
+
+      bottom: 2px;
+      right: 15px;
+
+   }
+ 
+   .downloadJPG {
+  
+      bottom: 37px;
+      right: 15px;
+
+   }
+
+}

@@ -8,12 +8,20 @@ if (supported) {
 export const handelOpenImageFile = async (callback) => {
   try {
     const blob = await fileOpen({
-      description: "Image files",
-      mimeTypes: ["image/jpg", "image/png", "image/gif", "image/webp"],
-      extensions: [".jpg", ".jpeg", ".png", ".gif", ".webp"],
+      description: "Image and Video files",
+      mimeTypes: [
+        "image/jpg", "image/png", "image/gif", "image/webp",
+        "video/mp4", "video/webm", "video/avi", "video/mkv",
+        "video/mov", "video/wmv", "video/mpeg", "video/flv"
+    ],
+    extensions: [
+        ".jpg", ".jpeg", ".png", ".gif", ".webp",
+        ".mp4", ".webm", ".avi", ".mkv", ".mov",
+        ".wmv", ".mpeg", ".mpg", ".flv"
+    ],
       // multiple: true,
     });
-    // console.log("🚀 ~ file: CreatePage.tsx:57 ~ handelOpenFile ~ blob:", blob);
+    console.log("🚀 ~ file: CreatePage.tsx:57 ~ handelOpenFile ~ blob:", blob);
     if (blob) {
       callback(blob);
     }
@@ -45,8 +53,8 @@ export const handelOpenTextFile = async (callback) => {
       // multiple: true,
     });
     if (blob) {
-      if (blob.size > 1000000000) {
-        alert("The File is over size > 1Gb !");
+      if (blob.size > 500000000) {
+        alert("The File is over size > 0.5Gb !");
       } else {
         callback(blob);
       }

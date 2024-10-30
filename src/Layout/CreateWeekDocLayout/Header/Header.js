@@ -49,7 +49,7 @@ export default function Header({ auth, mediaData }) {
             }}
          >
             <img className={style.logo} src={logo} />
-            Quay về trang chủ
+            Home
          </div>
 
          <div className={style.nav}>

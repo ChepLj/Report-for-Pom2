@@ -67,7 +67,7 @@ export default function LeftSide({
                   })}
                </select>{' '}
             </div>
-            <i style={{ fontSize: '0.8rem' }}>(Ngày đầu tiên của Tuần 1 sẽ là Thứ 2 đầu tiên của tháng)</i>
+            <i style={{ fontSize: '0.7rem',marginTop: '2px' }}>(Ngày đầu tiên của Tuần 1 sẽ là Thứ 2 đầu tiên của tháng)</i>
             <JobWrite handleAddImage={handleAddImage} jobState={jobState} setJobState={setJobState} />
             <IssueWrite handleAddImage={handleAddImage} issueState={issueState} setIssueState={setIssueState} />
             <PlanWrite handleAddImage={handleAddImage} planState={planState} setPlanState={setPlanState} />
@@ -247,7 +247,7 @@ function IssueWriteElement({ index, crr, callBack, handleAddImage }) {
 
             <div className={style.fieldIssueItemContentWarpItem}>
                <div className={style.fieldIssueItemTitleChild}>Ngày*</div>
-               <p className={style.fieldIssueItemInput} data-issue-input="date" data-input-width-fixed="width fixed" contentEditable="true" />
+               <p className={style.fieldIssueItemInput} data-issue-input="date" data-input-width-fixed="width fixed" contentEditable="true"  inputMode="numeric"/>
             </div>
             {/*  */}
             {/*  */}

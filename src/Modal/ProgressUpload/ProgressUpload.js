@@ -140,18 +140,20 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
             } else {
                const finishArrayCheck = [];
                imageBlobArray.forEach((crr, index) => {
+                  console.log("🚀 ~ imageBlobArray.forEach ~ crr:", crr)
                   const file = crr.image;
                   const fileName = `Index ${index} : ${crr.line}`;
                   const group = crr.group; // Dynamic group
                   const id = crr.id; // Dynamic id
+                  const type = crr.image?.type; // Dynamic type
                   const indexItem = crr.index; // Dynamic index
 
                   const ref = `REPORT/${state.data.reportType}/${idUpload.current}/IMAGE/`;
                   const callback = (messenger, result) => {
                      if (messenger === 'Upload completed successfully') {
-                        const temp = { fileRef: ref, fileURL: result };
-                        // state.data.images.push(temp);
-                        // Directly mutate the state (Not recommended, but following your preference)
+                        
+                        
+
                         if (!state.data.images[group]) {
                            state.data.images[group] = {};
                         }
@@ -159,11 +161,8 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
                         if (!state.data.images[group][id]) {
                            state.data.images[group][id] = [];
                         }
-                        // if (!state.data.images[group][id][indexItem]) {
-                        //    state.data.images[group][id][indexItem] = [];
-                        // }
 
-                        state.data.images[group][id].push({ fileRef: ref, fileURL: result });
+                        state.data.images[group][id].push({ fileRef: ref, fileURL: result, type: type });
 
                         finishArrayCheck.push(index);
                         if (finishArrayCheck.length === imageBlobArray.length) {

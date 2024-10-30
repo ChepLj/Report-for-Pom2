@@ -17,7 +17,7 @@
 .closeButton{
     font-size: 16px;
     position: absolute;
-    top: 0px;
+    top: -5px;
     right: 0px;
     padding:20px;
     color:red;
@@ -52,12 +52,26 @@
     box-sizing: border-box;
 }
 .sideImageItem{
+    position: relative;
     width: 60%;
     aspect-ratio: 1/1;
     border: 1px solid rgb(196, 196, 196) !important;
     margin-top: 15px;
     cursor: pointer;
 }
+
+.playbackOverlay {
+  
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    color: rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+    z-index: 1;
+    
+  }
 
 .sideImageItemImg{
     width: 100%;
@@ -70,3 +84,34 @@
 .sideImageItem:active{
     opacity: 0.5;
 }
+
+@media (min-width: 0px) and (max-width: 480px) {
+
+    .mainContainer{
+   
+        flex-direction: column;
+    
+    }
+    .mainImage{
+        width: 95%;
+        max-height: 80vh;
+
+    }
+    .sideImage{
+        width: 95%;
+        height: 18vh;
+        overflow: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 10px 10px 10px 10px;
+
+        
+    }
+
+    .sideImageItem{
+        margin: 5px;
+        width: 20%;
+    }
+ }

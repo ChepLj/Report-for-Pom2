@@ -1,13 +1,13 @@
 //JSX: Right side component
 
-import { Button } from '@mui/material';
-import { handelOpenTextFile } from '../../../FCComponent/browserFile';
-import { getKeyByValue } from '../../../FCComponent/getKeyByValue';
-import style from './RightSide.module.css';
-import { MIMEtype } from '../../../FCComponent/MIMEtype';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded';
+import { Button } from '@mui/material';
+import { useRef } from 'react';
+import { getKeyByValue } from '../../../FCComponent/getKeyByValue';
+import { MIMEtype } from '../../../FCComponent/MIMEtype';
 import noImageAvailable from '../../../static/img/No_Image_Available.jpg';
+import style from './RightSide.module.css';
 
 export default function RightSide({
    prop,
@@ -22,9 +22,11 @@ export default function RightSide({
    setFile,
    issueState,
    setIssueState,
+   equipmentStatusState,
+   setEquipmentStatusState,
 }) {
    const arrayImageRender = [1, 2, 3, 4];
-
+   const videoRefs = useRef([]);
    //TODO: handle delete File
    const handleDeleteFile = (id, itemIndex) => {
       setFile('');
@@ -33,6 +35,24 @@ export default function RightSide({
    //TODO: handle delete image
    const handleDeleteImage = (id, itemIndex, group) => {
       switch (group) {
+         case 'TB': {
+            const updatedEquipmentStatusState = equipmentStatusState.map((item) => {
+               if (item.id === id) {
+                  if (Array.isArray(item.images) && item.images.length > 1) {
+                     const handleNewArray = item.images.filter((image, index) => {
+                        return itemIndex !== index;
+                     });
+                     item.images = handleNewArray;
+                  } else {
+                     item.images = [];
+                  }
+               }
+
+               return item;
+            });
+            setEquipmentStatusState(updatedEquipmentStatusState);
+            break;
+         }
          case 'CV': {
             const updatedJobState = jobState.map((item) => {
                if (item.id === id) {
@@ -141,19 +161,80 @@ export default function RightSide({
             <div className={style.rightSideFileHeader}>
                <span style={{ color: 'black', fontWeight: 600, textAlign: 'start' }}>Image</span>
             </div>
+            {equipmentStatusState?.map((crr) => {
+               if (crr.images?.length) {
+                  return (
+                     <section className={style.rightSideImageList} key={crr.id}>
+                        {`TB${crr.id}`}
+                        {arrayImageRender.map((_, indexItem) => {
+                           const file = crr.images[indexItem];
+                           const isVideo = file && file.type.startsWith('video');
+                           return (
+                              <div className={style.rightSideImageItem} key={`${crr.id}-${indexItem}`}>
+                                 {isVideo ? (
+                                    <>
+                                       <video
+                                          className={style.rightSideImageItemImage}
+                                          src={URL.createObjectURL(file)}
+                                          ref={(el) => (videoRefs.current[`TB-${crr.id}-${indexItem}`] = el)}
+                                          onClick={() => {
+                                             const videoElement = videoRefs.current[`TB-${crr.id}-${indexItem}`]; // Access the specific video ref
+                                             if (videoElement) {
+                                                videoElement.requestFullscreen(); // Request fullscreen
+                                                videoElement.play(); // Play the video
+                                             }
+                                          }}
+                                       >
+                                          Your browser does not support the video tag.
+                                       </video>
+                                       <span className={style.playbackOverlay}>▶</span>
+                                    </>
+                                 ) : (
+                                    <img className={style.rightSideImageItemImage} alt="" src={file ? URL.createObjectURL(file) : noImageAvailable} />
+                                 )}
+                                 <div className={style.rightSideImageItemDeleteIcon} onClick={() => handleDeleteImage(crr.id, indexItem, 'TB')}>
+                                    <HighlightOffRoundedIcon className={style.rightSideImageItemDeleteIconItem} />
+                                 </div>
+                              </div>
+                           );
+                        })}
+                     </section>
+                  );
+               }
+               return null;
+            })}
+
             {jobState?.map((crr, index) => {
                if (crr.images.length) {
                   return (
                      <section className={style.rightSideImageList} key={index}>
                         {`CV${crr.id}`}
                         {arrayImageRender.map((crrItem, indexItem) => {
+                           const file = crr.images[indexItem];
+                           const isVideo = file && file.type.startsWith('video');
                            return (
                               <div className={style.rightSideImageItem} key={`${crr?.id}-${indexItem}`}>
-                                 <img
-                                    className={style.rightSideImageItemImage}
-                                    alt=""
-                                    src={crr.images[indexItem] ? URL.createObjectURL(crr.images[indexItem]) : noImageAvailable}
-                                 />
+                                 {isVideo ? (
+                                    <>
+                                       <video
+                                          className={style.rightSideImageItemImage}
+                                          src={URL.createObjectURL(file)}
+                                          ref={(el) => (videoRefs.current[`CV-${crr.id}-${indexItem}`] = el)}
+                                          onClick={() => {
+                                             const videoElement = videoRefs.current[`CV-${crr.id}-${indexItem}`]; // Access the specific video ref
+                                             if (videoElement) {
+                                                videoElement.requestFullscreen(); // Request fullscreen
+                                                videoElement.play(); // Play the video
+                                             }
+                                          }}
+                                       >
+                                          Your browser does not support the video tag.
+                                       </video>
+                                       <span className={style.playbackOverlay}>▶</span>
+                                    </>
+                                 ) : (
+                                    <img className={style.rightSideImageItemImage} alt="" src={file ? URL.createObjectURL(file) : noImageAvailable} />
+                                 )}
                                  <div className={style.rightSideImageItemDeleteIcon} onClick={() => handleDeleteImage(crr.id, indexItem, 'CV')}>
                                     <HighlightOffRoundedIcon className={style.rightSideImageItemDeleteIconItem} />
                                  </div>
@@ -171,13 +252,31 @@ export default function RightSide({
                      <section className={style.rightSideImageList} key={index}>
                         {`KH${crr.id}`}
                         {arrayImageRender.map((crrItem, indexItem) => {
+                           const file = crr.images[indexItem];
+                           const isVideo = file && file.type.startsWith('video');
                            return (
                               <div className={style.rightSideImageItem} key={`${crr?.id}-${indexItem}`}>
-                                 <img
-                                    className={style.rightSideImageItemImage}
-                                    alt=""
-                                    src={crr.images[indexItem] ? URL.createObjectURL(crr.images[indexItem]) : noImageAvailable}
-                                 />
+                                 {isVideo ? (
+                                    <>
+                                       <video
+                                          className={style.rightSideImageItemImage}
+                                          src={URL.createObjectURL(file)}
+                                          ref={(el) => (videoRefs.current[`KH-${crr.id}-${indexItem}`] = el)}
+                                          onClick={() => {
+                                             const videoElement = videoRefs.current[`KH-${crr.id}-${indexItem}`]; // Access the specific video ref
+                                             if (videoElement) {
+                                                videoElement.requestFullscreen(); // Request fullscreen
+                                                videoElement.play(); // Play the video
+                                             }
+                                          }}
+                                       >
+                                          Your browser does not support the video tag.
+                                       </video>
+                                       <span className={style.playbackOverlay}>▶</span>
+                                    </>
+                                 ) : (
+                                    <img className={style.rightSideImageItemImage} alt="" src={file ? URL.createObjectURL(file) : noImageAvailable} />
+                                 )}
                                  <div className={style.rightSideImageItemDeleteIcon} onClick={() => handleDeleteImage(crr.id, indexItem, 'KH')}>
                                     <HighlightOffRoundedIcon className={style.rightSideImageItemDeleteIconItem} />
                                  </div>
@@ -195,13 +294,31 @@ export default function RightSide({
                      <section className={style.rightSideImageList} key={index}>
                         {`ĐX${crr.id}`}
                         {arrayImageRender.map((crrItem, indexItem) => {
+                           const file = crr.images[indexItem];
+                           const isVideo = file && file.type.startsWith('video');
                            return (
                               <div className={style.rightSideImageItem} key={`${crr?.id}-${indexItem}`}>
-                                 <img
-                                    className={style.rightSideImageItemImage}
-                                    alt=""
-                                    src={crr.images[indexItem] ? URL.createObjectURL(crr.images[indexItem]) : noImageAvailable}
-                                 />
+                                 {isVideo ? (
+                                    <>
+                                       <video
+                                          className={style.rightSideImageItemImage}
+                                          src={URL.createObjectURL(file)}
+                                          ref={(el) => (videoRefs.current[`ĐX-${crr.id}-${indexItem}`] = el)}
+                                          onClick={() => {
+                                             const videoElement = videoRefs.current[`ĐX-${crr.id}-${indexItem}`]; // Access the specific video ref
+                                             if (videoElement) {
+                                                videoElement.requestFullscreen(); // Request fullscreen
+                                                videoElement.play(); // Play the video
+                                             }
+                                          }}
+                                       >
+                                          Your browser does not support the video tag.
+                                       </video>
+                                       <span className={style.playbackOverlay}>▶</span>
+                                    </>
+                                 ) : (
+                                    <img className={style.rightSideImageItemImage} alt="" src={file ? URL.createObjectURL(file) : noImageAvailable} />
+                                 )}
                                  <div className={style.rightSideImageItemDeleteIcon} onClick={() => handleDeleteImage(crr.id, indexItem, 'ĐX')}>
                                     <HighlightOffRoundedIcon className={style.rightSideImageItemDeleteIconItem} />
                                  </div>
@@ -219,13 +336,31 @@ export default function RightSide({
                      <section className={style.rightSideImageList} key={index}>
                         {`SC${crr.id}`}
                         {arrayImageRender.map((crrItem, indexItem) => {
+                           const file = crr.images[indexItem];
+                           const isVideo = file && file.type.startsWith('video');
                            return (
-                              <div className={style.rightSideImageItem} key={`${crr?.id}-${indexItem}`}>
-                                 <img
-                                    className={style.rightSideImageItemImage}
-                                    alt=""
-                                    src={crr.images[indexItem] ? URL.createObjectURL(crr.images[indexItem]) : noImageAvailable}
-                                 />
+                              <div className={style.rightSideImageItem} key={`SC-${crr?.id}-${indexItem}`}>
+                                 {isVideo ? (
+                                    <>
+                                       <video
+                                          className={style.rightSideImageItemImage}
+                                          src={URL.createObjectURL(file)}
+                                          ref={(el) => (videoRefs.current[`SC-${crr.id}-${indexItem}`] = el)}
+                                          onClick={() => {
+                                             const videoElement = videoRefs.current[`SC-${crr.id}-${indexItem}`]; // Access the specific video ref
+                                             if (videoElement) {
+                                                videoElement.requestFullscreen(); // Request fullscreen
+                                                videoElement.play(); // Play the video
+                                             }
+                                          }}
+                                       >
+                                          Your browser does not support the video tag.
+                                       </video>
+                                       <span className={style.playbackOverlay}>▶</span>
+                                    </>
+                                 ) : (
+                                    <img className={style.rightSideImageItemImage} alt="" src={file ? URL.createObjectURL(file) : noImageAvailable} />
+                                 )}
                                  <div className={style.rightSideImageItemDeleteIcon} onClick={() => handleDeleteImage(crr.id, indexItem, 'SC')}>
                                     <HighlightOffRoundedIcon className={style.rightSideImageItemDeleteIconItem} />
                                  </div>

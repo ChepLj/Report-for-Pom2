@@ -131,7 +131,7 @@ export default function Header({ user, authLogin }) {
                   </ul>
                </div>
             </div>
-            <div className={style.myReport}>Báo cáo của tôi</div>
+            {/* <div className={style.myReport}>Báo cáo của tôi</div> */}
             <div className={style.account}>
                <img className={style.avatar} src={authLogin.photoURL} alt="avatar" />
                <div className={style.accountWrap}>

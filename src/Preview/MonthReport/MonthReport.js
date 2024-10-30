@@ -6,6 +6,12 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { Link, ListItem, ListItemIcon } from '@mui/material';
 export default function MonthReport({ content, setModalImageOpen }) {
    console.log('🚀 ~ MonthReport ~ content:', content);
+   const isVideoType = (type) => {
+      if (type) {
+         return type.startsWith('video/');
+      }
+      return '';
+   };
 
    return (
       <>
@@ -34,30 +40,61 @@ export default function MonthReport({ content, setModalImageOpen }) {
                      return (
                         <ul className={`${style.listItem} listItem`} key={index}>
                            <li className={`${style.item} item`}>
-                              <i>Thiết bị:</i><span style={{color:'red' ,fontWeight: '700'}}> {crr.name}</span>
+                              <i>Thiết bị:</i>
+                              <span style={{ color: 'red', fontWeight: '700' }}> {crr.name}</span>
                            </li>
-                           <li className={`${style.item} item`} style={{listStyle: 'none'}}>
+                           <li className={`${style.item} item`} style={{ listStyle: 'none' }}>
                               <i>Tình trạng:</i> {crr.status}
                               {crr.id ? (
                                  <div className={`${style.thumbnailContainer} thumbnailContainer`}>
-                                    {content.images?.equipmentStatusImage?.[crr.id]?.map((image, imgIndex) => (
-                                       <img
-                                          key={imgIndex}
-                                          src={image.fileURL}
-                                          onClick={() => setModalImageOpen({ isOpen: true, data: content.images.equipmentStatusImage[crr.id] })}
-                                          alt={`Thumbnail ${imgIndex + 1}`}
-                                          onError={(e) => {
-                                             e.target.src = noImage;
-                                          }}
-                                          className={`${style.thumbnail} thumbnail`}
-                                       />
-                                    ))}
+                                    {content.images?.equipmentStatusImage?.[crr.id]?.map((image, imgIndex) => {
+                                       const mediaUrl = image.fileURL;
+                                       const isVideo = isVideoType(image.type);
+                                       return (
+                                          <div
+                                             key={imgIndex}
+                                             className={style.mediaContainer}
+                                             onClick={() =>
+                                                setModalImageOpen({
+                                                   isOpen: true,
+                                                   data: content.images.equipmentStatusImage[crr.id],
+                                                   index: imgIndex,
+                                                })
+                                             }
+                                          >
+                                             {isVideo ? (
+                                                <>
+                                                   <video
+                                                      className={`${style.thumbnail} thumbnail`}
+                                                      src={mediaUrl}
+                                                      onError={(e) => {
+                                                         e.target.src = noImage; // Handle error
+                                                      }}
+                                                      //controls // Add controls if needed
+                                                   >
+                                                      Your browser does not support the video tag.
+                                                   </video>
+                                                   <span className={style.playbackOverlay}>▶</span>
+                                                </>
+                                             ) : (
+                                                <img
+                                                   src={mediaUrl}
+                                                   alt={`Thumbnail ${imgIndex + 1}`}
+                                                   onError={(e) => {
+                                                      e.target.src = noImage;
+                                                   }}
+                                                   className={`${style.thumbnail} thumbnail`}
+                                                />
+                                             )}
+                                          </div>
+                                       );
+                                    })}
                                  </div>
                               ) : (
                                  ''
                               )}
                            </li>
-                           <div style={{width: '90%', borderBottom: '1px solid #ccc'}}></div>
+                           <div style={{ width: '90%', borderBottom: '1px solid #ccc' }}></div>
                         </ul>
                      );
                   })
@@ -81,18 +118,42 @@ export default function MonthReport({ content, setModalImageOpen }) {
                         {typeof crr === 'string' ? crr : crr.text}
                         {crr.id ? (
                            <div className={`${style.thumbnailContainer} thumbnailContainer`}>
-                              {content.images?.jobImage?.[crr.id]?.map((image, imgIndex) => (
-                                 <img
-                                    key={imgIndex}
-                                    src={image.fileURL}
-                                    onClick={() => setModalImageOpen({ isOpen: true, data: content.images.jobImage[crr.id] })}
-                                    alt={`Thumbnail ${imgIndex + 1}`}
-                                    onError={(e) => {
-                                       e.target.src = noImage;
-                                    }}
-                                    className={`${style.thumbnail} thumbnail`}
-                                 />
-                              ))}
+                              {content.images?.jobImage?.[crr.id]?.map((image, imgIndex) => {
+                                 const mediaUrl = image.fileURL;
+                                 const isVideo = isVideoType(image.type);
+                                 return (
+                                    <div
+                                       key={imgIndex}
+                                       className={style.mediaContainer}
+                                       onClick={() => setModalImageOpen({ isOpen: true, data: content.images.jobImage[crr.id], index: imgIndex })}
+                                    >
+                                       {isVideo ? (
+                                          <>
+                                             <video
+                                                className={`${style.thumbnail} thumbnail`}
+                                                src={mediaUrl}
+                                                onError={(e) => {
+                                                   e.target.src = noImage; // Handle error
+                                                }}
+                                                //controls // Add controls if needed
+                                             >
+                                                Your browser does not support the video tag.
+                                             </video>
+                                             <span className={style.playbackOverlay}>▶</span>
+                                          </>
+                                       ) : (
+                                          <img
+                                             src={mediaUrl}
+                                             alt={`Thumbnail ${imgIndex + 1}`}
+                                             onError={(e) => {
+                                                e.target.src = noImage;
+                                             }}
+                                             className={`${style.thumbnail} thumbnail`}
+                                          />
+                                       )}
+                                    </div>
+                                 );
+                              })}
                            </div>
                         ) : (
                            ''
@@ -118,18 +179,44 @@ export default function MonthReport({ content, setModalImageOpen }) {
                               <i>Biện pháp khắc phục:</i> {crr.solution}
                               {crr.id ? (
                                  <div className={`${style.thumbnailContainer} thumbnailContainer`}>
-                                    {content.images?.issueImage?.[crr.id]?.map((image, imgIndex) => (
-                                       <img
-                                          key={imgIndex}
-                                          src={image.fileURL}
-                                          onClick={() => setModalImageOpen({ isOpen: true, data: content.images.issueImage[crr.id] })}
-                                          alt={`Thumbnail ${imgIndex + 1}`}
-                                          onError={(e) => {
-                                             e.target.src = noImage;
-                                          }}
-                                          className={`${style.thumbnail} thumbnail`}
-                                       />
-                                    ))}
+                                    {content.images?.issueImage?.[crr.id]?.map((image, imgIndex) => {
+                                       const mediaUrl = image.fileURL;
+                                       const isVideo = isVideoType(image.type);
+                                       return (
+                                          <div
+                                             key={imgIndex}
+                                             className={style.mediaContainer}
+                                             onClick={() =>
+                                                setModalImageOpen({ isOpen: true, data: content.images.issueImage[crr.id], index: imgIndex })
+                                             }
+                                          >
+                                             {isVideo ? (
+                                                <>
+                                                   <video
+                                                      className={`${style.thumbnail} thumbnail`}
+                                                      src={mediaUrl}
+                                                      onError={(e) => {
+                                                         e.target.src = noImage; // Handle error
+                                                      }}
+                                                      //controls // Add controls if needed
+                                                   >
+                                                      Your browser does not support the video tag.
+                                                   </video>
+                                                   <span className={style.playbackOverlay}>▶</span>
+                                                </>
+                                             ) : (
+                                                <img
+                                                   src={mediaUrl}
+                                                   alt={`Thumbnail ${imgIndex + 1}`}
+                                                   onError={(e) => {
+                                                      e.target.src = noImage;
+                                                   }}
+                                                   className={`${style.thumbnail} thumbnail`}
+                                                />
+                                             )}
+                                          </div>
+                                       );
+                                    })}
                                  </div>
                               ) : (
                                  ''
@@ -158,18 +245,42 @@ export default function MonthReport({ content, setModalImageOpen }) {
                         {typeof crr === 'string' ? crr : crr.text}
                         {crr.id ? (
                            <div className={`${style.thumbnailContainer} thumbnailContainer`}>
-                              {content.images?.planImage?.[crr.id]?.map((image, imgIndex) => (
-                                 <img
-                                    key={imgIndex}
-                                    src={image.fileURL}
-                                    onClick={() => setModalImageOpen({ isOpen: true, data: content.images.planImage[crr.id] })}
-                                    alt={`Thumbnail ${imgIndex + 1}`}
-                                    onError={(e) => {
-                                       e.target.src = noImage;
-                                    }}
-                                    className={`${style.thumbnail} thumbnail`}
-                                 />
-                              ))}
+                              {content.images?.planImage?.[crr.id]?.map((image, imgIndex) => {
+                                 const mediaUrl = image.fileURL;
+                                 const isVideo = isVideoType(image.type);
+                                 return (
+                                    <div
+                                       key={imgIndex}
+                                       className={style.mediaContainer}
+                                       onClick={() => setModalImageOpen({ isOpen: true, data: content.images.planImage[crr.id], index: imgIndex })}
+                                    >
+                                       {isVideo ? (
+                                          <>
+                                             <video
+                                                className={`${style.thumbnail} thumbnail`}
+                                                src={mediaUrl}
+                                                onError={(e) => {
+                                                   e.target.src = noImage; // Handle error
+                                                }}
+                                                //controls // Add controls if needed
+                                             >
+                                                Your browser does not support the video tag.
+                                             </video>
+                                             <span className={style.playbackOverlay}>▶</span>
+                                          </>
+                                       ) : (
+                                          <img
+                                             src={mediaUrl}
+                                             alt={`Thumbnail ${imgIndex + 1}`}
+                                             onError={(e) => {
+                                                e.target.src = noImage;
+                                             }}
+                                             className={`${style.thumbnail} thumbnail`}
+                                          />
+                                       )}
+                                    </div>
+                                 );
+                              })}
                            </div>
                         ) : (
                            ''
@@ -186,18 +297,42 @@ export default function MonthReport({ content, setModalImageOpen }) {
                         {typeof crr === 'string' ? crr : crr.text}
                         {crr.id ? (
                            <div className={`${style.thumbnailContainer} thumbnailContainer`}>
-                              {content.images?.proposeImage?.[crr.id]?.map((image, imgIndex) => (
-                                 <img
-                                    key={imgIndex}
-                                    src={image.fileURL}
-                                    onClick={() => setModalImageOpen({ isOpen: true, data: content.images.proposeImage[crr.id] })}
-                                    alt={`Thumbnail ${imgIndex + 1}`}
-                                    onError={(e) => {
-                                       e.target.src = noImage;
-                                    }}
-                                    className={`${style.thumbnail} thumbnail`}
-                                 />
-                              ))}
+                              {content.images?.proposeImage?.[crr.id]?.map((image, imgIndex) => {
+                                 const mediaUrl = image.fileURL;
+                                 const isVideo = isVideoType(image.type);
+                                 return (
+                                    <div
+                                       key={imgIndex}
+                                       className={style.mediaContainer}
+                                       onClick={() => setModalImageOpen({ isOpen: true, data: content.images.proposeImage[crr.id], index: imgIndex })}
+                                    >
+                                       {isVideo ? (
+                                          <>
+                                             <video
+                                                className={`${style.thumbnail} thumbnail`}
+                                                src={mediaUrl}
+                                                onError={(e) => {
+                                                   e.target.src = noImage; // Handle error
+                                                }}
+                                                //controls // Add controls if needed
+                                             >
+                                                Your browser does not support the video tag.
+                                             </video>
+                                             <span className={style.playbackOverlay}>▶</span>
+                                          </>
+                                       ) : (
+                                          <img
+                                             src={mediaUrl}
+                                             alt={`Thumbnail ${imgIndex + 1}`}
+                                             onError={(e) => {
+                                                e.target.src = noImage;
+                                             }}
+                                             className={`${style.thumbnail} thumbnail`}
+                                          />
+                                       )}
+                                    </div>
+                                 );
+                              })}
                            </div>
                         ) : (
                            ''

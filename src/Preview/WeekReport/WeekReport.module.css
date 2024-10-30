@@ -153,6 +153,7 @@
 }
 
 .thumbnail {
+
    width: 100px; /* Thumbnail width */
    height: 100px; /* Thumbnail height */
    object-fit: cover; /* Maintain aspect ratio and fill the thumbnail */
@@ -161,6 +162,21 @@
    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional, for a subtle shadow effect */
    transition: transform 0.2s ease-in-out; /* Smooth hover effect */
 }
+
+.mediaContainer{
+   position: relative;
+}
+.playbackOverlay {
+  
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   font-size: 3em;
+   color: rgba(255, 255, 255, 0.8);
+   pointer-events: none;
+   z-index: 1;
+ }
 
 .thumbnail:hover {
    transform: scale(1.1); /* Slightly enlarge on hover */

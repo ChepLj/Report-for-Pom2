@@ -8,7 +8,7 @@ import style from "./Modal.module.css"
 
 export default function Modal({ type, upload = false, refDirection, callBackClose, mediaData }) {
    const [state, setState] = useState([false, {}]);
-   const [modalImageOpen, setModalImageOpen] = useState({ isOpen: false, data: [] });
+   const [modalImageOpen, setModalImageOpen] = useState({ isOpen: false, data: [], index: 0});
    const reRender = (result) => {
       setState([true, result]);
    };

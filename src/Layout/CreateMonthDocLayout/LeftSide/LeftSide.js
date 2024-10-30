@@ -343,7 +343,7 @@ function IssueWriteElement({ index, crr, callBack, handleAddImage }) {
 
             <div className={style.fieldIssueItemContentWarpItem}>
                <div className={style.fieldIssueItemTitleChild}>Ngày*</div>
-               <p className={style.fieldIssueItemInput} data-issue-input="date" data-input-width-fixed="width fixed" contentEditable="true" />
+               <p className={style.fieldIssueItemInput} data-issue-input="date" data-input-width-fixed="width fixed" contentEditable="true" inputMode = 'numeric' />
             </div>
             {/*  */}
             {/*  */}
