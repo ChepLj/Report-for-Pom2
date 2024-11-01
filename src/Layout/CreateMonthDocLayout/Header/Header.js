@@ -15,14 +15,41 @@ export default function Header({ auth, mediaData }) {
       const jobElm = document.querySelectorAll('.create-job');
       const planElm = document.querySelectorAll('.create-plan');
       const proposeElm = document.querySelectorAll('.create-propose');
+      const equipmentStatusElm = document.querySelectorAll('.create-equipmentStatus');
       const collectElm = [...jobElm, ...planElm, ...proposeElm];
+      const userMonthReportSelect = document.querySelector('[name="userMonthReport"]');
+      const selectedValue = userMonthReportSelect?.value;
+      if (selectedValue == '') {
+         alert('LỖI ! Chọn người báo cáo !!!');
+         return false;
+      }
 
+
+      for (const item of equipmentStatusElm) {
+         const pTagInput = item.getElementsByTagName('p');
+         const allFilled = Array.from(pTagInput).every((item) => {
+            return item.innerText.trim() == '';
+         });
+         if (!allFilled) {
+            for (const item of pTagInput) {
+               if (item.innerText.trim() === '') {
+                  alert('LỖI ! Trường thiết bị phải điền đẩy đủ tất cả thông tin !!!');
+                  return false;
+               }
+            }
+         }
+      }
       for (const item of issueElm) {
          const pTagInput = item.getElementsByTagName('p');
-         for (const item of pTagInput) {
-            if (item.innerText.trim() === '') {
-               alert('LỖI ! Trường sự cố phải điền đẩy đủ tất cả thông tin !!!');
-               return false;
+         const allFilled = Array.from(pTagInput).every((item) => {
+            return item.innerText.trim() == '';
+         });
+         if (!allFilled) {
+            for (const item of pTagInput) {
+               if (item.innerText.trim() === '') {
+                  alert('LỖI ! Trường sự cố phải điền đẩy đủ tất cả thông tin !!!');
+                  return false;
+               }
             }
          }
       }

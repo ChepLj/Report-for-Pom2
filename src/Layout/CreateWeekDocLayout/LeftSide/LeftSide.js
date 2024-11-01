@@ -1,7 +1,7 @@
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 import { Button } from '@mui/material';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import style from './LeftSide.module.css';
 
 export default function LeftSide({
@@ -28,13 +28,32 @@ export default function LeftSide({
    }, [jobState, planState, proposeState, issueState]);
 
    //TODO_END: set max width
+   function getWeekInMonth(date) {
+      // Find the first Monday of the month
+      const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      const dayOfWeek = firstDayOfMonth.getDay();
+      const firstMonday = new Date(firstDayOfMonth);
+    
+      // If the month doesn't start on a Monday, find the first Monday
+      if (dayOfWeek !== 1) {
+        firstMonday.setDate(firstMonday.getDate() + ((8 - dayOfWeek) % 7));
+      }
+    
+      // Calculate the difference in days and determine the week number
+      const daysDifference = (date - firstMonday) / (1000 * 60 * 60 * 24);
+      const weekInMonth = Math.ceil(daysDifference / 7) + 1;
+    
+      return weekInMonth;
+    }
+   const date = new Date()
+   console.dir(date)
    return (
       <section className={style.warpPage}>
          <section className={style.writeArea}>
             <div className={style.writeAreaTitle}>Báo Cáo Tuần</div>
             <div className={style.writeAreaTime}>
                Tuần{' '}
-               <select className={style.optionWeek} name="weekWeekReport">
+               <select className={style.optionWeek} name="weekWeekReport" defaultValue={getWeekInMonth(date)}>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
                   <option value={3}>3</option>
@@ -43,7 +62,7 @@ export default function LeftSide({
                </select>
                {' .'}
                Tháng{' '}
-               <select className={style.optionMonth} name="monthWeekReport">
+               <select className={style.optionMonth} name="monthWeekReport" defaultValue={date.getMonth()}>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
                   <option value={3}>3</option>
@@ -58,6 +77,7 @@ export default function LeftSide({
                   <option value={12}>12</option>
                </select>{' '}
                <select className={style.user} name="userWeekReport">
+               <option style={{color: 'gray'}} value={''}>chọn Người báo cáo</option>
                   {user.map((crr, index) => {
                      return (
                         <option value={crr} key={index}>

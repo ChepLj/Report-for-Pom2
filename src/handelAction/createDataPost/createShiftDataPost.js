@@ -17,8 +17,10 @@ export default function createShiftDataPost(callBack) {
    const issue = []
    const order = []
    const propose = []
-
-   let timeStamp = ''
+   const today = new Date
+   const monthStamp = today.getMonth() + 1 >= 10 ? today.getMonth() + 1 : `0${today.getMonth() + 1}`
+   const dateStamp = today.getDate() >= 10 ? today.getDate() : `0${today.getDate()}`
+   const timestamp = `${today.getFullYear()}-${monthStamp}-${dateStamp}`
 
    // tạo biến để tạo  giá trị upload
    let date = 0
@@ -117,45 +119,12 @@ export default function createShiftDataPost(callBack) {
    result.authEmail = authEmail
    result.user = 'Ca ' + shift
    result.shift = shift
-   result.date = { session: session, date: date, month: month, year: year, timestamp: timeStamp }
+   result.date = { session: session, date: date, month: month, year: year, timestamp: timestamp }
+   result.images = { job: {}, plan: {}, issue: {}, propose: {}, equipmentStatus: {},equipment: {} };
 
-  
-   //TODO: upload khi đã lấy được thời
-   function upload({dataStamp, monthStamp, yearStamp, nowInMillisecond,timeStamp}) {
-      result.date.timestamp = timeStamp
-      const ref = `Report/ShiftReport/${nowInMillisecond}`
-      updateDataFirebase(ref, result,nowInMillisecond).then(() => {
-         getFirebaseData(ref)
-            .then((result) => {
-               console.log('🚀 ~ file: createShiftDataPost.js:118 ~ .then ~ result', result.val())
-               callBack(result.val())
-            })
-            .catch((error) => {
-               alert(error)
-            })
-      })
-   }
-   //! Upload
-
-   getTimeAPI(upload) //:goi API để lấy thời gian, sau đó return 1 callback
-   return true
+   result.attachments = [];
+   result.reportType = 'ShiftReport';
+   console.log(result)
+   callBack({ state: 'file Upload', data: result });
 }
-/////////////////////////////////////////////////////
-
-function updateDataFirebase(ref, objectData,nowInMillisecond) {
-   objectData['ref'] = ref
-   const updates = {}
-   updates[ref] = objectData
-   const objectDataNew = {}
-   objectDataNew.authEmail = objectData.authEmail
-   objectDataNew.ref = ref
-   
-   objectDataNew.user = objectData.user
-   objectDataNew.shift = objectData.shift
-   objectDataNew.date = objectData.date
-   objectDataNew.type = 'shiftReport'
-   updates[`NewReport/${nowInMillisecond}`] = objectDataNew
-
-
-   return update(dbRT, updates)
-}
+////////////

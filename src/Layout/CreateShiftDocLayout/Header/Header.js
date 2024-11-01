@@ -2,15 +2,15 @@ import { useState } from 'react'
 import SaveModal from '../../../Modal/SaveModal/SaveModal'
 import style from './Header.module.css'
 import logo from '../../../static/img/logo.png'
-
-export default function Header({ auth }) {
+import Modal from '../../../Modal/Modal';
+export default function Header({ auth, mediaData }) {
    const [state, setState] = useState(false)
    auth.displayName ??= 'guest'
    auth.email ??= 'none'
    auth.photoURL ??= 'https://cdn4.iconfinder.com/data/icons/hotel-service-5/300/guest-512.png'
 
    // Check bỏ trống trường sự cố
-   const validateIsuue = () => {
+   const validateIssue = () => {
       const issueElm = document.querySelectorAll('.create-issue')
       const jobElm = document.querySelectorAll('.create-job')
       const planElm = document.querySelectorAll('.create-plan')
@@ -59,7 +59,18 @@ export default function Header({ auth }) {
             <div
                className={style.writeReport}
                onClick={() => {
-                  setState(validateIsuue)
+                  if (validateIssue()) {
+                     const confirmed = window.confirm(
+                        'Kiểm tra dữ liệu trước khi Upload. Đảm bảo các trường phải được nhập. Nếu các trường bị bỏ trống, hình ảnh của trường đó sẽ không được Upload !\n(mẹo: nếu muốn upload nhiều hơn 4 bức hình, sử dụng ký tự dấu chấm ở trường tiếp theo)\n\nNhấn OK để Upload !!!',
+                     );
+                     if (confirmed) {
+                        // User clicked OK
+                        setState(true);
+                     } else {
+                        // User clicked Cancel
+                        console.log('User canceled');
+                     }
+                  }
                }}
             >
                Lưu báo cáo{'...'}
@@ -70,13 +81,15 @@ export default function Header({ auth }) {
          </div>
          {/* ẩn hiện Save Modal */}
          {state && (
-            <SaveModal
-               type={'shiftReport'}
-               callBackClose={(value) => {
-                  // setState(value)
-                  window.location.href = '/'
-               }}
-            />
+            <Modal
+            upload={true}
+            mediaData={mediaData}
+            type={'shiftReport'}
+            callBackClose={(value) => {
+               // setState(value)
+               window.location.href = '/';
+            }}
+         />
          )}
       </section>
    )

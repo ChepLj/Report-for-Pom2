@@ -37,12 +37,12 @@
    top: 0;
    right: -60px;
    cursor: pointer;
- 
+   z-index: 10;
 }
 
 .downloadPDF {
    background-color: greenyellow;
-   width: 140px;
+   /* width: 140px; */
    height: 25px;
    text-align: center;
    color: rgb(232, 139, 105);
@@ -52,13 +52,17 @@
    cursor: pointer;
    border-radius: 15px;
    box-shadow: 2px 2px 5px rgb(38, 34, 80);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 0 5px;
 }
 .downloadPDF:hover {
    box-shadow: 1px 1px 29px rgb(209, 223, 203);
 }
 .downloadJPG {
    background-color: rgb(241, 255, 47);
-   width: 140px;
+   /* width: 140px; */
    height: 25px;
    text-align: center;
    color: rgb(232, 139, 105);
@@ -68,6 +72,10 @@
    cursor: pointer;
    border-radius: 15px;
    box-shadow: 2px 2px 5px rgb(38, 34, 80);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   padding: 0 5px;
   
 }
 .downloadJPG:hover {
@@ -88,7 +96,7 @@
    }
    .downloadPDF {
       font-size: 14px;
-      width: 140px;
+      /* width: 140px; */
       height: 25px;
     
    }
@@ -96,7 +104,7 @@
 
    .downloadJPG {
       font-size: 14px;
-      width: 140px;
+      /* width: 140px; */
       height: 25px;
    
    }

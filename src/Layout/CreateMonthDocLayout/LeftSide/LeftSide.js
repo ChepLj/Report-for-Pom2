@@ -30,13 +30,16 @@ export default function LeftSide({
    }, [jobState, planState, proposeState, issueState]);
 
    //TODO_END: set max width
+
+
+   const date = new Date()
    return (
       <section className={style.warpPage}>
          <section className={style.writeArea}>
             <div className={style.writeAreaTitle}>Báo Cáo Tháng</div>
             <div className={style.writeAreaTime}>
                Tháng{' '}
-               <select className={style.optionWeek} name="monthMonthReport">
+               <select className={style.optionWeek} name="monthMonthReport" defaultValue={date.getMonth()}>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
                   <option value={3}>3</option>
@@ -51,14 +54,20 @@ export default function LeftSide({
                   <option value={12}>12</option>
                </select>
                {' .'}
-               Năm{' '}
-               <select className={style.optionMonth} name="yearMonthReport">
-                  <option value={2022}>2022</option>
-                  <option value={2023}>2023</option>
+               Năm
+               <select className={style.optionMonth} name="yearMonthReport" defaultValue={date.getFullYear()}>
                   <option value={2024}>2024</option>
                   <option value={2025}>2025</option>
+                  <option value={2025}>2026</option>
+                  <option value={2025}>2027</option>
+                  <option value={2025}>2028</option>
+                  <option value={2025}>2029</option>
+                  <option value={2025}>2030</option>
                </select>{' '}
-               <select className={style.user} name="userMonthReport">
+                  
+               <select className={style.user} name="userMonthReport" >
+               <option style={{color: 'gray'}} value={''}>chọn Người báo cáo</option>
+
                   {user.map((crr, index) => {
                      return (
                         <option value={crr} key={index}>

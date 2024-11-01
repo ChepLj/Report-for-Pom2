@@ -3,6 +3,7 @@ import { logoPomina } from '../../static/svg/sgv';
 import style from './WeekReport.module.css';
 import { useEffect, useState } from 'react';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+
 import { Link, ListItem, ListItemIcon } from '@mui/material';
 export default function WeekReport({ content, setModalImageOpen }) {
    console.log('🚀 ~ WeekReport ~ content:', content);
@@ -341,7 +342,7 @@ function EquipmentTable({ data }) {
                               <div style={{ fontStyle: 'italic', pointerEvents: 'none', userSelect: 'none' }}>{index + 1}</div>
                            </td>
                            <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 15) / 100)}px` }}>{crr.text[0]}</td>
-                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 55) / 100)}px` }}>{crr.text[1]}</td>
+                           <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 55) / 100)}px ` }}>{crr.text[1]}</td>
                            <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 5) / 100)}px` }}>{crr.text[2]}</td>
                            <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 10) / 100)}px` }}>{crr.text[3]}</td>
                            <td style={{ ...thStyles, maxWidth: `${eval((motherWidth * 10) / 100)}px` }}>{crr.text[4]}</td>

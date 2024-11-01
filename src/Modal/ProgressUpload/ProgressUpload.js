@@ -43,7 +43,7 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
                break;
             }
             case 'shiftReport': {
-               createShiftDataPost(reRender);
+               createShiftDataPost(handleImageBlobArray);
                break;
             }
          }
@@ -79,6 +79,8 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
    }
 
    //TODO_END: create new Array image
+
+   console.log(state)
    //TODO: Upload
    switch (state.state) {
       case 'file Upload': {
@@ -86,7 +88,7 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
          if (fileProgressState.bytesTransferred <= 0 && !state.uploadInProgress) {
             setState((prevState) => ({ ...prevState, uploadInProgress: true }));
 
-            if (mediaData.attachments[0]) {
+            if (mediaData?.attachments[0]) {
                const file = mediaData.attachments[0];
                const temp = file.name.split('.');
                const tag = temp[temp.length - 1];

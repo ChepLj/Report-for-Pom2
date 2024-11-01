@@ -4,7 +4,7 @@ import MonthReport from '../../Preview/MonthReport/MonthReport';
 import ShiftReport from '../../Preview/ShiftReport/ShiftReport';
 import WeekReport from '../../Preview/WeekReport/WeekReport';
 import style from './SaveModal.module.css';
-
+import DownloadIcon from '@mui/icons-material/Download';
 export default function SaveModal({ type, state, callBackClose, setModalImageOpen}) {
 
    const screenShotDocument = () => {
@@ -59,7 +59,7 @@ export default function SaveModal({ type, state, callBackClose, setModalImageOpe
             return <MonthReport content={state[1]} setModalImageOpen={setModalImageOpen}/>;
          }
          case 'shiftReport': {
-            return <ShiftReport content={state[1]} />;
+            return <ShiftReport content={state[1]} setModalImageOpen={setModalImageOpen}/>;
          }
       }
    };
@@ -82,7 +82,7 @@ export default function SaveModal({ type, state, callBackClose, setModalImageOpe
                printDocument();
             }}
          >
-            tải xuống file PDF
+            <DownloadIcon/> <span>PDF</span>
          </div>
          <div
             className={style.downloadJPG}
@@ -90,7 +90,7 @@ export default function SaveModal({ type, state, callBackClose, setModalImageOpe
                screenShotDocument();
             }}
          >
-            tải xuống ảnh PNG
+            <DownloadIcon/> <span>PNG</span>
          </div>
       </section>
    );

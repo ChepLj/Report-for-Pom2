@@ -82,7 +82,7 @@ export default function ShiftReport({ content }) {
                className={`${style.headerItem} ${style.headerItemBorderLR} shift-headerItem shift-headerItemBorderLR`}
             >
                <span className={`${style.headerTitle} shift-headerTitle`} style={{ fontSize: '1.5rem', fontWeight: 700 }}>Báo Cáo CA</span>
-               <span style={{ fontSize: '0.8rem', fontWeight: 500 }}>Bảo Trì Điện BF </span>
+               <span style={{ fontSize: '0.8rem', fontWeight: 500 }}>Bảo Trì Điện EAF </span>
             </div>
             <div className={`${style.headerItemInfo} shift-headerItemInfo`}>
                <div className={`${style.infoItem} shift-infoItem`}>

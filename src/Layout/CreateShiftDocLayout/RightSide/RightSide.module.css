@@ -1,0 +1,190 @@
+/* Base styles */
+html, body {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   width: 100vw;
+   height: 100vh;
+ }
+ 
+ /* Container and spacing utilities */
+ .space10 { padding: 10px; }
+ .space5 { padding: 5px; }
+ .spaceLR10 { padding: 0 10px; }
+ .spaceLR5 { padding: 0 5px; }
+ .spaceLR2dot5 { padding: 0 2.5px; }
+ .redColor { color: red; }
+ 
+ /* Write Area */
+ .writeArea {
+   width: 70%;
+   height: 90vh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   overflow-y: scroll;
+   scrollbar-width: thin;
+ }
+ 
+ .writeAreaTitle {
+   font-size: 24px;
+   font-weight: 700;
+   color: rgba(78, 9, 238, 0.887);
+ }
+ 
+ .writeAreaTime {
+   font-size: 18px;
+   font-weight: 600;
+   color: #333;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 0 10px;
+ }
+ 
+ .user {
+   padding: 1px 5px;
+   font-style: italic;
+   color: #dc5907;
+   font-size: 18px;
+   font-weight: 600;
+   margin: 0 20px;
+ }
+ 
+ /* Description Area */
+ .descriptionArea {
+   width: 30vw;
+   height: calc(100vh - 40px);
+   padding: 2px;
+   overflow: auto;
+ }
+ 
+
+ 
+ /* Fields */
+ .fieldJobWarp, .fieldIssueWarp {
+   width: 100%;
+   background-color: white;
+   margin: 5px 0;
+   border: 1px solid #ccc;
+   padding: 10px 12px;
+   box-sizing: border-box;
+ }
+ 
+ .fieldJobTitle, .fieldIssueTitle {
+   font-size: 16px;
+   font-weight: 500;
+ }
+ 
+ .fieldJobList, .fieldIssueList {
+   width: 99%;
+   margin-top: 10px;
+   padding: 5px 10px;
+ }
+ 
+ .fieldJobItem, .fieldIssueItem {
+   list-style: none;
+   margin: 7px 0;
+   display: flex;
+   align-items: center;
+ }
+ 
+ .fieldJobItemTitle, .fieldIssueItemTitle {
+   font-size: 16px;
+   font-weight: 400;
+   font-style: italic;
+   width: 80px;
+ }
+ 
+ .fieldJobItemInput, .fieldIssueItemInput {
+   flex: 1;
+   max-width: 750px;
+   padding: 3px 10px;
+   border: 1px solid #ccc;
+   background-color: white;
+   margin: 0 5px;
+   font-size: 16px;
+ }
+ 
+ .fieldJobItemDelete, .fieldIssueItemDelete {
+   cursor: pointer;
+   font-size: 1rem;
+ }
+ 
+ .fieldJobItemDelete:hover, .fieldIssueItemDelete:hover {
+   color: red;
+ }
+ 
+ .fieldEquipHandOverItem {
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin: 3px 0;
+ }
+ 
+ .fieldEquipHandOverWrap, .fieldIssueItem {
+   list-style: none;
+   margin: 5px 0 14px 0;
+   padding-bottom: 5px;
+   display: flex;
+   align-items: flex-start;
+   border-bottom: 1px solid rgb(120, 119, 119);
+ }
+ 
+ .fieldIssueItemTitleChild {
+   font-size: 14px;
+   font-weight: 500;
+   line-height: 26px;
+ }
+ 
+ .fieldIssueItemContentWarp {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+ }
+ 
+ .fieldIssueItemContentWarpItem {
+   display: flex;
+   justify-content: space-between;
+   align-items: top;
+   margin: 5px 0;
+ }
+ 
+ .addJobWrap, .addIssueWrap {
+   display: flex;
+   align-items: center;
+   font-size: 14px;
+   margin-left: 95px;
+   cursor: pointer;
+   width: fit-content;
+ }
+ 
+ .addJobWrap:hover, .addIssueWrap:hover {
+   font-weight: 500;
+ }
+ 
+ .optionWeek, .date {
+   font-size: 20px;
+   font-weight: 600;
+ }
+ 
+ .optionWeek { color: #4ce930; }
+ .date { color: #dc5907; padding: 0 8px; line-height: 20px; }
+ @media (max-width: 1235px) {
+   .writeAreaTitle { font-size: 18px; }
+   .writeAreaTime { font-size: 12px; }
+   .optionWeek { font-size: 16px; }
+   .date { font-size: 14px; }
+   .fieldIssueTitle, .fieldIssueItem, .fieldJobTitle, .fieldJobItemTitle { font-size: 12px; }
+   .fieldIssueItemTitleChild, .fieldIssueItemInput, .fieldJobItemInput, .fieldEquipHandOverItem { font-size: 11px; }
+   .addIssueWrap { color: #333; font-size: 12px; }
+   .descriptionArea {
+     width: 100%;
+     margin-top: 5px;
+     margin-bottom: 15px;
+     border-top: 1px dashed #333;
+     padding-top: 15px;
+     height: fit-content;
+   }
+ }
