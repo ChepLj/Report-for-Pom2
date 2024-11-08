@@ -31,8 +31,7 @@ export default function LeftSide({
 
    //TODO_END: set max width
 
-
-   const date = new Date()
+   const date = new Date();
    return (
       <section className={style.warpPage}>
          <section className={style.writeArea}>
@@ -58,15 +57,22 @@ export default function LeftSide({
                <select className={style.optionMonth} name="yearMonthReport" defaultValue={date.getFullYear()}>
                   <option value={2024}>2024</option>
                   <option value={2025}>2025</option>
-                  <option value={2025}>2026</option>
-                  <option value={2025}>2027</option>
-                  <option value={2025}>2028</option>
-                  <option value={2025}>2029</option>
-                  <option value={2025}>2030</option>
+                  <option value={2026}>2026</option>
+                  <option value={2027}>2027</option>
+                  <option value={2028}>2028</option>
+                  <option value={2029}>2029</option>
+                  <option value={2030}>2030</option>
+                  <option value={2031}>2031</option>
+                  <option value={2032}>2032</option>
+                  <option value={2033}>2033</option>
+                  <option value={2034}>2034</option>
+                  <option value={2035}>2035</option>
+                  <option value={2036}>2036</option>
                </select>{' '}
-                  
-               <select className={style.user} name="userMonthReport" >
-               <option style={{color: 'gray'}} value={''}>chọn Người báo cáo</option>
+               <select className={style.user} name="userMonthReport">
+                  <option style={{ color: 'gray' }} value={''}>
+                     chọn Người báo cáo
+                  </option>
 
                   {user.map((crr, index) => {
                      return (
@@ -100,12 +106,9 @@ function EquipmentStatus({ handleAddImage, equipmentStatusState, setEquipmentSta
       setEquipmentStatusState(array);
    };
    const handelDeleteEquipmentField = (id) => {
-
       const arrayNode = document.querySelectorAll(`.create-equipmentStatus`);
       for (const item of arrayNode) {
-
          if (+item.dataset.equipmentStatusIndex == id) {
-
             item.remove();
             let array = [...equipmentStatusState];
             array[id - 1].images = [];
@@ -352,7 +355,13 @@ function IssueWriteElement({ index, crr, callBack, handleAddImage }) {
 
             <div className={style.fieldIssueItemContentWarpItem}>
                <div className={style.fieldIssueItemTitleChild}>Ngày*</div>
-               <p className={style.fieldIssueItemInput} data-issue-input="date" data-input-width-fixed="width fixed" contentEditable="true" inputMode = 'numeric' />
+               <p
+                  className={style.fieldIssueItemInput}
+                  data-issue-input="date"
+                  data-input-width-fixed="width fixed"
+                  contentEditable="true"
+                  inputMode="numeric"
+               />
             </div>
             {/*  */}
             {/*  */}

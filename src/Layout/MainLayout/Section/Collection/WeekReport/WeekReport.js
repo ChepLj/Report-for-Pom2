@@ -28,8 +28,8 @@ function ElementDoc({ data, authEmailCurrent }) {
    const ref = useRef(data.ref)
    ////////////////////
    const handelConfirm = (ref) => {
-      let valueConfirm = prompt('Nhập mã sau để xóa ( pomina3-btdbf )', '(nhập chính xác có dấu)')
-      if (valueConfirm.trim() === 'pomina3-btdbf') {
+      let valueConfirm = prompt('Nhập mã sau để xóa ( pomina )')
+      if (valueConfirm.trim() === 'pomina') {
          handelDelete(ref)
       } else {
          alert('Lỗi ! Mã xác thực không đúng !!!')

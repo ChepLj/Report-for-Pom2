@@ -3,12 +3,24 @@ import html2canvas from 'html2canvas';
 import MonthReport from '../../Preview/MonthReport/MonthReport';
 import ShiftReport from '../../Preview/ShiftReport/ShiftReport';
 import WeekReport from '../../Preview/WeekReport/WeekReport';
+import AdminReport from '../../Preview/AdminReport/AdminReport';
 import style from './SaveModal.module.css';
 import DownloadIcon from '@mui/icons-material/Download';
-export default function SaveModal({ type, state, callBackClose, setModalImageOpen}) {
-
+export default function SaveModal({ type, state, callBackClose, setModalImageOpen }) {
    const screenShotDocument = () => {
       const html = document.querySelector(`.${style.areaPrint}`);
+      const thumbnailContainerElm = document.querySelectorAll('.thumbnailContainer')
+      const shiftSignConfirmElm = document.querySelector('.shiftConfirm');
+      console.log("🚀 ~ screenShotDocument ~ shiftSignConfirmElm:", shiftSignConfirmElm)
+      if(shiftSignConfirmElm){
+         shiftSignConfirmElm.style.display= 'none'
+      }
+      thumbnailContainerElm.forEach(element => {
+         element.style.display = 'none';
+      });
+      html.style.height = 'auto';
+      html.style.width = '100%';
+
       html2canvas(html, { scale: 2, backgroundColor: '#ffffff' }).then((canvas) => {
          const imgData = canvas.toDataURL('image/png');
          const a = document.createElement('a');
@@ -16,6 +28,14 @@ export default function SaveModal({ type, state, callBackClose, setModalImageOpe
          a.download = `${state[1]?.date?.timestamp}-${type}-${state[1]?.user}.png`;
          document.body.appendChild(a);
          a.click();
+         html.style.height = '98.5vh';
+         html.style.width = '100%';
+         thumbnailContainerElm.forEach(element => {
+            element.style.display = 'flex';
+         });
+         if(shiftSignConfirmElm){
+            shiftSignConfirmElm.style.display= 'flex'
+         }
       });
    };
    ///////////////////
@@ -49,17 +69,19 @@ export default function SaveModal({ type, state, callBackClose, setModalImageOpe
 
    ////////////////////
 
-
    const typeReportShow = (type) => {
       switch (type) {
          case 'weekReport': {
             return <WeekReport content={state[1]} setModalImageOpen={setModalImageOpen} />;
          }
          case 'monthReport': {
-            return <MonthReport content={state[1]} setModalImageOpen={setModalImageOpen}/>;
+            return <MonthReport content={state[1]} setModalImageOpen={setModalImageOpen} />;
          }
          case 'shiftReport': {
-            return <ShiftReport content={state[1]} setModalImageOpen={setModalImageOpen}/>;
+            return <ShiftReport content={state[1]} setModalImageOpen={setModalImageOpen} />;
+         }
+         case 'adminReport': {
+            return <AdminReport content={state[1]} setModalImageOpen={setModalImageOpen} />;
          }
       }
    };
@@ -82,7 +104,7 @@ export default function SaveModal({ type, state, callBackClose, setModalImageOpe
                printDocument();
             }}
          >
-            <DownloadIcon/> <span>PDF</span>
+            <DownloadIcon /> <span>PDF</span>
          </div>
          <div
             className={style.downloadJPG}
@@ -90,7 +112,7 @@ export default function SaveModal({ type, state, callBackClose, setModalImageOpe
                screenShotDocument();
             }}
          >
-            <DownloadIcon/> <span>PNG</span>
+            <DownloadIcon /> <span>PNG</span>
          </div>
       </section>
    );

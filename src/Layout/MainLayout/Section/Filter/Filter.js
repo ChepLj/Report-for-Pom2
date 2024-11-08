@@ -123,7 +123,7 @@ export default function Filter({ user, callback }) {
          </section>
          <section className={style.fieldWarp}>
             <div className={style.fieldTitle}>Người Báo Cáo</div>
-            <ul className={style.lists}>
+            <ul className={style.listsUser} >
                <button className={`${style.buttonUserFilter} ${style.allUserFilter} ${style.button}  ${style.active}`}>Tất Cả</button>
                {arrayUser.map((crr, index) => {
                   return (

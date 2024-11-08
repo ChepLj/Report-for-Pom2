@@ -406,7 +406,7 @@ export default function ShiftReport({ content }) {
                         {/* hiện/ẩn khung ký xác nhận  */}
                         {state?.confirm?.status ? (
                            // *TODO: nếu đã xác nhận thì hiện mã này
-                           <td className={`${style.tableSignContent} shift-tableSignContent`}>
+                           <td className={`${style.tableSignContent} shift-tableSignContent `}>
                               <div>{state?.confirm?.user}</div>
                               <div
                                  style={{ fontSize: '0.6rem', fontStyle: 'italic', color: '#ccc' }}
@@ -419,7 +419,7 @@ export default function ShiftReport({ content }) {
                            // Tiếp tục check điều kiện Auth khác current_user
 
                            <td
-                              className={`${style.tableSignContent} shift-hidden `}
+                              className={`${style.tableSignContent} shift-hidden shiftConfirm`}
                               style={{ display: 'flex', flexDirection: 'column' }}
                            >
                               {state?.authEmail === currentUser || currentUser === 'none' ? (

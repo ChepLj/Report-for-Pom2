@@ -26,6 +26,9 @@ export default function NewReport({ data }) {
                if (crr.type === 'ShiftReport') {
                   return <ElementShiftDoc data={crr} key={index} />
                }
+               if (crr.type === 'AdminReport') {
+                  return <ElementAdminDoc data={crr} key={index} />
+               }
             })}
          </div>
       </section>
@@ -69,6 +72,54 @@ function ElementWeekDoc({ data }) {
          {state && (
             <Modal
                type={'weekReport'}
+               upload={false}
+               refDirection={ref.current}
+               callBackClose={(value) => {
+                  setState(false)
+               }}
+            />
+         )}
+      </>
+   )
+}
+//////////////
+function ElementAdminDoc({ data }) {
+
+   const [state, setState] = useState(false)
+   const ref = useRef(data.ref)
+   return (
+      <>
+         <section
+            className={style.documentWarp}
+            onClick={() => {
+               setState(true)
+            }}
+         >
+            <div className={style.document}>
+               Báo cáo HC
+               <span style={{ color: 'red', fontSize: '18px', fontWeight: '700' }}>
+                  {data.date.date}
+               </span>
+               Tháng{' '}
+               <span style={{ color: 'green', fontSize: '18px', fontWeight: '700' }}>
+                  {data.date.month}
+               </span>
+               <span
+                  style={{
+                     color: 'gray',
+                     fontSize: '9px',
+                     fontWeight: '700',
+                  }}
+               >
+                  {data.user}
+               </span>
+            </div>
+            <div className={style.time}>{data.date.timestamp}</div>
+         </section>
+         {/* ẩn hiện Save Modal */}
+         {state && (
+            <Modal
+               type={'adminReport'}
                upload={false}
                refDirection={ref.current}
                callBackClose={(value) => {

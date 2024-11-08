@@ -48,6 +48,7 @@
    margin: 2px;
    overflow-y: scroll;
    scrollbar-width: thin;
+   padding-bottom: 30px;
 }
 
 /* For PC small screens */

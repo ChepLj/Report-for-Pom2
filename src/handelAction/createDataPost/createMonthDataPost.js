@@ -1,43 +1,42 @@
-
 export default function createMonthDataPost(callBack) {
-   const equipmentStatusElm = document.querySelectorAll('.create-equipmentStatus')
-   const jobElm = document.querySelectorAll('.create-job')
-   const issueElm = document.querySelectorAll('.create-issue')
-   const planElm = document.querySelectorAll('.create-plan')
-   const proposeElm = document.querySelectorAll('.create-propose')
-   const timeElm = document.getElementsByTagName('select')
+   const equipmentStatusElm = document.querySelectorAll('.create-equipmentStatus');
+   const jobElm = document.querySelectorAll('.create-job');
+   const issueElm = document.querySelectorAll('.create-issue');
+   const planElm = document.querySelectorAll('.create-plan');
+   const proposeElm = document.querySelectorAll('.create-propose');
+   const timeElm = document.getElementsByTagName('select');
    const equipmentElm = document.getElementById('equipment-data-store');
 
    //////////
-   const job = []
-   const equipmentStatus = []
-   const issue = []
-   const plan = []
-   const propose = []
+   const job = [];
+   const equipmentStatus = [];
+   const issue = [];
+   const plan = [];
+   const propose = [];
    const equipment = [];
-   const today = new Date()
-   const monthStamp = today.getMonth() + 1 >= 10 ? today.getMonth() + 1 : `0${today.getMonth() + 1}`
-   const dateStamp = today.getDate() >= 10 ? today.getDate() : `0${today.getDate()}`
-   const timestamp = `${today.getFullYear()}-${monthStamp}-${dateStamp}`
-   let month = 0
-   let year = 0
-   let user = ''
-   let result = {}
-   let authEmail = 'none'
+   const today = new Date();
+   const monthStamp = today.getMonth() + 1 >= 10 ? today.getMonth() + 1 : `0${today.getMonth() + 1}`;
+   const dateStamp = today.getDate() >= 10 ? today.getDate() : `0${today.getDate()}`;
+   const timestamp = `${today.getFullYear()}-${monthStamp}-${dateStamp}`;
+   let month = 0;
+   let year = 0;
+   let user = '';
+   let result = {};
+   let authEmail = 'none';
    if (sessionStorage.getItem('user')) {
-      const temp = JSON.parse(sessionStorage.getItem('user'))
-      authEmail = temp.email
+      const temp = JSON.parse(sessionStorage.getItem('user'));
+      authEmail = temp.email;
    }
    /////////
    for (const value of timeElm) {
       if (value.name === 'yearMonthReport') {
-         year = value.value
+         year = value.value;
       }
       if (value.name === 'monthMonthReport') {
-         month = value.value
+         month = value.value;
       }
       if (value.name === 'userMonthReport') {
-         user = value.value
+         user = value.value;
       }
    }
    /////////////////////////
@@ -80,7 +79,10 @@ export default function createMonthDataPost(callBack) {
          result[title] = crr.innerText;
       });
       result.id = id;
-      equipmentStatus.push(result);
+      if (!(result?.name === '')) {
+         equipmentStatus.push(result);
+      }
+      
    }
    //////////
    for (const value of issueElm) {
@@ -92,12 +94,14 @@ export default function createMonthDataPost(callBack) {
          result[title] = crr.innerText;
       });
       result.id = id;
-      issue.push(result);
+      if (result?.name !== '') {
+         issue.push(result);
+      }
    }
    //////////
    const equipmentArray = equipmentElm.innerText;
    const temp = JSON.parse(equipmentArray);
-   console.log("🚀 ~ createWeekDataPost ~ temp:", temp)
+   console.log('🚀 ~ createWeekDataPost ~ temp:', temp);
    if (temp.length > 0) {
       for (const value of temp) {
          if (value.data.length > 0) {
@@ -124,11 +128,11 @@ export default function createMonthDataPost(callBack) {
    result.user = user;
    result.date = { month: month, year: year, timestamp: timestamp };
 
-   result.images = { job: {}, plan: {}, issue: {}, propose: {}, equipmentStatus: {},equipment: {} };
+   result.images = { job: {}, plan: {}, issue: {}, propose: {}, equipmentStatus: {}, equipment: {} };
 
    result.attachments = [];
    result.reportType = 'MonthReport';
-   console.log(result)
+   console.log(result);
    callBack({ state: 'file Upload', data: result });
 }
 ////////////

@@ -4,9 +4,9 @@
    align-items: center;
    width: 100%;
    /* height: 100%; */
-   height: 98.5vh;
+   /* height: 98.5vh;
    overflow-y: scroll;
-   overflow-x: hidden;
+   overflow-x: hidden; */
    scrollbar-width: thin;
    user-select: text;
    scrollbar-width: none;
@@ -118,7 +118,7 @@
    display: flex;
    justify-content: space-between;
    width: 100%;
-   margin-top: 30px;
+   margin-top: 0px;
 }
 
 .signatureTemp {
@@ -138,7 +138,7 @@
 }
 
 .signatureDate {
-   margin-bottom: 70px;
+   margin-bottom: 40px;
    font-size: 0.875rem;
    /* font-size: 14; */
 }
@@ -170,13 +170,18 @@
 }
 
 .auth {
-   position: absolute;
+   /* position: absolute;
    bottom: 4px;
-   left: 4px;
+   left: 4px; */
    font-style: italic;
    font-size: 0.875rem;
    /* font-size: 14px; */
    color: #ccc;
+   text-align: left;
+   padding-left: 10px;
+   padding-bottom: 5px;
+   box-sizing: content-box;
+   
 }
 .time {
    /* position: absolute; */
@@ -201,6 +206,7 @@
    border-collapse: collapse;
    border-color: #333;
    box-sizing: border-box;
+   
 }
 
 .tableCaption{
@@ -215,13 +221,14 @@
 .tableTitle{
    font-size: 0.7em;
    font-weight: 500;
-   padding: 0.2rem 0;
-   border: 1px solid #333
+   padding: 0.2rem ;
+   border: 0.5px solid #333
 }
 .tableContent{
    font-size: 0.7em;
-   border: 1px solid #333;
-   padding: 0.2rem 
+   border: 0.5px solid #333;
+   padding: 0.2rem ;
+   text-align: left;
 
 }
 .tableChild{
@@ -236,11 +243,11 @@
 .tableTitleChild{
    font-size: 0.7em;
    font-weight: 450;
-   padding: 0.1rem 0;
+   padding: 0.1rem ;
 }
 .tableContentChild{
    font-size: 0.6em;
-   padding: 0.2rem 0.1rem;
+   padding: 0.2rem ;
 }
 
 .tableSignContent{

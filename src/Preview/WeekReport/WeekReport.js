@@ -30,7 +30,10 @@ export default function WeekReport({ content, setModalImageOpen }) {
                </div>
             </header>
             <div className={`${style.title} title`}>
-               Báo Cáo Tuần {content.date.week} Tháng {content.date.month}
+               Báo Cáo Tuần <span style={{color: 'red'}}>{content.date.week}</span>
+            </div>
+            <div style={{fontSize: '14px', color: 'red'}}>
+             {content.date.month} - {content.date.year ||'2024'}
             </div>
             <div className={`${style.user} user`}>{content.user}</div>
             <ul className={`${style.list} list`}>

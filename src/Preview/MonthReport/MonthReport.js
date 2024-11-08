@@ -111,7 +111,7 @@ export default function MonthReport({ content, setModalImageOpen }) {
                )}
             </div>
             <ul className={`${style.list} list`}>
-               Công việc đã làm trong tuần
+               Công việc đã làm trong tháng
                {content.job.map((crr, index) => {
                   return (
                      <li className={`${style.item} item`} key={index}>
@@ -163,7 +163,7 @@ export default function MonthReport({ content, setModalImageOpen }) {
                })}
             </ul>
             <div className={`${style.issueWarp} issueWarp`}>
-               Các sự cố xảy ra trong tuần
+               Các sự cố xảy ra trong tháng
                {content.issue ? (
                   content.issue.map((crr, index) => {
                      return (
@@ -238,7 +238,7 @@ export default function MonthReport({ content, setModalImageOpen }) {
                )}
             </div>
             <ul className={`${style.list} list`}>
-               Kế hoạch tuần tới
+               Kế hoạch tháng tới
                {content.plan.map((crr, index) => {
                   return (
                      <li className={`${style.item} item`} key={index}>

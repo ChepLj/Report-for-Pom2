@@ -1,10 +1,10 @@
-import style from './MonthReport.module.css'
-import { useRef, useState } from 'react'
-import Modal from '../../../../../Modal/Modal'
-import { dbRT } from '../../../../../firebase/firebaseConfig'
 import { update } from 'firebase/database'
+import { useRef, useState } from 'react'
+import { dbRT } from '../../../../../firebase/firebaseConfig'
+import Modal from '../../../../../Modal/Modal'
+import style from './AdminReport.module.css'
 
-export default function MonthReport({ data, authEmailCurrent }) {
+export default function AdminReport({ data, authEmailCurrent }) {
    const arrayData = []
    if (data) {
       for (const key in data) arrayData.push(data[key])
@@ -12,7 +12,7 @@ export default function MonthReport({ data, authEmailCurrent }) {
    }
    return (
       <section className={style.warp}>
-         <div className={style.title}>Báo cáo tháng</div>
+         <div className={style.title}>Báo cáo hành chính</div>
          <div className={style.elementsWarp}>
             {arrayData.map((crr, index) => {
                return <ElementDoc data={crr} key={index} authEmailCurrent={authEmailCurrent} />
@@ -59,9 +59,14 @@ function ElementDoc({ data, authEmailCurrent }) {
             }}
          >
             <div className={style.document}>
-               Báo cáo Tháng{' '}
-               <span style={{ color: 'green', fontSize: '28px', fontWeight: '700' }}>
+               Báo cáo HC{' '}
+               <span  style={{ color: 'red', fontSize: '22px', fontWeight: '700' }}>
                   <br />
+                  {data.date.date}
+               </span>
+               <br />
+               Tháng{' '}
+               <span style={{ color: 'green', fontSize: '22px', fontWeight: '700' }}>
                   {data.date.month}
                </span>
                <br />
@@ -84,7 +89,7 @@ function ElementDoc({ data, authEmailCurrent }) {
          {/* ẩn hiện Save Modal */}
          {state && (
             <Modal
-               type={'monthReport'}
+               type={'adminReport'}
                upload={false}
                refDirection={ref.current}
                callBackClose={(value) => {

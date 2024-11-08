@@ -29,7 +29,11 @@
 }
 .areaPrint {
    width: 100%;
-   height: 100%;
+   /* height: 100%; */
+   height: 98.5vh;
+   overflow-y: scroll;
+   overflow-x: hidden;
+   scrollbar-width: none;
 }
 .close {
    color: red;
@@ -76,18 +80,13 @@
    justify-content: center;
    align-items: center;
    padding: 0 5px;
-  
 }
 .downloadJPG:hover {
    box-shadow: 1px 1px 29px rgb(209, 223, 203);
 }
 
-
-
 /* For PC small screens */
 @media (min-width: 0px) and (max-width: 1235px) {
-
-
    .form {
       position: absolute;
       width: 30rem;
@@ -98,45 +97,33 @@
       font-size: 14px;
       /* width: 140px; */
       height: 25px;
-    
    }
-
 
    .downloadJPG {
       font-size: 14px;
       /* width: 140px; */
       height: 25px;
-   
    }
 }
 
 /* For smartphone screens */
 @media (min-width: 0px) and (max-width: 480px) {
-
    .close {
-
       top: 2px;
       right: 10px;
       background-color: white;
       border: 1px solid red;
       padding: 2px 5px;
       border-radius: 15px;
- 
-    
    }
-   
-   .downloadPDF {
 
+   .downloadPDF {
       bottom: 2px;
       right: 15px;
-
    }
- 
+
    .downloadJPG {
-  
       bottom: 37px;
       right: 15px;
-
    }
-
 }

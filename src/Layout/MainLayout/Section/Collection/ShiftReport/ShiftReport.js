@@ -33,9 +33,9 @@ function ElementDoc({ data, authEmailCurrent }) {
          alert("Báo cáo này đã bị Khóa và không thể xóa. Liên hệ Mr.Sỹ để xóa hoặc biết thêm chi biết !")
          return //:thoát khỏi hàm handelConfirm
       }
-      let valueConfirm = prompt('Nhập mã sau để xóa ( pomina3-btdbf )', '(nhập chính xác có dấu)')
+      let valueConfirm = prompt('Nhập mã sau để xóa ( pomina )')
       let text = valueConfirm ??='none'
-      if (text.trim() === 'pomina3-btdbf') {
+      if (text.trim() === 'pomina') {
          handelDelete(ref)
       } else {
          alert('Lỗi ! Mã xác thực không đúng !!!')

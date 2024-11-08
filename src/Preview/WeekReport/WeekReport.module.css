@@ -4,9 +4,9 @@
    align-items: center;
    width: 100%;
    /* height: 100%; */
-   height: 98.5vh;
+   /* height: 98.5vh;
    overflow-y: scroll;
-   overflow-x: hidden;
+   overflow-x: hidden; */
    /* scrollbar-width: thin; */
    user-select: text;
    scrollbar-width: none;
@@ -69,6 +69,7 @@
    font-weight: 700;
    box-sizing: border-box;
    margin: 5px;
+   padding-left: 20px;
 }
 
 .item {
@@ -86,7 +87,7 @@
    display: flex;
    justify-content: space-between;
    width: 100%;
-   margin-top: 30px;
+   margin-top: 0px;
 }
 
 .signatureTemp {
@@ -106,7 +107,7 @@
 }
 
 .signatureDate {
-   margin-bottom: 70px;
+   margin-bottom: 40px;
    font-size: 0.875rem;
    /* font-size: 14; */
 }
@@ -134,16 +135,21 @@
    font-weight: 700;
    box-sizing: border-box;
    margin: 5px;
-   padding-left: 40px;
+   padding-left: 20px;
 }
 
 .auth {
-   position: absolute;
+   /* position: absolute;
    bottom: 4px;
-   left: 4px;
+   left: 4px; */
    font-style: italic;
    font-size: 0.875rem;
    /* font-size: 14px; */
+   width:100%;
+   text-align: left;
+   padding-left: 10px;
+   padding-bottom: 5px;
+   box-sizing: content-box;
 }
 
 .thumbnailContainer {

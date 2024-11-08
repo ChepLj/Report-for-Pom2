@@ -1,9 +1,7 @@
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
-import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
-import style from './LeftSide.module.css';
 import getTimeAPI from '../../../handelAction/getTime';
+import style from './LeftSide.module.css';
 export default function LeftSide({}) {
    const date = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
    const month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -42,17 +40,17 @@ export default function LeftSide({}) {
                Ca
                <span className={style.space5}></span>
                <select className={style.optionWeek} name="shiftShiftReport">
-                  <option value={'HC'}>HC</option>
-                  <option value={'D'}>D</option>
-                  <option value={'E'}>E</option>
-                  <option value={'F'}>F</option>
+                  <option value={''}></option>
+
+                  <option value={'A'}>A</option>
+                  <option value={'B'}>B</option>
+                  <option value={'C'}>C</option>
                </select>
             </div>
             <span className={style.space10}></span>
             <select className={style.date} name="shiftSessionReport">
                <option value={'Ca Đêm'}>Ca Đêm</option>
                <option value={'Ca Ngày'}>Ca Ngày</option>
-               <option value={'Ca HC'}>Ca HC</option>
             </select>
             <span className={style.spaceLR2dot5}></span>
             <div>
@@ -164,32 +162,20 @@ function IssueWriteElement({ index, callBack }) {
             <div className={style.fieldIssueItemContentWarpItem}>
                <div className={style.fieldIssueItemTitleChild}>Khu vực</div>
                <select style={{ margin: '0 2rem 0 2rem' }} name="shiftAreaSelect">
-                  <option value={'BF'}>BF</option>
-                  <option value={'Lò Vôi'}>Lò Vôi</option>
-                  <option value={'Máng Quặng'}>Máng Quặng</option>
-                  <option value={'Đỉnh lò'}>Đỉnh lò</option>
-                  <option value={'Lò gió nóng'}>Lò gió nóng</option>
-                  <option value={'Nhà Quạt'}>Nhà Quạt</option>
-                  <option value={'Đúc gang'}>Đúc gang</option>
-                  <option value={'Phun Than'}>Phun Than</option>
-                  <option value={'XLB BFTrough'}>XLB BFTrough</option>
-                  <option value={'XLB Sàn ra gang'}>XLB Sàn ra gang</option>
-                  <option value={'XLB Đúc Gang'}>XLB Đúc Gang</option>
-                  <option value={'XLB Khí CO'}>XLB Khí CO</option>
-                  <option value={'XLN Xỉ'}>XLN Xỉ</option>
-                  <option value={'XLN Chính'}>XLN Chính</option>
-                  <option value={'XLN Đúc gang'}>XLN Đúc gang</option>
-                  <option value={'Trạm cân gang '}>Trạm cân gang</option>
-                  <option value={'Nhà Vàng'}>Nhà Vàng</option>
-                  <option value={'Trạm điện'}>Trạm điện</option>
-                  <option value={'Cẩu 125t'}>Cẩu 125t</option>
-                  <option value={'Cẩu hố xỉ'}>Cẩu hố xỉ</option>
-                  <option value={'Cẩu sàn ra gang'}>Cẩu sàn ra gang</option>
-                  <option value={'Cẩu kho than'}>Cẩu kho than</option>
-                  <option value={'Cẩu nhà quạt'}>Cẩu nhà quạt</option>
-                  <option value={'Tháp đốt'}>Tháp đốt</option>
-                  <option value={'Lò trộn'}>Lò trộn</option>
-                  <option value={'Other'}>Khác...</option>
+                  <option value={'LÒ EAF'}>LÒ EAF</option>
+                  <option value={'LÒ LF'}>LÒ LF</option>
+                  <option value={'CCM'}>CCM</option>
+                  <option value={'TRẠM NÉN KHÍ'}>TRẠM NÉN KHÍ</option>
+                  <option value={'TRỢ DUNG'}>TRỢ DUNG</option>
+                  <option value={'XỬ LÝ BỤI'}>XỬ LÝ BỤI</option>
+                  <option value={'CONSTEEL'}>CONSTEEL</option>
+                  <option value={'CẨU TRỤC'}>CẨU TRỤC</option>
+                  <option value={'CỔNG TRỤC'}>CỔNG TRỤC</option>
+                  <option value={'TRẠM T1'}>TRẠM T1</option>
+                  <option value={'TRẠM T2'}>TRẠM T2</option>
+                  <option value={'XỬ LÝ NƯỚC'}>XỬ LÝ NƯỚC</option>
+                  <option value={'MÁY PHÁT '}>MÁY PHÁT </option>
+                  <option value={'KHÁC'}>KHÁC</option>
                </select>
                {/* <p
                    className={style.fieldIssueItemInput}
@@ -200,7 +186,7 @@ function IssueWriteElement({ index, callBack }) {
                 /> */}
 
                <div className={style.fieldIssueItemTitleChild}>Thời gian xử lý</div>
-               <p className={style.fieldIssueItemInput} style={{ flex: 2 }} data-issue-input="time" contentEditable="true" />
+               <p className={style.fieldIssueItemInput} style={{ flex: 2 }} data-issue-input="time" contentEditable="true" inputMode="numeric" />
             </div>
             {/*  */}
             {/*  */}
@@ -361,7 +347,7 @@ function ProposeWrite() {
             })}
 
             <div className={style.addJobWrap} onClick={handelAddProposeField}>
-               <div className={style.addJobWrapText}>Thêm kế hoạch </div>
+               <div className={style.addJobWrapText}>Thêm đề xuất </div>
                <span className="material-symbols-outlined">add</span>
             </div>
          </ul>

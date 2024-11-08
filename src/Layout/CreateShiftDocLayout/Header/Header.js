@@ -15,8 +15,12 @@ export default function Header({ auth, mediaData }) {
       const jobElm = document.querySelectorAll('.create-job')
       const planElm = document.querySelectorAll('.create-plan')
       const proposeElm = document.querySelectorAll('.create-propose')
+      const shiftElm = document.getElementsByName('shiftShiftReport');
       const collectElm = [...jobElm, ...planElm, ...proposeElm]
-
+      if(shiftElm[0].value == ''){
+         alert('Chưa chọn Ca')
+         return false
+      }
       for (const item of issueElm) {
          const pTagnameInput = item.querySelector('p[data-issue-input=name]')
          const pTagResultInput = item.querySelector('p[data-issue-input=result]')
@@ -40,6 +44,7 @@ export default function Header({ auth, mediaData }) {
       // }
       // ////////////////
       // alert('LỖI ! Phải điền ít nhất 1 trường')
+     
       return true
    }
    /////////

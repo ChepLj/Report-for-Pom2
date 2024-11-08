@@ -6,6 +6,7 @@ import { getFirebaseData } from '../../handelAction/getFirebaseData';
 import createMonthDataPost from '../../handelAction/createDataPost/createMonthDataPost';
 import createWeekDataPost from '../../handelAction/createDataPost/createWeekDataPost';
 import createShiftDataPost from '../../handelAction/createDataPost/createShiftDataPost';
+import createAdminDataPost from '../../handelAction/createDataPost/createAdminDataPost';
 import style from './ProgressUpload.module.css';
 import { MIMEtype } from '../../FCComponent/MIMEtype';
 
@@ -13,7 +14,6 @@ import { update } from 'firebase/database';
 import { dbRT } from '../../firebase/firebaseConfig';
 
 export default function ProgressUpload({ reRender, mediaData, type }) {
-
    //TODO: mount
    console.log('%cProgressUpload Render', 'color:green');
    useEffect(() => {
@@ -46,6 +46,21 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
                createShiftDataPost(handleImageBlobArray);
                break;
             }
+            case 'adminReport': {
+
+               createAdminDataPost(handleImageBlobArray);
+               break;
+            }
+            case 'delayReport': {
+
+               // createShiftDataPost(handleImageBlobArray);
+               break;
+            }
+            case 'maintenReport': {
+               
+               // createShiftDataPost(handleImageBlobArray);
+               break;
+            }
          }
       }
    }, []);
@@ -75,16 +90,15 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
          }
       }
       setImageBlobArray(arrayTemp);
-      setState(result)
-   }
+      setState(result);
+   };
 
    //TODO_END: create new Array image
 
-   console.log(state)
+   console.log(state);
    //TODO: Upload
    switch (state.state) {
       case 'file Upload': {
-
          if (fileProgressState.bytesTransferred <= 0 && !state.uploadInProgress) {
             setState((prevState) => ({ ...prevState, uploadInProgress: true }));
 
@@ -133,7 +147,6 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
          if (!state.uploadInProgress) {
             setState((prevState) => ({ ...prevState, uploadInProgress: true }));
             if (imageBlobArray.length === 0) {
-
                setState((prevState) => ({
                   state: 'data upload',
                   data: prevState.data,
@@ -142,7 +155,7 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
             } else {
                const finishArrayCheck = [];
                imageBlobArray.forEach((crr, index) => {
-                  console.log("🚀 ~ imageBlobArray.forEach ~ crr:", crr)
+                  console.log('🚀 ~ imageBlobArray.forEach ~ crr:', crr);
                   const file = crr.image;
                   const fileName = `Index ${index} : ${crr.line}`;
                   const group = crr.group; // Dynamic group
@@ -153,9 +166,6 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
                   const ref = `REPORT/${state.data.reportType}/${idUpload.current}/IMAGE/`;
                   const callback = (messenger, result) => {
                      if (messenger === 'Upload completed successfully') {
-                        
-                        
-
                         if (!state.data.images[group]) {
                            state.data.images[group] = {};
                         }
@@ -207,6 +217,12 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
                objectDataNew.date = objectData.date;
                objectDataNew.type = state.data.reportType;
                updates[`NewReport/${idUpload.current}`] = objectDataNew;
+               if (state.data.reportType === 'AdminReport'){
+                  updates[`Handover/Admin`] = objectData?.handover;
+               }
+               else if (state.data.reportType === 'ShiftReport'){
+                  updates[`Handover/Shift`] = objectData?.handover;
+               }
                //   for (const key in objectData) {
                //     updates["Report"] = objectData[key];
                //   }

@@ -28,53 +28,28 @@ export default function LeftSide({
    }, [jobState, planState, proposeState, issueState]);
 
    //TODO_END: set max width
-   function getWeekInMonth(date) {
-      // Find the first Monday of the month
-      const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
-      const dayOfWeek = firstDayOfMonth.getDay();
-      const firstMonday = new Date(firstDayOfMonth);
-
-      // If the month doesn't start on a Monday, find the first Monday
-      if (dayOfWeek !== 1) {
-         firstMonday.setDate(firstMonday.getDate() + ((8 - dayOfWeek) % 7));
-      }
-
-      // Calculate the difference in days and determine the week number
-      const daysDifference = date.getDate() - firstMonday.getDate();
-      let weekNumber = Math.floor(daysDifference / 7);
-
-      const decimal = daysDifference / 7 - weekNumber;
-      let month = date.getMonth();
-      if (weekNumber > 0 && decimal > 0.4) {
-         weekNumber = weekNumber + 1;
-      } else if (weekNumber <= 0 ) {
-         weekNumber = 5;
-      }
-      console.log("🚀 ~ getWeekInMonth ~ weekNumber:", weekNumber)
-      if (weekNumber > 0 && weekNumber <=4) {
-         month = month + 1;
-      }
-
-      return { weekInMonth: weekNumber, month: month };
-   }
+  
    const date = new Date();
+   const days = Array.from({ length: 31 }, (_, index) => index + 1);
    console.dir(date);
    return (
       <section className={style.warpPage}>
          <section className={style.writeArea}>
-            <div className={style.writeAreaTitle}>Báo Cáo Tuần</div>
+            <div className={style.writeAreaTitle}>Báo Cáo Hành Chính</div>
             <div className={style.writeAreaTime}>
-               Tuần{' '}
-               <select className={style.optionWeek} name="weekWeekReport" defaultValue={getWeekInMonth(date).weekInMonth}>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
+               Ngày{' '}
+               <select className={style.optionWeek} name="dateAdminReport" defaultValue={date.getDate()}>
+                  {days.map((crr, index) => {
+                     return (
+                        <option value={crr} key={index}>
+                           {crr}
+                        </option>
+                     );
+                  })}
                </select>
                {' .'}
                Tháng{' '}
-               <select className={style.optionMonth} name="monthWeekReport" defaultValue={getWeekInMonth(date).month}>
+               <select className={style.optionMonth} name="monthAdminReport" defaultValue={date.getMonth() + 1}>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
                   <option value={3}>3</option>
@@ -89,7 +64,7 @@ export default function LeftSide({
                   <option value={12}>12</option>
                </select>{' '}
                Năm
-               <select className={style.optionMonth} name="yearWeekReport" defaultValue={date.getFullYear()}>
+               <select className={style.optionMonth} name="yearAdminReport" defaultValue={date.getFullYear()}>
                   <option value={2024}>2024</option>
                   <option value={2025}>2025</option>
                   <option value={2026}>2026</option>
@@ -104,8 +79,8 @@ export default function LeftSide({
                   <option value={2035}>2035</option>
                   <option value={2036}>2036</option>
                </select>{' '}
-               <select className={style.user} name="userWeekReport">
-                  <option style={{ color: 'gray' }} value={''}>
+               <select className={style.user} name="userAdminReport">
+                  <option style={{ color: 'gray' }} value={''} >
                      chọn Người báo cáo
                   </option>
                   {user.map((crr, index) => {
@@ -117,10 +92,10 @@ export default function LeftSide({
                   })}
                </select>{' '}
             </div>
-            <i style={{ fontSize: '0.7rem', marginTop: '2px' }}>(Ngày đầu tiên của Tuần 1 sẽ là Thứ 2 đầu tiên của tháng)</i>
+
             <JobWrite handleAddImage={handleAddImage} jobState={jobState} setJobState={setJobState} />
-            <IssueWrite handleAddImage={handleAddImage} issueState={issueState} setIssueState={setIssueState} />
-            <PlanWrite handleAddImage={handleAddImage} planState={planState} setPlanState={setPlanState} />
+            {/* <IssueWrite handleAddImage={handleAddImage} issueState={issueState} setIssueState={setIssueState} /> */}
+            {/* <PlanWrite handleAddImage={handleAddImage} planState={planState} setPlanState={setPlanState} /> */}
             <ProposeWrite handleAddImage={handleAddImage} proposeState={proposeState} setProposeState={setProposeState} />
             <EquipmentWrite equipmentState={equipmentState} setEquipmentState={setEquipmentState} />
          </section>
@@ -155,7 +130,7 @@ function JobWrite({ handleAddImage, jobState, setJobState }) {
 
    return (
       <div className={style.fieldJobWarp}>
-         <div className={style.fieldJobTitle}>Công việc đã làm trong tuần</div>
+         <div className={style.fieldJobTitle}>Công việc đã làm trong ngày</div>
          <ul className={style.fieldJobList}>
             {jobState?.map((crr, index) => {
                return (
@@ -514,7 +489,7 @@ function EquipmentWrite({ equipmentState, setEquipmentState }) {
    return (
       <div className={style.fieldJobWarp}>
          {/* ///////////////////////////////// */}
-         <div className={style.fieldJobTitle}>Vật tư đã xuất/Sử dụng</div>
+         <div className={style.fieldJobTitle}>Vật tư đã Sử dụng</div>
 
          <EquipmentTable equipmentState={equipmentState} setEquipmentState={setEquipmentState} />
          <div className={style.bottomBorder}></div>
@@ -573,12 +548,12 @@ function EquipmentWrite({ equipmentState, setEquipmentState }) {
                         <span className={style.fieldIssueItemTitleChild}>Hành động* </span>
                         <span className={style.spaceLR2dot5}></span>
 
-                        <select className={`${style.optionUnit} action`} name="action" defaultValue="">
-                           <option value="" disabled hidden>
+                        <select className={`${style.optionUnit} action`} name="action" defaultValue="Sử dụng">
+                           {/* <option value="" disabled hidden>
                               Chọn hành động
-                           </option>
-                           <option value={'Xuất Kho'}>Xuất Kho</option>
+                           </option> */}
                            <option value={'Sử dụng'}>Sử dụng</option>
+                           <option value={'Xuất Kho'}>Xuất Kho</option>
                            <option value={'Xuất Kho + Sử Dụng'}>Xuất Kho + Sử Dụng</option>
                         </select>
                         <span className={style.spaceLR5}></span>

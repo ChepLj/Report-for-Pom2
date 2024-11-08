@@ -141,6 +141,11 @@ export default function Header({ user, authLogin }) {
                            Viết báo cáo ca
                         </Link>
                      </li>
+                     <li className={style.writeReportItem} onClick={goToFullScreen}>
+                        <Link to="/createadminitrative" className={style.Link} state={{ user: user }}>
+                           Viết báo hành chính
+                        </Link>
+                     </li>
 
                      <li className={style.writeReportItem} onClick={goToFullScreen}>
                         <Link to="/createweek" className={style.Link} state={{ user: user }}>
@@ -157,6 +162,11 @@ export default function Header({ user, authLogin }) {
                      <li className={style.writeReportItem} onClick={goToFullScreen}>
                         <Link to="/createmainten" className={style.Link} state={{ user: user }}>
                            Viết kế hoạch bảo trì
+                        </Link>
+                     </li>
+                     <li className={style.writeReportItem} onClick={goToFullScreen}>
+                        <Link to="/" className={style.Link} state={{ user: user }}>
+                           Viết báo cáo delay
                         </Link>
                      </li>
                   </ul>

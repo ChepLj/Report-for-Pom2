@@ -1,12 +1,14 @@
-export default function createWeekDataPost(callBack) {
+export default function createAdminDataPost(callBack) {
    const jobElm = document.querySelectorAll('.create-job');
    const issueElm = document.querySelectorAll('.create-issue');
    const planElm = document.querySelectorAll('.create-plan');
    const proposeElm = document.querySelectorAll('.create-propose');
    const timeElm = document.getElementsByTagName('select');
    const equipmentElm = document.getElementById('equipment-data-store');
+   const handoverElm = document.querySelectorAll('.create-handover');
 
    //////////
+   const handover = [];
    const job = [];
    const issue = [];
    const plan = [];
@@ -17,8 +19,8 @@ export default function createWeekDataPost(callBack) {
    const dateStamp = today.getDate() >= 10 ? today.getDate() : `0${today.getDate()}`;
    const timestamp = `${today.getFullYear()}-${monthStamp}-${dateStamp}`;
    let month = 0;
+   let date = 0;
    let year = 0;
-   let week = 0;
    let user = '';
    let result = {};
    let authEmail = 'none';
@@ -28,16 +30,16 @@ export default function createWeekDataPost(callBack) {
    }
    /////////
    for (const value of timeElm) {
-      if (value.name === 'weekWeekReport') {
-         week = value.value;
+      if (value.name === 'dateAdminReport') {
+         date = value.value;
       }
-      if (value.name === 'monthWeekReport') {
+      if (value.name === 'monthAdminReport') {
          month = value.value;
       }
-      if (value.name === 'yearWeekReport') {
+      if (value.name === 'yearAdminReport') {
          year = value.value;
       }
-      if (value.name === 'userWeekReport') {
+      if (value.name === 'userAdminReport') {
          user = value.value;
       }
    }
@@ -81,14 +83,12 @@ export default function createWeekDataPost(callBack) {
          result[title] = crr.innerText;
       });
       result.id = id;
-      if (result?.name !== '') {
-         issue.push(result);
-      }
+      issue.push(result);
    }
    //////////
    const equipmentArray = equipmentElm.innerText;
    const temp = JSON.parse(equipmentArray);
-   console.log('🚀 ~ createWeekDataPost ~ temp:', temp);
+   console.log('🚀 ~ createAdminDataPost ~ temp:', temp);
    if (temp.length > 0) {
       for (const value of temp) {
          if (value.data.length > 0) {
@@ -98,26 +98,37 @@ export default function createWeekDataPost(callBack) {
    }
 
    ////////////
-
+   ////////////
+   for (const value of handoverElm) {
+      const temp = [...value.querySelectorAll('.handoverItem')]; // rải để sử dụng với map()
+      const result = {};
+      temp.forEach((crr, index) => {
+         const title = crr.dataset.handoverInput;
+         result[title] = crr.innerText;
+      });
+      handover.push(result);
+   }
+   ////////////
    //////////
+   handover.length >= 1 ? (result.handover = handover) : (result.handover = ['...']);
    job.length >= 1 ? (result.job = job) : (result.job = ['...']);
-   plan.length >= 1 ? (result.plan = plan) : (result.plan = ['...']);
+   // plan.length >= 1 ? (result.plan = plan) : (result.plan = ['...']);
    propose.length >= 1 ? (result.propose = propose) : (result.propose = ['...']);
    result.equipment = equipment;
    result.status = ['normal'];
-   result.issue = issue;
+   // result.issue = issue;
    // result.job = job
    // result.plan = plan
    // result.propose = propose
    result.authEmail = authEmail;
 
    result.user = user;
-   result.date = { month: month, year: year, week: week, timestamp: timestamp };
+   result.date = { month: month, date: date, year: year, timestamp: timestamp };
 
    result.images = { job: {}, plan: {}, issue: {}, propose: {}, equipment: {} };
 
    result.attachments = [];
-   result.reportType = 'WeekReport';
+   result.reportType = 'AdminReport';
    console.log(result);
    callBack({ state: 'file Upload', data: result });
 }
