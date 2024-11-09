@@ -5,7 +5,7 @@ import style from './LeftSide.module.css';
 export default function LeftSide({}) {
    const date = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
    const month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-   const year = [2022, 2023, 2024, 2025];
+   const year = [ 2024, 2025, 2026,2027,2028,2029,2030,2031,2032];
 
    ////////
    function setTime({ dateStamp, monthStamp, yearStamp, hourStamp, timeStamp }) {
@@ -31,7 +31,16 @@ export default function LeftSide({}) {
       getTimeAPI(setTime);
    }, []);
    ///////////
+   //TODO: set max width
+   useEffect(() => {
+      const inputs = document.querySelectorAll('[data-input-width-fixed]');
+      for (const input of inputs) {
+         const currentWidth = input.offsetWidth;
+         input.style.maxWidth = `${currentWidth}px`;
+      }
+   }, []);
 
+   //TODO_END: set max width
    return (
       <section className={style.writeArea}>
          <div className={style.writeAreaTitle}>Báo Cáo Ca</div>
@@ -152,12 +161,12 @@ function IssueWrite() {
 function IssueWriteElement({ index, callBack }) {
    return (
       <li className={`${style.fieldIssueItem} create-issue`} data-issue-index={index}>
-         <div className={style.fieldIssueItemTitle}>Công việc</div>
+         <div className={style.fieldIssueItemTitle}>Công việc {index +1}</div>
          <div className={style.fieldIssueItemContentWarp}>
             {/*  */}
             <div className={style.fieldIssueItemContentWarpItem}>
                <div className={style.fieldIssueItemTitleChild}>Tên đầu việc*</div>
-               <p className={style.fieldIssueItemInput} data-issue-input="name" contentEditable="true" />
+               <p className={style.fieldIssueItemInput} data-issue-input="name" data-input-width-fixed="width fixed" contentEditable="true" />
             </div>
             <div className={style.fieldIssueItemContentWarpItem}>
                <div className={style.fieldIssueItemTitleChild}>Khu vực</div>
@@ -185,25 +194,25 @@ function IssueWriteElement({ index, callBack }) {
                    //! Chua làm chức năng nhập khu vực khác
                 /> */}
 
-               <div className={style.fieldIssueItemTitleChild}>Thời gian xử lý</div>
-               <p className={style.fieldIssueItemInput} style={{ flex: 2 }} data-issue-input="time" contentEditable="true" inputMode="numeric" />
+               <div className={style.fieldIssueItemTitleChild}>Thời gian </div>
+               <p className={style.fieldIssueItemInput} style={{ flex: 2 }} data-issue-input="time" data-input-width-fixed="width fixed" contentEditable="true" inputMode="numeric" />
             </div>
             {/*  */}
             {/*  */}
             <div className={style.fieldIssueItemContentWarpItem}>
                <div className={style.fieldIssueItemTitleChild}>Chi tiết</div>
-               <p className={style.fieldIssueItemInput} data-issue-input="content" contentEditable="true" />
+               <p className={style.fieldIssueItemInput} data-issue-input="content" data-input-width-fixed="width fixed" contentEditable="true" />
             </div>
             {/*  */}
             <div className={style.fieldIssueItemContentWarpItem}>
                <div className={style.fieldIssueItemTitleChild}>Biện pháp khắc phục</div>
-               <p className={style.fieldIssueItemInput} data-issue-input="solution" contentEditable="true" />
+               <p className={style.fieldIssueItemInput} data-issue-input="solution" data-input-width-fixed="width fixed" contentEditable="true" />
             </div>
             {/*  */}
             {/*  */}
             <div className={style.fieldIssueItemContentWarpItem}>
                <div className={`${style.fieldIssueItemTitleChild} ${style.redColor}`}>Kết quả/ Ghi chú CA sau*</div>
-               <p className={style.fieldIssueItemInput} data-issue-input="result" contentEditable="true" />
+               <p className={style.fieldIssueItemInput} data-issue-input="result" data-input-width-fixed="width fixed" contentEditable="true" />
             </div>
             {/*  */}
          </div>
@@ -244,7 +253,7 @@ function EquipmentUseWrite() {
             {state.map((crr, index) => {
                return (
                   <li className={`${style.fieldIssueItem} create-equip`} key={index} data-job-index={index}>
-                     <div className={style.fieldJobItemTitle}>Vật tư</div>
+                     <div className={style.fieldJobItemTitle}>Vật tư  {index +1}</div>
                      <div className={style.fieldIssueItemContentWarp}>
                         <div className={style.fieldIssueItemContentWarpItem}>
                            <span className={style.fieldIssueItemTitleChild}>Mã vật tư</span>
@@ -253,6 +262,7 @@ function EquipmentUseWrite() {
                               data-equip-input="IDCode"
                               // data-job-input={index}
                               contentEditable="true"
+                              data-input-width-fixed="width fixed"
                            />
                         </div>
                         <div className={style.fieldIssueItemContentWarpItem}>
@@ -262,6 +272,7 @@ function EquipmentUseWrite() {
                               // data-job-input={index}
                               data-equip-input="name"
                               contentEditable="true"
+                              data-input-width-fixed="width fixed"
                            />
                         </div>
                         <div className={style.fieldIssueItemContentWarpItem}>
@@ -271,6 +282,7 @@ function EquipmentUseWrite() {
                               // data-job-input={index}
                               data-equip-input="amount"
                               contentEditable="true"
+                              data-input-width-fixed="width fixed"
                            />
                         </div>
                         <div className={style.fieldIssueItemContentWarpItem}>
@@ -330,8 +342,8 @@ function ProposeWrite() {
             {state.map((crr, index) => {
                return (
                   <li className={`${style.fieldJobItem} create-propose`} key={index} data-propose-index={index}>
-                     <div className={style.fieldJobItemTitle}>Đề xuất</div>
-                     <p className={style.fieldJobItemInput} data-propose-input={index} contentEditable="true" />
+                     <div className={style.fieldJobItemTitle}>Đề xuất  {index +1}</div>
+                     <p className={style.fieldJobItemInput} data-propose-input={index} data-input-width-fixed="width fixed" contentEditable="true" />
 
                      <span
                         className={`material-symbols-outlined ${style.fieldJobItemDelete}`}
@@ -378,16 +390,16 @@ function OrderWrite() {
             {state.map((crr, index) => {
                return (
                   <li className={`${style.fieldIssueItem} create-order`} key={index} data-order-index={index}>
-                     <div className={style.fieldJobItemTitle}>Công việc</div>
+                     <div className={style.fieldJobItemTitle}>Công việc  {index +1}</div>
 
                      <div className={style.fieldIssueItemContentWarp}>
                         <div className={style.fieldIssueItemContentWarpItem}>
                            <div className={style.fieldIssueItemTitleChild}>Nội dung</div>
-                           <p className={style.fieldJobItemInput} data-order-input="content" contentEditable="true" />
+                           <p className={style.fieldJobItemInput} data-order-input="content" data-input-width-fixed="width fixed" contentEditable="true" />
                         </div>
                         <div className={style.fieldIssueItemContentWarpItem}>
                            <div className={style.fieldIssueItemTitleChild}>Người giao</div>
-                           <p className={style.fieldJobItemInput} data-order-input="people" contentEditable="true" />
+                           <p className={style.fieldJobItemInput} data-order-input="people" data-input-width-fixed="width fixed" contentEditable="true" />
                         </div>
                      </div>
 

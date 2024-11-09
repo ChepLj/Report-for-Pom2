@@ -39,6 +39,7 @@
 .listsUser {
    margin: 5px;
    padding: 0;
+   padding-right: 5px;
    text-align: center;
    max-height: 500px;
    overflow: scroll;

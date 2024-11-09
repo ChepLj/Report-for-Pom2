@@ -1,7 +1,3 @@
-import { update } from 'firebase/database'
-import { dbRT } from '../../firebase/firebaseConfig'
-import { getFirebaseData } from '../getFirebaseData'
-import getTimeAPI from '../getTime'
 
 export default function createShiftDataPost(callBack) {
    const equipElm = document.querySelectorAll('.create-equip')

@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import style from './Filter.module.css';
 
 export default function Filter({ user, callback }) {
+   const [hasRun, setHasRun] = useState(false);
    const arrayUser = [];
    if (user) {
       for (const key in user) {
@@ -61,7 +62,6 @@ export default function Filter({ user, callback }) {
 
       const nodeList = document.querySelectorAll(`.${style.buttonUserFilter}`)
       if (e.innerText === 'Tất Cả') {
-         console.log('ok3')
          if (!e.classList.contains(style.active)) {
             for (const value of nodeList) {
                value.classList.remove(style.active)
@@ -88,10 +88,12 @@ export default function Filter({ user, callback }) {
 
    //////////
    useEffect(() => {
-      setTimeout(() => {
+      if (user && !hasRun) {
+         console.log("🚀 ~ useEffect ~ user:", user);
+         console.log('user');
          const nodeListTypeFilter = document.querySelectorAll(`.${style.buttonTypeFilter}`);
          const nodeListUserFilter = document.querySelectorAll(`.${style.buttonUserFilter}`);
-
+   
          for (const value of nodeListTypeFilter) {
             value.addEventListener('click', (e) => {
                handelEvenTypeClick(e.target);
@@ -103,8 +105,10 @@ export default function Filter({ user, callback }) {
                handelEvenUserClick(e.target);
             });
          }
-      }, 1000);
-   }, []);
+   
+         setHasRun(true); // Mark as executed
+      }
+   }, [user]); // Include user to check for initial content
    return (
       <section className={style.warp}>
          <div className={style.titleWarp}>

@@ -21,7 +21,7 @@ export default function CreateShiftDocLayout() {
 
    useEffect(() => {
       // TODO: goi lên firebase để lấy vật tu bàn giao của ca trước
-      getFirebaseData('ShiftEquipHandover').then((data) => {
+      getFirebaseData('Handover/Shift').then((data) => {
          const dataResults = data.val();
          const initHandoverEquip = [];
          for (const item in dataResults) {
