@@ -225,7 +225,7 @@ export default function Header({ user, authLogin }) {
                               signOut(auth)
                                  .then(() => {
                                     // Sign-out successful.
-                                    sessionStorage.removeItem('user');
+                                    localStorage.removeItem('user');
                                     window.location.href = '/login';
                                  })
                                  .catch((error) => {

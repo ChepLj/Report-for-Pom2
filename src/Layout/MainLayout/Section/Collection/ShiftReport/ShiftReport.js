@@ -25,8 +25,7 @@ export default function ShiftReport({ data, authEmailCurrent }) {
 
 function ElementDoc({ data, authEmailCurrent }) {
    const [state, setState] = useState(false)
-   const [checkConfirm, setCheckConfirm] = useState(false)
-   const ref = useRef(data.ref)
+   const [checkConfirm, setCheckConfirm] = useState({state: false, ref: ''})
    ////////////////////
    const handelConfirm = (ref) => {
       if(data?.status.includes("lock") && authEmailCurrent !== "permission"){
@@ -63,7 +62,7 @@ function ElementDoc({ data, authEmailCurrent }) {
          <section
             className={style.documentWarp}
             onClick={() => {
-               setState(true)
+               setState({state: true, ref: data.ref})
             }}
          >
             <div className={`${style.document}`}>
@@ -101,11 +100,11 @@ function ElementDoc({ data, authEmailCurrent }) {
             )}
          </section>
          {/* ẩn hiện Save Modal */}
-         {state && (
+         {state.state && (
             <Modal
                type={'shiftReport'}
                upload={false}
-               refDirection={ref.current}
+               refDirection={state.ref}
                callBackClose={(value) => {
                   setState(false)
                }}

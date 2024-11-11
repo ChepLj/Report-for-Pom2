@@ -77,7 +77,7 @@
    font-size: 0.75rem;
    font-weight: 500;
    list-style: circle;
-   margin: 5px 10px 10px 35px;
+   margin: 5px 10px 5px 35px;
    white-space: normal;
    word-wrap: break-word;
    overflow-wrap: break-word;
@@ -218,7 +218,7 @@
       font-size: 0.6rem;
       font-weight: 500;
 
-      margin: 5px 10px 10px 35px;
+      margin: 5px 10px 5px 35px;
    }
    .signatureDate {
       font-size: 0.6rem;

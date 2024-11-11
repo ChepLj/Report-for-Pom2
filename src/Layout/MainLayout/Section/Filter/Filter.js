@@ -120,8 +120,10 @@ export default function Filter({ user, callback }) {
             <ul className={style.lists}>
                <button className={`${style.buttonTypeFilter} ${style.allTypeFilter} ${style.button} ${style.active}`}>Tất Cả</button>
                <button className={`${style.buttonTypeFilter} ${style.button}`}>Báo Cáo Ca</button>
+               <button className={`${style.buttonTypeFilter} ${style.button}`}>Báo Cáo Hành Chính</button>
                <button className={`${style.buttonTypeFilter} ${style.button}`}>Báo Cáo Tuần</button>
                <button className={`${style.buttonTypeFilter} ${style.button}`}>Báo Cáo Tháng</button>
+               <button className={`${style.buttonTypeFilter} ${style.button}`}>Báo Cáo Delay</button>
                <button className={`${style.buttonTypeFilter} ${style.button}`}>Kế Hoạch Bảo Trì</button>
             </ul>
          </section>

@@ -13,8 +13,8 @@ export default function CreateShiftDocLayout() {
    // const user = location.state.user;
 
    let auth = {};
-   if (sessionStorage.getItem('user')) {
-      auth = JSON.parse(sessionStorage.getItem('user'));
+   if (localStorage.getItem('user')) {
+      auth = JSON.parse(localStorage.getItem('user'));
    } else {
       window.location.href = '/login';
    }

@@ -23,8 +23,7 @@ export default function MonthReport({ data, authEmailCurrent }) {
 }
 
 function ElementDoc({ data, authEmailCurrent }) {
-   const [state, setState] = useState(false)
-   const ref = useRef(data.ref)
+   const [state, setState] = useState({state: false, ref:''})
    ////////////////////
    const handelConfirm = (ref) => {
       let valueConfirm = prompt('Nhập mã sau để xóa ( pomina )')
@@ -55,7 +54,7 @@ function ElementDoc({ data, authEmailCurrent }) {
          <section
             className={style.documentWarp}
             onClick={() => {
-               setState(true)
+               setState({state: true, ref: data.ref})
             }}
          >
             <div className={style.document}>
@@ -82,11 +81,11 @@ function ElementDoc({ data, authEmailCurrent }) {
             )}
          </section>
          {/* ẩn hiện Save Modal */}
-         {state && (
+         {state.state && (
             <Modal
                type={'monthReport'}
                upload={false}
-               refDirection={ref.current}
+               refDirection={state.ref}
                callBackClose={(value) => {
                   setState(false)
                }}

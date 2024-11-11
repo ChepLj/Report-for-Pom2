@@ -47,7 +47,7 @@ export default function LeftSide({
                      );
                   })}
                </select>
-               {' .'}
+              
                Tháng{' '}
                <select className={style.optionMonth} name="monthAdminReport" defaultValue={date.getMonth() + 1}>
                   <option value={1}>1</option>

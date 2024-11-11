@@ -52,7 +52,7 @@ export default function LeftSide({
                   <option value={11}>11</option>
                   <option value={12}>12</option>
                </select>
-               {' .'}
+               
                Năm
                <select className={style.optionMonth} name="yearMonthReport" defaultValue={date.getFullYear()}>
                   <option value={2024}>2024</option>

@@ -72,7 +72,7 @@ export default function LeftSide({
                   <option value={4}>4</option>
                   <option value={5}>5</option>
                </select>
-               {' .'}
+              
                Tháng{' '}
                <select className={style.optionMonth} name="monthWeekReport" defaultValue={getWeekInMonth(date).month}>
                   <option value={1}>1</option>

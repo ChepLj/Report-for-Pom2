@@ -11,7 +11,10 @@ export default function SaveModal({ type, state, callBackClose, setModalImageOpe
       const html = document.querySelector(`.${style.areaPrint}`);
       const thumbnailContainerElm = document.querySelectorAll('.thumbnailContainer')
       const shiftSignConfirmElm = document.querySelector('.shiftConfirm');
-      console.log("🚀 ~ screenShotDocument ~ shiftSignConfirmElm:", shiftSignConfirmElm)
+      const reviewPaddingBottomElm = document.querySelector('.reviewPaddingBottom');
+
+      reviewPaddingBottomElm.style.paddingBottom = 0
+
       if(shiftSignConfirmElm){
          shiftSignConfirmElm.style.display= 'none'
       }
@@ -36,6 +39,7 @@ export default function SaveModal({ type, state, callBackClose, setModalImageOpe
          if(shiftSignConfirmElm){
             shiftSignConfirmElm.style.display= 'flex'
          }
+         reviewPaddingBottomElm.style.paddingBottom = '5rem'
       });
    };
    ///////////////////
@@ -104,7 +108,7 @@ export default function SaveModal({ type, state, callBackClose, setModalImageOpe
                printDocument();
             }}
          >
-            <DownloadIcon /> <span>PDF</span>
+            <DownloadIcon /> <span>Print</span>
          </div>
          <div
             className={style.downloadJPG}

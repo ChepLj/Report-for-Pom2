@@ -6,7 +6,6 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 
 import { Link, ListItem, ListItemIcon } from '@mui/material';
 export default function WeekReport({ content, setModalImageOpen }) {
-   console.log('🚀 ~ WeekReport ~ content:', content);
    const isVideoType = (type) => {
       if(type){
         return type.startsWith('video/') 
@@ -295,6 +294,7 @@ export default function WeekReport({ content, setModalImageOpen }) {
                </div>
             </section>
             <div className={`${style.auth} auth`}>{(content.authEmail ??= 'none')}</div>
+            <div className='reviewPaddingBottom' style={{ width: '100%', textAlign: 'center', paddingBottom: '5rem' }}>.</div>
          </section>
       </>
    );
@@ -304,7 +304,6 @@ export default function WeekReport({ content, setModalImageOpen }) {
 function EquipmentTable({ data }) {
    // console.log('🚀 ~ EquipmentTable ~ data:', data);\
    const [motherWidth, setMotherWidth] = useState(0);
-   console.log('🚀 ~ EquipmentTable ~ motherWidth:', motherWidth);
 
    useEffect(() => {
       const widthElm = document.querySelector('.get-table-width');

@@ -76,13 +76,13 @@ export default function ShiftReport({ content }) {
          <header className={`${style.header} shift-header`}>
             <div className={`${style.headerItem} shift-headerItem`}>
                <div className={`${style.logoImg} shift-logoImg`}>{logoPomina}</div>
-               {/* <span  style={{ fontSize: '0.7rem'}}>Nhà máy  Pomina3</span> */}
+               <span  style={{ fontSize: '0.8rem', fontWeight: '600'}}>EAF</span>
             </div>
             <div
                className={`${style.headerItem} ${style.headerItemBorderLR} shift-headerItem shift-headerItemBorderLR`}
             >
                <span className={`${style.headerTitle} shift-headerTitle`} style={{ fontSize: '1.5rem', fontWeight: 700 }}>Báo Cáo CA</span>
-               <span style={{ fontSize: '0.8rem', fontWeight: 500 }}>Bảo Trì Điện EAF </span>
+               <span style={{ fontSize: '0.8rem', fontWeight: 500 }}>Bảo Trì Điện  </span>
             </div>
             <div className={`${style.headerItemInfo} shift-headerItemInfo`}>
                <div className={`${style.infoItem} shift-infoItem`}>
@@ -94,7 +94,7 @@ export default function ShiftReport({ content }) {
                </div>
                <div className={`${style.infoItem} shift-infoItem`}>
                   Tháng
-                  <span className={`${style.infoItemChild} shift-infoItemChild`} style={{color:'blue'}}
+                  <span className={`${style.infoItemChild} shift-infoItemChild`} style={{color:'blue',paddingLeft: '1px'}}
                   >
                      {content?.date.month}
                   </span>
@@ -116,7 +116,7 @@ export default function ShiftReport({ content }) {
             {state?.date?.session}, Ngày {state?.date?.date} Tháng {state?.date?.month} năm{' '}
             {state?.date?.year}
          </div>
-         <section style={{ width: '100%', textAlign: 'center', paddingBottom: '1.2rem' }}>
+         <section style={{ width: '100%', textAlign: 'center'}}>
             <table  className={`${style.table} shift-table`}>
                <caption className={`${style.tableCaption} shift-tableCaption`}>
                   I. Các công việc/Sự cố trong Ca
@@ -426,7 +426,7 @@ export default function ShiftReport({ content }) {
                                 
                                  // TODO: nếu cùng user hoặc chưa đăng nhập thì hiện nhập mã định danh hoặc nút chuyển hướng đăng nhập
                                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <div className={`${style.tableSignContentIDConfirm} `}>
+                                    {/* <div className={`${style.tableSignContentIDConfirm} `}>
                                        <input
                                           className={`${style.IDConfirmInput} `}
                                           type="password"
@@ -444,7 +444,7 @@ export default function ShiftReport({ content }) {
                                     </div>
                                     <span className={`${style.tableSignContentText} `}>
                                        -*hoặc*-
-                                    </span>
+                                    </span> */}
                                     <a
                                        className={`${style.tableSignContentLoginConfirm} `}
                                        href="/login"
@@ -476,6 +476,7 @@ export default function ShiftReport({ content }) {
                </table>
             </div>
             <div className={`${style.time} shift-time`}>{(state.date.timestamp ??= 'none')}</div>
+            <div className='reviewPaddingBottom' style={{ width: '100%', textAlign: 'center', paddingBottom: '5rem' }}>.</div>
          </section>
          {/* phần này là phần cuối */}
          {/* <div className={`${style.auth} auth`}>{(content.authEmail ??= 'none')}</div> */}

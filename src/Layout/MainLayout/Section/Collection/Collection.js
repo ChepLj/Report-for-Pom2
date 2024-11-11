@@ -22,7 +22,7 @@ export default function Collection({ data, filter = { type: ['Tất Cả'], user
          {data?.ShiftReport && (filter.type.includes('Tất Cả') || filter.type.includes('Báo Cáo Ca')) && (
             <ShiftReport data={data.ShiftReport} authEmailCurrent={(auth.email ??= 'authEmailCurrent')} />
          )}
-         {data?.AdminReport && (filter.type.includes('Tất Cả') || filter.type.includes('Báo Cáo Tuần')) && (
+         {data?.AdminReport && (filter.type.includes('Tất Cả') || filter.type.includes('Báo Cáo Hành Chính')) && (
             <AdminReport data={data.AdminReport} authEmailCurrent={(auth.email ??= 'authEmailCurrent')} />
          )}
          {data?.WeekReport && (filter.type.includes('Tất Cả') || filter.type.includes('Báo Cáo Tuần')) && (

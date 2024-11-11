@@ -1,6 +1,5 @@
 import { update } from 'firebase/database'
-import { terminate } from 'firebase/firestore'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { dbRT } from '../../../../../firebase/firebaseConfig'
 import Modal from '../../../../../Modal/Modal'
 import style from './WeekReport.module.css'
@@ -24,8 +23,9 @@ export default function WeekReport({ data, authEmailCurrent }) {
 }
 
 function ElementDoc({ data, authEmailCurrent }) {
-   const [state, setState] = useState(false)
-   const ref = useRef(data.ref)
+
+   const [state, setState] = useState({state: false, ref: ''})
+
    ////////////////////
    const handelConfirm = (ref) => {
       let valueConfirm = prompt('Nhập mã sau để xóa ( pomina )')
@@ -51,12 +51,14 @@ function ElementDoc({ data, authEmailCurrent }) {
          })
    }
    ////////////////
+
    return (
       <>
          <section
             className={style.documentWarp}
             onClick={() => {
-               setState(true)
+               console.log(data)
+               setState({state: true, ref: data.ref})
             }}
          >
             <div className={style.document}>
@@ -86,13 +88,14 @@ function ElementDoc({ data, authEmailCurrent }) {
                   delete
                </span>
             )}
+        
          </section>
          {/* ẩn hiện Save Modal */}
-         {state && (
+         {state.state && (
             <Modal
                type={'weekReport'}
                upload={false}
-               refDirection={ref.current}
+               refDirection={state.ref}
                callBackClose={(value) => {
                   setState(false)
                }}

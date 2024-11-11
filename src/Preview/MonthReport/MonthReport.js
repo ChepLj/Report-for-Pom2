@@ -371,6 +371,7 @@ export default function MonthReport({ content, setModalImageOpen }) {
                </div>
             </section>
             <div className={`${style.auth} auth`}>{(content.authEmail ??= 'none')}</div>
+            <div className='reviewPaddingBottom' style={{ width: '100%', textAlign: 'center', paddingBottom: '5rem' }}>.</div>
          </section>
       </>
    );

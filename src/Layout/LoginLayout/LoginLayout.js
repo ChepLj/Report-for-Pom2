@@ -13,8 +13,8 @@ export default function LoginLayout() {
          // The signed-in user info.
          if (result) {
             // document.querySelector('.loader').remove()
-            sessionStorage.setItem('user', JSON.stringify(result.user))
-            if (sessionStorage.getItem('user')) {
+            localStorage.setItem('user', JSON.stringify(result.user))
+            if (localStorage.getItem('user')) {
                window.location.href = '/'
             }
          }
@@ -25,6 +25,9 @@ export default function LoginLayout() {
       })
    //////////
 
+
+
+ const now = new Date();
    const handelManualLogin = () => {
       /////////admin Account
       if (document.querySelector('input[name="username"]').value === 'admin') {
@@ -32,13 +35,14 @@ export default function LoginLayout() {
             document.querySelector('input[name="password"]').value ===
             process.env.REACT_APP_ADMINPASSWORD
          ) {
-            sessionStorage.setItem(
+            localStorage.setItem(
                'user',
                JSON.stringify({
                   displayName: 'Admin',
                   email: 'permission',
                   providerData: [{ providerId: 'manual' }],
                   photoURL: adminIcon,
+                  timestamp: now.getTime(), // Save the current timestamp
                }),
             )
             window.location.href = '/'
@@ -50,13 +54,14 @@ export default function LoginLayout() {
             document.querySelector('input[name="password"]').value ===
             process.env.REACT_APP_GUESTPASSWORD
          ) {
-            sessionStorage.setItem(
+            localStorage.setItem(
                'user',
                JSON.stringify({
                   displayName: 'Guest',
                   email: 'none',
                   providerData: [{ providerId: 'manual' }],
                   photoURL: guestIcon,
+                  timestamp: now.getTime(), // Save the current timestamp
                }),
             )
             window.location.href = '/'

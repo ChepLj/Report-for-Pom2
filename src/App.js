@@ -9,6 +9,13 @@ import LoginLayout from './Layout/LoginLayout/LoginLayout'
 import MainLayout from './Layout/MainLayout/MainLayout'
 
 function App() {
+// Disable the back button
+window.history.pushState(null, null, window.location.href);
+window.addEventListener('popstate', function () {
+    alert('Chú ý không được sử dụng phím Back \nSử dụng nút đóng/close bên trên nếu có!');
+    window.history.pushState(null, null, window.location.href); // Prevents going back
+});
+
 
 
    return (
