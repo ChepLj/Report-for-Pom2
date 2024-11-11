@@ -23,8 +23,8 @@ export default function createMonthDataPost(callBack) {
    let user = '';
    let result = {};
    let authEmail = 'none';
-   if (sessionStorage.getItem('user')) {
-      const temp = JSON.parse(sessionStorage.getItem('user'));
+   if (localStorage.getItem('user')) {
+      const temp = JSON.parse(localStorage.getItem('user'));
       authEmail = temp.email;
    }
    /////////

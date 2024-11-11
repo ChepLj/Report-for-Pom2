@@ -27,8 +27,8 @@ export default function createShiftDataPost(callBack) {
    let result = {}
    let authEmail = 'none'
 
-   if (sessionStorage.getItem('user')) {
-      const temp = JSON.parse(sessionStorage.getItem('user'))
+   if (localStorage.getItem('user')) {
+      const temp = JSON.parse(localStorage.getItem('user'))
       authEmail = temp.email
    }
    ///////// lấy giá trị từ trang viết báo cáo

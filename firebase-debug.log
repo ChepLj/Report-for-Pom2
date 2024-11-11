@@ -1,0 +1,42 @@
+[debug] [2024-11-11T17:19:34.411Z] ----------------------------------------------------------------------
+[debug] [2024-11-11T17:19:34.413Z] Command:       C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2024-11-11T17:19:34.414Z] CLI Version:   13.23.0
+[debug] [2024-11-11T17:19:34.414Z] Platform:      win32
+[debug] [2024-11-11T17:19:34.414Z] Node Version:  v22.9.0
+[debug] [2024-11-11T17:19:34.414Z] Time:          Tue Nov 12 2024 00:19:34 GMT+0700 (Indochina Time)
+[debug] [2024-11-11T17:19:34.414Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-11-11T17:19:34.417Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-11-11T17:19:34.521Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-11T17:19:34.522Z] > authorizing via signed-in user (nguyenvansy1992job02@gmail.com)
+[debug] [2024-11-11T17:19:34.522Z] [iam] checking project reportpom2 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2024-11-11T17:19:34.522Z] Checked if tokens are valid: false, expires at: 1731130830047
+[debug] [2024-11-11T17:19:34.523Z] Checked if tokens are valid: false, expires at: 1731130830047
+[debug] [2024-11-11T17:19:34.523Z] > refreshing access token with scopes: []
+[debug] [2024-11-11T17:19:34.524Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-11-11T17:19:34.524Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-11-11T17:19:34.704Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-11-11T17:19:34.704Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-11-11T17:19:34.713Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/reportpom2:testIamPermissions [none]
+[debug] [2024-11-11T17:19:34.713Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/reportpom2:testIamPermissions x-goog-quota-user=projects/reportpom2
+[debug] [2024-11-11T17:19:34.713Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/reportpom2:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2024-11-11T17:19:35.050Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-11-11T17:19:35.051Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2024-11-11T17:19:35.093Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/reportpom2:testIamPermissions 200
+[debug] [2024-11-11T17:19:35.093Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/reportpom2:testIamPermissions {}
+[debug] [2024-11-11T17:19:35.093Z] [iam] error while checking permissions, command may fail: FirebaseError: Authorization failed. This account is missing the following required permissions on project reportpom2:
+
+  firebase.projects.get
+  firebasehosting.sites.update
+[debug] [2024-11-11T17:19:35.094Z] Checked if tokens are valid: true, expires at: 1731349173704
+[debug] [2024-11-11T17:19:35.094Z] Checked if tokens are valid: true, expires at: 1731349173704
+[debug] [2024-11-11T17:19:35.094Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/reportpom2 [none]
+[debug] [2024-11-11T17:19:35.487Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/reportpom2 403
+[debug] [2024-11-11T17:19:35.487Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/reportpom2 {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2024-11-11T17:19:35.488Z] Request to https://firebase.googleapis.com/v1beta1/projects/reportpom2 had HTTP Error: 403, The caller does not have permission
+[debug] [2024-11-11T17:19:35.626Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/reportpom2 had HTTP Error: 403, The caller does not have permission
+    at responseToError (C:\Users\viett\AppData\Roaming\nvm\v22.9.0\node_modules\firebase-tools\lib\responseToError.js:52:12)
+    at RetryOperation._fn (C:\Users\viett\AppData\Roaming\nvm\v22.9.0\node_modules\firebase-tools\lib\apiv2.js:312:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[error] 
+[error] Error: Failed to get Firebase project reportpom2. Please make sure the project exists and your account has permission to access it.

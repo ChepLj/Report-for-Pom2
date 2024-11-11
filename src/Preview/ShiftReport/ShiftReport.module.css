@@ -351,7 +351,44 @@
    display: block;
 }
 
-
+/* hover */
+.nameWrapper {
+   position: relative;
+   display: inline-block;
+ }
+ 
+ .name {
+   cursor: pointer;
+ }
+ 
+ .hoverContent {
+   display: none;
+   position: absolute;
+   top: 100%;
+   left: 0;
+   background-color: #f8f8f8;
+   padding: 10px;
+   border: 1px solid #ccc;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+   width: 200px;
+   z-index: 10;
+ }
+ 
+ .nameWrapper:hover .hoverContent {
+   display: block;
+ }
+ 
+ .detail,
+ .action {
+   margin-bottom: 5px;
+   font-weight: bold;
+ }
+ 
+ .action {
+   font-weight: bold;
+   color: #007BFF; /* Change the color as needed */
+ }
+ 
 /* For PC small screens */
 @media (min-width: 0px) and (max-width: 1235px) {
 

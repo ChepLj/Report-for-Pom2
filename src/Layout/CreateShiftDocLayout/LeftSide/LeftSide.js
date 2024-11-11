@@ -195,7 +195,7 @@ function IssueWriteElement({ index, callBack }) {
                 /> */}
 
                <div className={style.fieldIssueItemTitleChild}>Thời gian </div>
-               <p className={style.fieldIssueItemInput} style={{ flex: 2 }} data-issue-input="time" data-input-width-fixed="width fixed" contentEditable="true" inputMode="numeric" />
+               <p className={style.fieldIssueItemInput} style={{ flex: 2 }} data-issue-input="time" data-input-width-fixed="width fixed" contentEditable="true"  />
             </div>
             {/*  */}
             {/*  */}
