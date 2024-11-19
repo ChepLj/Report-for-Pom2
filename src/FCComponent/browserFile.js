@@ -19,7 +19,7 @@ export const handelOpenImageFile = async (callback) => {
         ".mp4", ".webm", ".avi", ".mkv", ".mov",
         ".wmv", ".mpeg", ".mpg", ".flv"
     ],
-      // multiple: true,
+      multiple: true,
     });
     console.log("🚀 ~ file: CreatePage.tsx:57 ~ handelOpenFile ~ blob:", blob);
     if (blob) {

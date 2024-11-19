@@ -29,106 +29,58 @@ export default function CreateAdminDocLayout() {
 
    //TODO: handle add image
    const handleAddImage = (id, group) => {
+      const handleImageUpdate = (state, setState) => {
+         const updatedState = state.map((item) => {
+            if (item.id === id) {
+               if (Array.isArray(item.images) && item.images.length < 4) {
+                  handelOpenImageFile((newImages) => {
+                     item.images = handleNewArray(newImages, item.images || []);
+                     setState(updatedState);
+                  });
+               } else if (!Array.isArray(item.images)) {
+                  handelOpenImageFile((newImages) => {
+                     item.images = handleNewArray(newImages, []);
+                     setState(updatedState);
+                  });
+               } else {
+                  setSnackBarOpen(true);
+               }
+            }
+            return item;
+         });
+      };
+
+      const handleNewArray = (newImages, currentImages) => {
+         const updatedImages = [...currentImages, ...newImages];
+         if (updatedImages.length <= 4) {
+            return updatedImages;
+         } else {
+            setSnackBarOpen(true);
+            return updatedImages.slice(0, 4);
+         }
+      };
+
       switch (group) {
          case 'CV': {
-            const updatedJobState = jobState.map((item) => {
-               if (item.id === id) {
-                  if (Array.isArray(item.images) && item.images.length < 4) {
-                     const handleNewArray = (image) => {
-                        const updatedImages = [...(item.images || []), image];
-                        item.images = updatedImages;
-                        setJobState(updatedJobState);
-                     };
-                     handelOpenImageFile(handleNewArray);
-                  } else if (!Array.isArray(item.images)) {
-                     const handleNewArray = (image) => {
-                        item.images = [image];
-                        setJobState(updatedJobState);
-                     };
-                     handelOpenImageFile(handleNewArray);
-                  } else {
-                     setSnackBarOpen(true);
-                  }
-               }
-               return item;
-            });
+            handleImageUpdate(jobState, setJobState);
             break;
          }
          case 'KH': {
-            const updatedPlanState = planState.map((item) => {
-               if (item.id === id) {
-                  if (Array.isArray(item.images) && item.images.length < 4) {
-                     const handleNewArray = (image) => {
-                        const updatedImages = [...(item.images || []), image];
-                        item.images = updatedImages;
-                        setPlanState(updatedPlanState);
-                     };
-                     handelOpenImageFile(handleNewArray);
-                  } else if (!Array.isArray(item.images)) {
-                     const handleNewArray = (image) => {
-                        item.images = [image];
-                        setPlanState(updatedPlanState);
-                     };
-                     handelOpenImageFile(handleNewArray);
-                  } else {
-                     setSnackBarOpen(true);
-                  }
-               }
-               return item;
-            });
+            handleImageUpdate(planState, setPlanState);
             break;
          }
          case 'ĐX': {
-            const updatedProposeState = proposeState.map((item) => {
-               if (item.id === id) {
-                  if (Array.isArray(item.images) && item.images.length < 4) {
-                     const handleNewArray = (image) => {
-                        const updatedImages = [...(item.images || []), image];
-                        item.images = updatedImages;
-                        setProposeState(updatedProposeState);
-                     };
-                     handelOpenImageFile(handleNewArray);
-                  } else if (!Array.isArray(item.images)) {
-                     const handleNewArray = (image) => {
-                        item.images = [image];
-                        setProposeState(updatedProposeState);
-                     };
-                     handelOpenImageFile(handleNewArray);
-                  } else {
-                     setSnackBarOpen(true);
-                  }
-               }
-               return item;
-            });
+            handleImageUpdate(proposeState, setProposeState);
             break;
          }
          case 'SC': {
-            const updatedIssueState = issueState.map((item) => {
-               if (item.id === id) {
-                  if (Array.isArray(item.images) && item.images.length < 4) {
-                     const handleNewArray = (image) => {
-                        const updatedImages = [...(item.images || []), image];
-                        item.images = updatedImages;
-                        setIssueState(updatedIssueState);
-                     };
-                     handelOpenImageFile(handleNewArray);
-                  } else if (!Array.isArray(item.images)) {
-                     const handleNewArray = (image) => {
-                        item.images = [image];
-                        setIssueState(updatedIssueState);
-                     };
-                     handelOpenImageFile(handleNewArray);
-                  } else {
-                     setSnackBarOpen(true);
-                  }
-               }
-               return item;
-            });
+            handleImageUpdate(issueState, setIssueState);
             break;
          }
       }
-      
    };
+
+   
    //TODO_END: handle add image
 
    //TODO: choose file
