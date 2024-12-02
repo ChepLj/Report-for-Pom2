@@ -213,7 +213,7 @@ function JobWrite({ handleAddImage, jobState, setJobState }) {
 
    return (
       <div className={style.fieldJobWarp}>
-         <div className={style.fieldJobTitle}>Công việc đã làm trong tuần</div>
+         <div className={style.fieldJobTitle}>Công việc đã làm trong tháng</div>
          <ul className={style.fieldJobList}>
             {jobState?.map((crr, index) => {
                return (
@@ -291,7 +291,7 @@ function IssueWrite({ handleAddImage, issueState, setIssueState }) {
    };
    return (
       <div className={style.fieldIssueWarp}>
-         <div className={style.fieldIssueTitle}>Sự cố xảy ra trong tuần</div>
+         <div className={style.fieldIssueTitle}>Sự cố xảy ra trong tháng</div>
          <ul className={style.fieldIssueList}>
             {/*  */}
             {issueState?.map((crr, index) => {
@@ -415,7 +415,7 @@ function PlanWrite({ handleAddImage, planState, setPlanState }) {
 
    return (
       <div className={style.fieldJobWarp}>
-         <div className={style.fieldJobTitle}>Kế hoạch tuần tới</div>
+         <div className={style.fieldJobTitle}>Kế hoạch tháng tới</div>
          <ul className={style.fieldJobList}>
             {planState?.map((crr, index) => {
                return (
