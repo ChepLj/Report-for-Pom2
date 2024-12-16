@@ -157,7 +157,7 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
                imageBlobArray.forEach((crr, index) => {
                   console.log('🚀 ~ imageBlobArray.forEach ~ crr:', crr);
                   const file = crr.image;
-                  const fileName = `Index ${index} : ${crr.line}`;
+                  const fileName = `Index ${index} : ${crr.line}.png`;
                   const group = crr.group; // Dynamic group
                   const id = crr.id; // Dynamic id
                   const type = crr.image?.type; // Dynamic type

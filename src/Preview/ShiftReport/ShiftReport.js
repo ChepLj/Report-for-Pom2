@@ -134,7 +134,7 @@ export default function ShiftReport({ content }) {
                            <td className={`${style.tableContent} shift-tableContent`}>{crr?.area}</td>
                            <td className={`${style.tableContent} shift-tableContent`}>
                               <div className= {`${style.nameWrapper}`}>
-                                 <span className={`${style.name}`} dangerouslySetInnerHTML={{ __html: crr?.name?.replace(/\n/g, '<br>') }} />
+                                 <span className={`${style.name}`} dangerouslySetInnerHTML={{ __html: crr?.name?.replace(/\n/g, '<br>') }} style={{color: crr.content || crr.solution? "blue": ""}}/>
                                  <div className={`${style.hoverContent}`}>
                                     <div className={`${style.detail}`}>Chi Tiết: {crr?.content}</div>
                                     <div className={`${style.action}`}>Biện Pháp: {crr?.solution}</div>
