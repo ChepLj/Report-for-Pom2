@@ -31,7 +31,7 @@
 
 .document {
    position: relative;
-   background-color: rgb(255, 255, 255);
+   /* background-color: rgba(0, 255, 13, 0.11); */
    box-shadow: 2px 2px 6px #ccc;
    width: 115px;
    height: 160px;
@@ -41,6 +41,7 @@
    margin: 0;
    padding: 3px;
    cursor: pointer;
+   border: 2px solid rgba(0, 255, 13, 0.274)
 }
 .waitConfirm{
    position: absolute;
@@ -129,7 +130,7 @@
    
    .document {
       position: relative;
-      background-color: rgb(255, 255, 255);
+      /* background-color: rgb(255, 255, 255); */
       box-shadow: 2px 2px 6px #ccc;
       width: 92px;
       height: 137px;
@@ -139,6 +140,7 @@
       margin: 0;
       padding: 3px;
       cursor: pointer;
+      
    }
    .elementsWarp {
       /* background-color: aqua; */

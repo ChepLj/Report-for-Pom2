@@ -56,6 +56,7 @@ function ElementDoc({ data, authEmailCurrent }) {
       <>
          <section
             className={style.documentWarp}
+            
             onClick={() => {
                console.log(data)
                setState({state: true, ref: data.ref})

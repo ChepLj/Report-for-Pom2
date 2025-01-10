@@ -17,6 +17,7 @@
    overflow-x: scroll;
    scrollbar-width: thin;
    user-select: none;
+   box-sizing: border-box;
 }
 
 /* Document */
@@ -27,11 +28,13 @@
    margin: 0 10px;
    /* flex: 1; */
    position: relative;
+   box-sizing: border-box;
 }
 
 .document {
    position: relative;
-   background-color: rgb(255, 255, 255);
+   /* background-color: rgba(243, 76, 76, 0.116); */
+
    box-shadow: 2px 2px 6px #ccc;
    width: 115px;
    height: 160px;
@@ -41,6 +44,8 @@
    margin: 0;
    padding: 3px;
    cursor: pointer;
+   border: 2px solid rgba(255, 0, 0, 0.384)
+ 
 }
 
 .userName {
@@ -94,11 +99,12 @@
       margin: 0 10px;
       /* flex: 1; */
       position: relative;
+      box-sizing: border-box;
    }
    
    .document {
       position: relative;
-      background-color: rgb(255, 255, 255);
+      /* background-color: rgba(243, 76, 76, 0.116); */
       box-shadow: 2px 2px 6px #ccc;
       width: 92px;
       height: 137px;
@@ -108,11 +114,13 @@
       margin: 0;
       padding: 3px;
       cursor: pointer;
+      /* box-sizing: border-box; */
+      border: 2px solid rgba(255, 0, 0, 0.384)
    }
    .elementsWarp {
       /* background-color: aqua; */
       width: 99%;
       height: 160px;
-     
+      box-sizing: border-box;
    }
 }

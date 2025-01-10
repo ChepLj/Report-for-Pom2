@@ -165,7 +165,7 @@ export default function Header({ user, authLogin }) {
                         </Link>
                      </li>
                      <li className={style.writeReportItem} onClick={goToFullScreen}>
-                        <Link to="/" className={style.Link} state={{ user: user }}>
+                        <Link to="/createdelay" className={style.Link} state={{ user: user }}>
                            Viết báo cáo delay
                         </Link>
                      </li>

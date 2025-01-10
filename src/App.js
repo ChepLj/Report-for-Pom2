@@ -5,6 +5,7 @@ import CreateShiftDocLayout from './Layout/CreateShiftDocLayout/CreateShiftDocLa
 import CreateMonthDocLayout from './Layout/CreateMonthDocLayout/CreateMonthDocLayout'
 import CreateMaintenDocLayout from './Layout/CreateMaintenDocLayout/CreateMaintenDocLayout'
 import CreateAdminDocLayout from './Layout/CreateAdminDocLayout/CreateAdminDocLayout'
+import CreateDelayLayout from './Layout/CreateDelayLayout/CreateDelayLayout'
 import LoginLayout from './Layout/LoginLayout/LoginLayout'
 import MainLayout from './Layout/MainLayout/MainLayout'
 
@@ -28,6 +29,7 @@ window.addEventListener('popstate', function () {
             <Route path="/createshift" element={<CreateShiftDocLayout />} />
             <Route path="/createmainten" element={<CreateMaintenDocLayout />} />
             <Route path="/createadminitrative" element={<CreateAdminDocLayout />} />
+            <Route path="/createdelay" element={<CreateDelayLayout />} />
          </Routes>
       </div>
    )
