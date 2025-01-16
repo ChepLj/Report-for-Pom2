@@ -11,13 +11,40 @@ export default function Header({ auth, mediaData }) {
 
    // Check bỏ trống trường sự cố
    const validateIssue = () => {
+      const productTimeTotalElm = document.getElementById('create-summary_productTimeTotal');
+      // const delayTimeTotalElm = document.getElementById('create-summary_delayTimeTotal');
+      const delayTimeKPITotalElm = document.getElementById('create-summary_delayTimeKPITotal');
+      const maintenanceTimeTotalElm = document.getElementById('create-summary_maintenanceTimeKPITotal');
+      const delayWeek1Elm = document.getElementById('create-delay_week-1');
+      const delayWeek2Elm = document.getElementById('create-delay_week-2');
+      const delayWeek3Elm = document.getElementById('create-delay_week-3');
+      const delayWeek4Elm = document.getElementById('create-delay_week-4');
+      const delayWeek5Elm = document.getElementById('create-delay_week-5');
+
+      const ElmGroup = [
+         productTimeTotalElm,
+         delayTimeKPITotalElm,
+         // delayTimeTotalElm,
+         maintenanceTimeTotalElm,
+         delayWeek1Elm,
+         delayWeek2Elm,
+         delayWeek3Elm,
+         delayWeek4Elm,
+         delayWeek5Elm,
+      ];
+
       const issueElm = document.querySelectorAll('.create-issue');
-      const jobElm = document.querySelectorAll('.create-job');
-      const planElm = document.querySelectorAll('.create-plan');
       const proposeElm = document.querySelectorAll('.create-propose');
       const userWeekReportSelect = document.querySelector('[name="userWeekReport"]');
-      const collectElm = [...jobElm, ...planElm, ...proposeElm];
+      const collectElm = [...proposeElm];
       const selectedValue = userWeekReportSelect?.value;
+
+      for (const elm of ElmGroup) {
+         if (elm.innerText.trim() === '') {
+            alert('LỖI ! Trường Tổng quan và Delay không được bỏ trống !!!');
+            return false;
+         }
+      }
       if (selectedValue == '') {
          alert('LỖI ! Chọn người báo cáo !!!');
          return false;
@@ -38,16 +65,17 @@ export default function Header({ auth, mediaData }) {
          }
       }
       /////////////// Check dữ liệu trống
-      for (const item of collectElm) {
-         const pTagInput = item.getElementsByTagName('p');
-         for (const item of pTagInput) {
-            if (!(item.innerText.trim() === '')) {
-               return true;
-            }
-         }
-      }
+      // for (const item of collectElm) {
+      //    const pTagInput = item.getElementsByTagName('p');
+      //    for (const item of pTagInput) {
+      //       if (!(item.innerText.trim() === '')) {
+      //          return true;
+      //       }
+      //    }
+      // }
       ////////////////
-      alert('LỖI ! Phải điền ít nhất 1 trường');
+      // alert('LỖI ! Phải điền ít nhất 1 trường');
+      return true
    };
    /////////
    return (
@@ -66,6 +94,7 @@ export default function Header({ auth, mediaData }) {
             <div
                className={style.writeReport}
                onClick={() => {
+         
                   if (validateIssue()) {
                      const confirmed = window.confirm(
                         'Kiểm tra dữ liệu trước khi Upload. Đảm bảo các trường phải được nhập. Nếu các trường bị bỏ trống, hình ảnh của trường đó sẽ không được Upload !\n(mẹo: nếu muốn upload nhiều hơn 4 bức hình, sử dụng ký tự dấu chấm ở trường tiếp theo)\n\nNhấn OK để Upload !!!',
@@ -91,7 +120,7 @@ export default function Header({ auth, mediaData }) {
             <Modal
                upload={true}
                mediaData={mediaData}
-               type={'weekReport'}
+               type={'delayReport'}
                callBackClose={(value) => {
                   // setState(value)
                   window.location.href = '/';

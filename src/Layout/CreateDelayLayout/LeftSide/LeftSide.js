@@ -1,7 +1,7 @@
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 import { Button } from '@mui/material';
-import { useEffect, useRef , useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import style from './LeftSide.module.css';
 
 export default function LeftSide({
@@ -18,7 +18,6 @@ export default function LeftSide({
    equipmentState,
    setEquipmentState,
 }) {
-
    const [formData, setFormData] = useState({
       company: '',
       department: '',
@@ -31,8 +30,6 @@ export default function LeftSide({
       tasks: [''],
       incidents: [{ date: '', location: '', duration: '', details: '' }],
    });
-
-
 
    //TODO: set max width
    useEffect(() => {
@@ -63,11 +60,11 @@ export default function LeftSide({
       let month = date.getMonth();
       if (weekNumber > 0 && decimal > 0.4) {
          weekNumber = weekNumber + 1;
-      } else if (weekNumber <= 0 ) {
+      } else if (weekNumber <= 0) {
          weekNumber = 5;
       }
-      console.log("🚀 ~ getWeekInMonth ~ weekNumber:", weekNumber)
-      if (weekNumber > 0 && weekNumber <=4) {
+      console.log('🚀 ~ getWeekInMonth ~ weekNumber:', weekNumber);
+      if (weekNumber > 0 && weekNumber <= 4) {
          month = month + 1;
       }
 
@@ -80,15 +77,6 @@ export default function LeftSide({
          <section className={style.writeArea}>
             <div className={style.writeAreaTitle}>Báo Cáo Delay</div>
             <div className={style.writeAreaTime}>
-               {/* Tuần{' '}
-               <select className={style.optionWeek} name="weekWeekReport" defaultValue={getWeekInMonth(date).weekInMonth}>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-               </select> */}
-              
                Tháng{' '}
                <select className={style.optionMonth} name="monthWeekReport" defaultValue={getWeekInMonth(date).month}>
                   <option value={1}>1</option>
@@ -122,9 +110,9 @@ export default function LeftSide({
                </select>{' '}
                <select className={style.user} name="userWeekReport">
                   <option style={{ color: 'gray' }} value={''}>
-                     chọn Người báo cáo
+                     chọn Tổ báo cáo
                   </option>
-                  {user.map((crr, index) => {
+                  {['Điện Động Lực', 'Điện Tự Động'].map((crr, index) => {
                      return (
                         <option value={crr} key={index}>
                            {crr}
@@ -134,13 +122,12 @@ export default function LeftSide({
                </select>
             </div>
 
-            <Form data={formData}/>
             {/* <i style={{ fontSize: '0.7rem', marginTop: '2px' }}>(Ngày đầu tiên của Tuần 1 sẽ là Thứ 2 đầu tiên của tháng)</i> */}
-            {/* <JobWrite handleAddImage={handleAddImage} jobState={jobState} setJobState={setJobState} />
+            <SummaryWrite handleAddImage={handleAddImage} jobState={jobState} setJobState={setJobState} />
+            <DelayWrite handleAddImage={handleAddImage} jobState={jobState} setJobState={setJobState} />
             <IssueWrite handleAddImage={handleAddImage} issueState={issueState} setIssueState={setIssueState} />
-            <PlanWrite handleAddImage={handleAddImage} planState={planState} setPlanState={setPlanState} />
+
             <ProposeWrite handleAddImage={handleAddImage} proposeState={proposeState} setProposeState={setProposeState} />
-            <EquipmentWrite equipmentState={equipmentState} setEquipmentState={setEquipmentState} /> */}
          </section>
       </section>
    );
@@ -148,81 +135,64 @@ export default function LeftSide({
 
 /////////////////////
 
-function JobWrite({ handleAddImage, jobState, setJobState }) {
-   const handelAddJobField = () => {
-      // const array = [...state, state[state.length - 1] + 1];
-
-      const array = [...jobState];
-      array.push({ id: jobState.length + 1, images: [] });
-      setJobState(array);
-   };
-   const handelDeleteJobField = (id) => {
-      // console.log('🚀 ~ handelDeleteJobField ~ index:', id);
-
-      const arrayNode = document.querySelectorAll(`.create-job`);
-      for (const item of arrayNode) {
-         if (+item.dataset.jobIndex === id) {
-            item.remove();
-            let array = [...jobState];
-            array[id - 1].images = [];
-            setJobState([...array]);
-            break;
-         }
-      }
-   };
-
+function SummaryWrite({ handleAddImage, jobState, setJobState }) {
    return (
       <div className={style.fieldJobWarp}>
-         <div className={style.fieldJobTitle}>Công việc đã làm trong tuần</div>
+         <div className={style.fieldJobTitle}>Tổng quan</div>
          <ul className={style.fieldJobList}>
-            {jobState?.map((crr, index) => {
-               return (
-                  <li className={`${style.fieldJobItem} create-job`} key={index} data-job-index={crr.id} data-job-id={crr.id}>
-                     <div className={style.fieldJobItemTitle}>Công việc {crr.id}</div>
-                     <p
-                        className={style.fieldJobItemInput}
-                        data-job-input={index}
-                        data-input-width-fixed="width fixed"
-                        contentEditable="true"
-                        data-job-id={crr.id}
-                     />
+            <li className={`${style.fieldJobItem} `}>
+               <div className={`${style.fieldJobItemTitle} `}>Tổng thời gian sản xuất : </div>
+               <p className={`${style.fieldJobItemInput} `} id='create-summary_productTimeTotal' contentEditable="true" inputMode="numeric" />
+               <i>(phút)</i>
+            </li>
+            <li className={`${style.fieldJobItem} `}>
+               {/* <div className={`${style.fieldJobItemTitle} `}>Tổng thời gian delay thiết bị : </div>
+               <p className={`${style.fieldJobItemInput} `} id='create-summary_delayTimeTotal' contentEditable="true" inputMode="numeric" /> */}
+               <div className={style.fieldJobItemTitle}>Tổng tỷ lệ Delay định mức (KPI) : </div>
+               <p className={`${style.fieldJobItemInput} `} id='create-summary_delayTimeKPITotal' contentEditable="true" inputMode="numeric" >0.788</p>
+               <i>(%)</i>
+            </li>
 
-                     <div>
-                        <Button
-                           sx={{
-                              padding: '1px 4px', // Adjust the padding
-                              fontSize: '0.6rem', // Adjust the font size
-                              minWidth: 'auto', // Remove the default minWidth
-                           }}
-                           variant="outlined"
-                           size="small"
-                           color={crr?.images?.length ? 'error' : 'primary'}
-                           startIcon={<AddPhotoAlternateIcon />}
-                           onClick={() => {
-                              handleAddImage(crr.id, 'CV');
-                           }}
-                        >
-                           {crr?.images?.length}
-                        </Button>
-                     </div>
-                     <span
-                        className={`material-symbols-outlined ${style.fieldJobItemDelete}`}
-                        onClick={(e) => {
-                           handelDeleteJobField(crr.id);
-                        }}
-                     >
-                        delete
-                     </span>
-                  </li>
-               );
-            })}
-
-            <div className={style.addJob_addImageWrap}>
-               <div className={style.addJobWrap} onClick={handelAddJobField}>
-                  <div className={style.addJobWrapText}>Thêm công việc </div>
-                  <span className="material-symbols-outlined">add</span>
+            <li className={`${style.fieldJobItem} `}>
+               <div className={style.fieldJobItemTitle}>Tổng thời gian bảo trì theo kế hoạch : </div>
+               <p className={`${style.fieldJobItemInput} `} id='create-summary_maintenanceTimeTotal' contentEditable="true" inputMode="numeric" >1440</p>
+               <div className={style.fieldJobItemTitle}>&nbsp;&nbsp;&nbsp;Định mức (KPI) : </div>
+               <p className={`${style.fieldJobItemInput} `} id='create-summary_maintenanceTimeKPITotal' contentEditable="true" inputMode="numeric" >2880</p>
+               <i>(phút)</i>
+            </li>
+         </ul>
+      </div>
+   );
+}
+/////////////////
+function DelayWrite({ handleAddImage, jobState, setJobState }) {
+   return (
+      <div className={style.fieldJobWarp}>
+         <div className={style.fieldJobTitle}>Thời gian  delay theo tuần <i>(phút)</i></div>
+         <ul className={style.fieldJobList}>
+            <li className={` ${style.fieldDelayItem} `}>
+               <div className={`${style.fieldDelayItemWarp}`}>
+                  <div className={style.fieldDelayItemWarpTitle}>Tuần 1 </div>
+                  <p className={`${style.fieldDelayItemWarpInput} `} id='create-delay_week-1' contentEditable="true" inputMode="numeric" >0</p>
                </div>
-            </div>
+               <div className={`${style.fieldDelayItemWarp}`}>
+                  <div className={style.fieldDelayItemWarpTitle}>Tuần 2 </div>
+                  <p className={`${style.fieldDelayItemWarpInput} `} id='create-delay_week-2' contentEditable="true" inputMode="numeric" >0</p>
+               </div>
+               <div className={`${style.fieldDelayItemWarp}`}>
+                  <div className={style.fieldDelayItemWarpTitle}>Tuần 3 </div>
+                  <p className={`${style.fieldDelayItemWarpInput} `} id='create-delay_week-3' contentEditable="true" inputMode="numeric" >0</p>
+               </div>
+               <div className={`${style.fieldDelayItemWarp}`}>
+                  <div className={style.fieldDelayItemWarpTitle}>Tuần 4 </div>
+                  <p className={`${style.fieldDelayItemWarpInput} `} id='create-delay_week-4' contentEditable="true" inputMode="numeric" >0</p>
+               </div>
+               <div className={`${style.fieldDelayItemWarp}`}>
+                  <div className={style.fieldDelayItemWarpTitle}>Tuần 5 </div>
+                  <p className={`${style.fieldDelayItemWarpInput} `} id='create-delay_week-5' contentEditable="true" inputMode="numeric" >0</p>
+               </div>
+            </li>
+            <div style={{fontSize: '10px', fontStyle: 'italic', textAlign: 'center', marginTop: '10px'}}>(nhập số 0 nếu không có giá trị)</div>
          </ul>
       </div>
    );
@@ -251,7 +221,7 @@ function IssueWrite({ handleAddImage, issueState, setIssueState }) {
    };
    return (
       <div className={style.fieldIssueWarp}>
-         <div className={style.fieldIssueTitle}>Sự cố xảy ra trong tuần</div>
+         <div className={style.fieldIssueTitle}>Sự cố gây Delay</div>
          <ul className={style.fieldIssueList}>
             {/*  */}
             {issueState?.map((crr, index) => {
@@ -283,6 +253,16 @@ function IssueWriteElement({ index, crr, callBack, handleAddImage }) {
       <li className={`${style.fieldIssueItem} create-issue`} data-issue-index={crr.id} data-issue-id={crr.id}>
          <div className={style.fieldIssueItemTitle}>Sự cố {crr.id}</div>
          <div className={style.fieldIssueItemContentWarp}>
+            <div className={style.fieldIssueItemContentWarpItem}>
+               <div className={style.fieldIssueItemTitleChild}>Ngày*</div>
+               <p
+                  className={style.fieldIssueItemInput}
+                  data-issue-input="date"
+                  data-input-width-fixed="width fixed"
+                  contentEditable="true"
+                  inputMode="numeric"
+               />
+            </div>
             {/*  */}
             <div className={style.fieldIssueItemContentWarpItem}>
                <div className={style.fieldIssueItemTitleChild}>Tên sự cố*</div>
@@ -313,20 +293,10 @@ function IssueWriteElement({ index, crr, callBack, handleAddImage }) {
                </div>
             </div>
 
-            <div className={style.fieldIssueItemContentWarpItem}>
-               <div className={style.fieldIssueItemTitleChild}>Ngày*</div>
-               <p
-                  className={style.fieldIssueItemInput}
-                  data-issue-input="date"
-                  data-input-width-fixed="width fixed"
-                  contentEditable="true"
-                  inputMode="numeric"
-               />
-            </div>
             {/*  */}
             {/*  */}
             <div className={style.fieldIssueItemContentWarpItem}>
-               <div className={style.fieldIssueItemTitleChild}>Nội dung*</div>
+               <div className={style.fieldIssueItemTitleChild}>Thời gian Delay <i>(phút)</i>*</div>
                <p className={style.fieldIssueItemInput} data-issue-input="content" data-input-width-fixed="width fixed" contentEditable="true" />
             </div>
             {/*  */}
@@ -349,83 +319,6 @@ function IssueWriteElement({ index, crr, callBack, handleAddImage }) {
    );
 }
 
-///////////////////
-function PlanWrite({ handleAddImage, planState, setPlanState }) {
-   // const [state, setState] = useState([1]);
-
-   const handelAddPlanField = () => {
-      // const array = [...state, state[state.length - 1] + 1];
-      // setState(array);
-      const array = [...planState];
-      array.push({ id: planState.length + 1, images: [] });
-      setPlanState(array);
-   };
-   const handelDeletePlanField = (id) => {
-      const arrayNode = document.querySelectorAll(`.create-plan`);
-      for (const item of arrayNode) {
-         if (+item.dataset.planIndex === id) {
-            item.remove();
-            let array = [...planState];
-            array[id - 1].images = [];
-            setPlanState([...array]);
-            break;
-         }
-      }
-   };
-
-   return (
-      <div className={style.fieldJobWarp}>
-         <div className={style.fieldJobTitle}>Kế hoạch tuần tới</div>
-         <ul className={style.fieldJobList}>
-            {planState?.map((crr, index) => {
-               return (
-                  <li className={`${style.fieldJobItem} create-plan`} key={index} data-plan-index={crr.id} data-plan-id={crr.id}>
-                     <div className={style.fieldJobItemTitle}>Kế hoạch {crr.id}</div>
-                     <p
-                        className={style.fieldJobItemInput}
-                        data-plan-input={index}
-                        data-input-width-fixed="width fixed"
-                        data-plan-id={crr.id}
-                        contentEditable="true"
-                     />
-                     <div>
-                        <Button
-                           sx={{
-                              padding: '1px 4px', // Adjust the padding
-                              fontSize: '0.6rem', // Adjust the font size
-                              minWidth: 'auto', // Remove the default minWidth
-                           }}
-                           variant="outlined"
-                           size="small"
-                           color={crr?.images?.length ? 'error' : 'primary'}
-                           startIcon={<AddPhotoAlternateIcon />}
-                           onClick={() => {
-                              handleAddImage(crr.id, 'KH');
-                           }}
-                        >
-                           {crr?.images?.length}
-                        </Button>
-                     </div>
-                     <span
-                        className={`material-symbols-outlined ${style.fieldJobItemDelete}`}
-                        onClick={(e) => {
-                           handelDeletePlanField(crr.id);
-                        }}
-                     >
-                        delete
-                     </span>
-                  </li>
-               );
-            })}
-
-            <div className={style.addJobWrap} onClick={handelAddPlanField}>
-               <div className={style.addJobWrapText}>Thêm kế hoạch </div>
-               <span className="material-symbols-outlined">add</span>
-            </div>
-         </ul>
-      </div>
-   );
-}
 /////////////////
 function ProposeWrite({ handleAddImage, proposeState, setProposeState }) {
    // const [state, setState] = useState([1]);
@@ -450,7 +343,7 @@ function ProposeWrite({ handleAddImage, proposeState, setProposeState }) {
 
    return (
       <div className={style.fieldJobWarp}>
-         <div className={style.fieldJobTitle}>Ý kiến/Đề xuất</div>
+         <div className={style.fieldJobTitle}>Những việc cần lưu ý /Đề xuất</div>
          <ul className={style.fieldJobList}>
             {proposeState?.map((crr, index) => {
                return (
@@ -494,356 +387,10 @@ function ProposeWrite({ handleAddImage, proposeState, setProposeState }) {
             })}
 
             <div className={style.addJobWrap} onClick={handelAddProposeField}>
-               <div className={style.addJobWrapText}>Thêm ý kiến/đề xuất </div>
+               <div className={style.addJobWrapText}>Thêm việc cần lưu ý </div>
                <span className="material-symbols-outlined">add</span>
             </div>
          </ul>
-      </div>
-   );
-}
-
-//////////////// Vật tu///////////////////
-function EquipmentWrite({ equipmentState, setEquipmentState }) {
-   const handelAddEquipmentField = () => {
-      const motherFieldElm = document.querySelector('.add-handover-equip');
-      const nameEquip = motherFieldElm.querySelector('.name').innerText;
-      const codeEquip = motherFieldElm.querySelector('.code').innerText;
-      const amountEquip = motherFieldElm.querySelector('.amount').innerText;
-      const unitEquipElm = motherFieldElm.querySelector('.unit').value;
-      const actionEquipElm = motherFieldElm.querySelector('.action').value;
-
-      if (nameEquip !== '' && amountEquip !== '' && actionEquipElm !== '') {
-         // kiểm tra nếu có dữ liệu thì mới cho thêm
-         // const array = [...state, [nameEquip, amountEquip, unitEquipElm, actionEquipElm, codeEquip]];
-         motherFieldElm.querySelector('.code').innerText = ''; // xoa sau khi them
-         motherFieldElm.querySelector('.name').innerText = ''; // xoa sau khi them
-         motherFieldElm.querySelector('.amount').innerText = ''; // xoa sau khi them
-         motherFieldElm.querySelector('.unit').value = '';
-         motherFieldElm.querySelector('.action').value = '';
-         // setState(array);
-         const array = [...equipmentState];
-         array.push({ id: equipmentState.length + 1, images: [], data: [codeEquip, nameEquip, amountEquip, unitEquipElm, actionEquipElm] });
-         setEquipmentState(array);
-      } else {
-         alert('Các trường vật tư có đánh dấu * không được bỏ trống !!!');
-      }
-   };
-
-   return (
-      <div className={style.fieldJobWarp}>
-         {/* ///////////////////////////////// */}
-         <div className={style.fieldJobTitle}>Vật tư đã xuất/Sử dụng</div>
-
-         <EquipmentTable equipmentState={equipmentState} setEquipmentState={setEquipmentState} />
-         <div className={style.bottomBorder}></div>
-         <section className={style.fieldJobList}>
-            <div className={`${style.fieldIssueItem} add-handover-equip`}>
-               <div className={style.fieldIssueItemContentWarp} style={{ width: '98%' }}>
-                  <div className={style.equipmentAddContentWarpItem}>
-                     <div className={style.equipmentInputWrap}>
-                        <span className={style.fieldIssueItemTitleChild} inputMode="numeric">
-                           Mã vật tư
-                        </span>
-                        <p
-                           className={`${style.fieldJobItemInput} code`}
-                           data-input-width-fixed="width fixed"
-                           inputMode="numeric"
-                           contentEditable="true"
-                           style={{ minWidth: '100px' }}
-                        />
-                     </div>
-                     <div className={style.equipmentInputWrap}>
-                        <span className={style.fieldIssueItemTitleChild}>Tên vật tư*</span>
-                        <p
-                           className={`${style.fieldJobItemInput} name`}
-                           data-input-width-fixed="width fixed"
-                           contentEditable="true"
-                           style={{ minWidth: '200px' }}
-                        />
-                     </div>
-                  </div>
-
-                  <div className={style.equipmentAddContentWarpItem}>
-                     <div className={style.equipmentInputWrap}>
-                        <span className={style.fieldIssueItemTitleChild}>Số lượng*</span>
-                        <p
-                           className={`${style.fieldJobItemInput} amount`}
-                           data-input-width-fixed="width fixed"
-                           style={{ textAlign: 'right', minWidth: '100px' }}
-                           contentEditable="true"
-                           inputMode="numeric"
-                        />
-                        <span className={style.space5}></span>
-                        <select className={`${style.optionUnit} unit`} name="unit" defaultValue="">
-                           <option value="" disabled hidden>
-                              Chọn đơn vị
-                           </option>
-                           <option value={'Cái'}>Cái</option>
-                           <option value={'Bộ'}>Bộ</option>
-                           <option value={'Mét'}>Mét</option>
-                           <option value={'Cuộn'}>Cuộn</option>
-                           <option value={'Thanh'}>Thanh</option>
-                           <option value={'Hộp'}>Hộp</option>
-                        </select>
-                        <span className={style.spaceLR5}></span>
-                     </div>
-                     <div className={style.equipmentInputWrap}>
-                        <span className={style.fieldIssueItemTitleChild}>Hành động* </span>
-                        <span className={style.spaceLR2dot5}></span>
-
-                        <select className={`${style.optionUnit} action`} name="action" defaultValue="">
-                           <option value="" disabled hidden>
-                              Chọn hành động
-                           </option>
-                           <option value={'Xuất Kho'}>Xuất Kho</option>
-                           <option value={'Sử dụng'}>Sử dụng</option>
-                           <option value={'Xuất Kho + Sử Dụng'}>Xuất Kho + Sử Dụng</option>
-                        </select>
-                        <span className={style.spaceLR5}></span>
-                     </div>
-                     <span className={style.spaceLR5}></span>
-                     <Button
-                        sx={{
-                           padding: '1px 6px', // Adjust the padding
-                           fontSize: '0.6rem', // Adjust the font size
-                           minWidth: 'auto', // Remove the default minWidth
-                        }}
-                        variant="contained"
-                        size="small"
-                        color="primary"
-                        onClick={handelAddEquipmentField}
-                     >
-                        <span className="material-symbols-outlined">add</span>
-                        Thêm vật tư
-                     </Button>
-                     <span className={style.spaceLR2dot5}></span>
-                  </div>
-               </div>
-            </div>
-         </section>
-      </div>
-   );
-}
-
-////////////////////////////////////////
-/////////////////
-function EquipmentTable({ equipmentState, setEquipmentState }) {
-   const maxWidth = useRef({});
-   const handelDeleteEquipmentField = (id) => {
-      const arrayNode = document.querySelectorAll(`.create-equipment`);
-      for (const item of arrayNode) {
-         if (+item.dataset.equipmentIndex === id) {
-            item.remove();
-            let array = [...equipmentState];
-            array[id - 1].images = [];
-            array[id - 1].data = [];
-            setEquipmentState([...array]);
-            break;
-         }
-      }
-   };
-
-   useEffect(() => {
-      const equipmentData = document.getElementById('equipment-data-store');
-      const temp = JSON.stringify(equipmentState);
-      equipmentData.innerHTML = temp;
-      console.dir(equipmentData.innerHTML);
-   }, [equipmentState]);
-
-   //TODO: set max width
-
-   useEffect(() => {
-      const table = document.querySelector('[data-table-width-fixed]');
-      const stt = document.querySelector('[data-stt-width-fixed]');
-      const code = document.querySelector('[data-code-width-fixed]');
-      const name = document.querySelector('[data-name-width-fixed]');
-      const quantity = document.querySelector('[data-quantity-width-fixed]');
-      const unit = document.querySelector('[data-unit-width-fixed]');
-      const action = document.querySelector('[data-action-width-fixed]');
-
-      maxWidth.current.table = `${table.offsetWidth}px`;
-      maxWidth.current.stt = `${stt.offsetWidth}px`;
-      maxWidth.current.name = `${name.offsetWidth}px`;
-      maxWidth.current.code = `${code.offsetWidth}px`;
-      maxWidth.current.quantity = `${quantity.offsetWidth}px`;
-      maxWidth.current.unit = `${unit.offsetWidth}px`;
-      maxWidth.current.action = `${action.offsetWidth}px`;
-      console.log('🚀 ~ useEffect ~ maxWidth:', maxWidth);
-   }, []);
-
-   //TODO_END: set max width
-   return (
-      <>
-         {' '}
-         <table style={{ borderCollapse: 'collapse', width: '100%', margin: '5px 0' }} data-table-width-fixed="width fixed">
-            <thead>
-               <tr>
-                  <th data-stt-width-fixed="width fixed" style={{ border: '1px solid black', padding: '4px', fontSize: '10px', width: '5%' }}>
-                     STT
-                  </th>
-                  <th data-code-width-fixed="width fixed" style={{ border: '1px solid black', padding: '4px', fontSize: '10px', width: '10%' }}>
-                     Mã Vật Tư
-                  </th>
-                  <th data-name-width-fixed="width fixed" style={{ border: '1px solid black', padding: '4px', fontSize: '10px' }}>
-                     Tên Vật Tư
-                  </th>
-                  <th data-quantity-width-fixed="width fixed" style={{ border: '1px solid black', padding: '4px', fontSize: '10px', width: '10%' }}>
-                     Số Lượng
-                  </th>
-                  <th data-unit-width-fixed="width fixed" style={{ border: '1px solid black', padding: '4px', fontSize: '10px', width: '10%' }}>
-                     Đơn Vị
-                  </th>
-                  <th data-action-width-fixed="width fixed" style={{ border: '1px solid black', padding: '4px', fontSize: '10px', width: '10%' }}>
-                     Hành Động
-                  </th>
-               </tr>
-            </thead>
-
-            <tbody>
-               {equipmentState?.map((crr, index) => {
-                  return (
-                     crr.data && (
-                        <tr key={index} className={`create-equipment`} data-equipment-index={crr.id} data-equipment-id={crr.id}>
-                           <td style={{ border: '1px solid black', padding: '4px', fontSize: '10px' }}>
-                              <div style={{ fontStyle: 'italic', pointerEvents: 'none', userSelect: 'none', maxWidth: maxWidth.current.stt }}>
-                                 Vật tư {crr.id}
-                              </div>
-                           </td>
-                           <td className={style.equipmentTableTd} style={{ maxWidth: maxWidth.current.code }}>
-                              {crr.data[0]}
-                           </td>
-                           <td className={style.equipmentTableTd} style={{ maxWidth: maxWidth.current.name }}>
-                              {crr.data[1]}
-                           </td>
-                           <td className={style.equipmentTableTd} style={{ maxWidth: maxWidth.current.quantity }}>
-                              {crr.data[2]}
-                           </td>
-                           <td className={style.equipmentTableTd} style={{ maxWidth: maxWidth.current.unit }}>
-                              {crr.data[3]}
-                           </td>
-                           <td className={style.equipmentTableTd} style={{ maxWidth: maxWidth.current.action }}>
-                              {crr.data[4]}
-                           </td>
-                           <td style={{ border: '0px solid black', padding: '0px', fontSize: '0px', width: '0' }}>
-                              <span
-                                 className={`material-symbols-outlined ${style.fieldJobItemDelete}`}
-                                 onClick={(e) => {
-                                    handelDeleteEquipmentField(crr.id);
-                                 }}
-                              >
-                                 delete
-                              </span>
-                           </td>
-                        </tr>
-                     )
-                  );
-               })}
-            </tbody>
-         </table>
-         <div id="equipment-data-store" style={{ display: 'none' }}></div>
-      </>
-   );
-}
-
-
-
- function Form({ data }) {
-   const { company, department, reportDetails, summary, costs, tasks, incidents } = data;
-
-   return (
-      <div className={style.leftSide}>
-         {/* Header Section */}
-         <div className={style.header}>
-            <h2>{"company.name"}</h2>
-            <h3>{department}</h3>
-            <h4>{'reportDetails.title'}</h4>
-            <p>
-               {'reportDetails.date'}, {'reportDetails.location'}
-            </p>
-         </div>
-
-         {/* Summary Section */}
-         <div className={style.summary}>
-            <h4>Summary</h4>
-            <table className={style.table}>
-               <thead>
-                  <tr>
-                     <th>Item</th>
-                     <th>Value</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr>
-                     <td>Total Production Time</td>
-                     <td>{'summary.productionTime'} minutes</td>
-                  </tr>
-                  <tr>
-                     <td>Total Delay Time</td>
-                     <td>{'summary.delayTime'} minutes</td>
-                  </tr>
-                  <tr>
-                     <td>Delay Rate</td>
-                     <td>{'summary.delayRate'}%</td>
-                  </tr>
-               </tbody>
-            </table>
-         </div>
-
-         {/* Costs Section */}
-         <div className={style.costs}>
-            <h4>Cost Analysis</h4>
-            <table className={style.table}>
-               <thead>
-                  <tr>
-                     <th>Month</th>
-                     <th>Cost (VND)</th>
-                     <th>Production (Tons)</th>
-                     <th>Cost/Ton (VND)</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  {costs.map((cost, index) => (
-                     <tr key={index}>
-                        <td>{'cost.month'}</td>
-                        <td>{'cost.value'}</td>
-                        <td>{'cost.production'}</td>
-                        <td>{'cost.unitCost'}</td>
-                     </tr>
-                  ))}
-               </tbody>
-            </table>
-         </div>
-
-         {/* Action Items */}
-         <div className={style.tasks}>
-            <h4>Proposed Actions</h4>
-            <ul>
-               {tasks.map((task, index) => (
-                  <li key={index}>{task}</li>
-               ))}
-            </ul>
-         </div>
-
-         {/* Incident Reports */}
-         <div className={style.incidents}>
-            <h4>Incidents</h4>
-            {incidents.map((incident, index) => (
-               <div key={index} className={style.incident}>
-                  <p>
-                     <strong>Date:</strong> {'incident.date'}
-                  </p>
-                  <p>
-                     <strong>Location:</strong> {'incident.location'}
-                  </p>
-                  <p>
-                     <strong>Duration:</strong> {'incident.duration'}
-                  </p>
-                  <p>
-                     <strong>Cause & Resolution:</strong> {'incident.details'}
-                  </p>
-               </div>
-            ))}
-         </div>
       </div>
    );
 }

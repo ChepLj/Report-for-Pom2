@@ -8,7 +8,7 @@
    /* width: var(--widthScreen); */
    width: 100vw;
    height: 100vh;
-
+   position: relative;
    /* text-align: center; */
    /* max-width: 1440px; */
    background-color: rgb(255, 255, 255);
@@ -45,13 +45,28 @@ overflow-y: hidden;
    border: 16px solid #f3f3f3; /* Light grey */
    border-top: 16px solid #3498db; /* Blue */
    border-radius: 50%;
-   width: 100px;
-   height: 100px;
+   width: 16vw;
+   height: 16vw;
    animation: spin 1s linear infinite;
-   left: 46%;
-
+   left: 50%;
    top: 50%;
+
 }
+
+
+/* Center the loader on mobile screens */
+@media (max-width: 768px) {
+
+   .loader {
+      margin: 0;
+      position: absolute;
+      top: calc(50vh -8vw);
+      left: 40vw;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+   }
+}
+
 
 @keyframes spin {
    0% {
@@ -61,3 +76,4 @@ overflow-y: hidden;
       transform: rotate(360deg);
    }
 }
+

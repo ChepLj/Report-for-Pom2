@@ -3,6 +3,7 @@ import WeekReport from './WeekReport/WeekReport';
 import MonthReport from './MonthReport/MonthReport';
 import ShiftReport from './ShiftReport/ShiftReport';
 import AdminReport from './AdminReport/AdminReport';
+import DelayReport from './DelayReport/DelayReport'
 
 export default function Collection({ data, filter = { type: ['Tất Cả'], user: ['Tất Cả'] }, auth }) {
    if (filter.user.includes('Tất Cả')) {
@@ -27,6 +28,9 @@ export default function Collection({ data, filter = { type: ['Tất Cả'], user
          )}
          {data?.WeekReport && (filter.type.includes('Tất Cả') || filter.type.includes('Báo Cáo Tuần')) && (
             <WeekReport data={data.WeekReport} authEmailCurrent={(auth.email ??= 'authEmailCurrent')} />
+         )}
+          {data?.DelayReport && (filter.type.includes('Tất Cả') || filter.type.includes('Báo Cáo Delay')) && (
+            <DelayReport data={data.DelayReport} authEmailCurrent={(auth.email ??= 'authEmailCurrent')} />
          )}
          {data?.MonthReport && (filter.type.includes('Tất Cả') || filter.type.includes('Báo Cáo Tháng')) && (
             <MonthReport data={data.MonthReport} authEmailCurrent={(auth.email ??= 'authEmailCurrent')} />

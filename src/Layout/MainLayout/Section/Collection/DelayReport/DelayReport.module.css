@@ -31,7 +31,8 @@
 
 .document {
    position: relative;
-   /* background-color: rgba(0, 255, 13, 0.11); */
+   /* background-color: rgba(217, 68, 236, 0.178); */
+
    box-shadow: 2px 2px 6px #ccc;
    width: 115px;
    height: 160px;
@@ -41,53 +42,19 @@
    margin: 0;
    padding: 3px;
    cursor: pointer;
-   border: 2px solid rgba(4, 185, 13, 0.45)
-}
-.waitConfirm{
-   position: absolute;
-   width: 20%;
-   color: #aaa707;
-   right: 6%;
-   top:16%;
-  
+   border: 2px solid rgba(47, 0, 255, 0.274)
 
 }
-.shift {
-   color: rgb(248, 112, 33);
-   display: block;
-   font-size: 20px;
-   font-weight: 700;
-   margin: 8px 0;
-}
-.timeWrap{ 
-   display: flex;
-   flex-direction: column;
-   margin: 2px 0;
-}
-.session {
+
+.userName {
    color: gray;
-   font-size: 12px;
-   
-   display: block;
-   /* margin-top: 15px; */
-   /* padding: 10px 5px; */
-}
-.date{
-   color: rgb(226, 13, 162);
-   font-size: 24px;
+   font-size: 10px;
    font-weight: 700;
    display: block;
    /* margin-top: 15px; */
-   /* padding: 10px 5px; */
+   padding: 10px 5px;
 }
-.monthYear{
-   color: rgb(74, 29, 199);
-   font-size: 14px;
-   font-weight: 700;
-   display: block;
-   /* margin-top: 15px; */
-   /* padding: 10px 5px; */
-}
+
 .document:hover {
    box-shadow: 2px 2px 20px rgb(199, 199, 199);
 }
@@ -113,6 +80,8 @@
    font-size: 18px;
 }
 
+
+
 /* For PC small screens */
 @media (min-width: 0px) and (max-width: 1235px) {
 
@@ -130,7 +99,7 @@
    
    .document {
       position: relative;
-      /* background-color: rgb(255, 255, 255); */
+      /* background-color: rgba(217, 68, 236, 0.178); */
       box-shadow: 2px 2px 6px #ccc;
       width: 92px;
       height: 137px;
@@ -140,7 +109,7 @@
       margin: 0;
       padding: 3px;
       cursor: pointer;
-      
+      border: 2px solid rgba(47, 0, 255, 0.274)
    }
    .elementsWarp {
       /* background-color: aqua; */
@@ -148,5 +117,4 @@
       height: 160px;
      
    }
-
 }

@@ -7,6 +7,7 @@ import createMonthDataPost from '../../handelAction/createDataPost/createMonthDa
 import createWeekDataPost from '../../handelAction/createDataPost/createWeekDataPost';
 import createShiftDataPost from '../../handelAction/createDataPost/createShiftDataPost';
 import createAdminDataPost from '../../handelAction/createDataPost/createAdminDataPost';
+import createDelayDataPost from '../../handelAction/createDataPost/createDelayDataPost';
 import style from './ProgressUpload.module.css';
 import { MIMEtype } from '../../FCComponent/MIMEtype';
 
@@ -53,7 +54,7 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
             }
             case 'delayReport': {
 
-               // createShiftDataPost(handleImageBlobArray);
+               createDelayDataPost(handleImageBlobArray);
                break;
             }
             case 'maintenReport': {

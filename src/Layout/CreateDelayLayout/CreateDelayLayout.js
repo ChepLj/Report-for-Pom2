@@ -17,11 +17,13 @@ export default function CreateDelayLayout() {
    const [file, setFile] = useState();
 
    let location = useLocation(); //dùng useLocation để lấy prop
-   const user = location.state.user;
+   // const user = location.state.user;
+
 
    let auth = {};
    if (localStorage.getItem('user')) {
       auth = JSON.parse(localStorage.getItem('user'));
+
    } else {
       window.location.href = '/login';
    }
@@ -99,7 +101,7 @@ export default function CreateDelayLayout() {
          <section className={style.contentWrap}>
             <div className={style.leftSide}>
                <LeftSide
-                  user={user}
+                  // user={user}
                   handleAddImage={handleAddImage}
                   jobState={jobState}
                   setJobState={setJobState}
