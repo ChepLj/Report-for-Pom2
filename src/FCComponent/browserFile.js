@@ -34,7 +34,7 @@ export const handelOpenImageFile = async (callback) => {
 export const handelOpenTextFile = async (callback) => {
   try {
     const blob = await fileOpen({
-      description: "Text files",
+      description: "Files",
       mimeTypes: [
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "application/msword",
@@ -50,15 +50,19 @@ export const handelOpenTextFile = async (callback) => {
         "application/zip",
       ],
       extensions: [".docx", ".doc", ".xls", ".xlsx", ".pdf", ".txt", ".elk", ".dwg", ".dwf", ".dxf", ".rar", ".zip"],
-      // multiple: true,
+      multiple: true,
     });
+
     if (blob) {
+    console.log("🚀 ~ handelOpenTextFile ~ blob:", blob)
+
       if (blob.size > 500000000) {
         alert("The File is over size > 0.5Gb !");
       } else {
+
         callback(blob);
       }
-      console.log("🚀 ~ file: CreatePage.tsx:57 ~ handelOpenFile ~ blob:", blob);
+      
     }
   } catch {}
 };

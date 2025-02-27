@@ -1,12 +1,15 @@
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { Button, Link, ListItem, ListItemIcon } from '@mui/material';
+import { useContext } from 'react';
+import AllDataContext from '../../context/allDataContext';
 import noImage from '../../static/img/No_Image_Available.jpg';
 import { logoPomina } from '../../static/svg/sgv';
 import style from './DelayReport.module.css';
+
 export default function DelayReport({ content, setModalImageOpen }) {
    console.log('🚀 ~ DelayReport ~ content:', content);
-
+   const { allData } = useContext(AllDataContext);
    // Lấy current user login
    let currentUser = 'none';
    if (localStorage.getItem('user')) {
@@ -63,7 +66,7 @@ export default function DelayReport({ content, setModalImageOpen }) {
          <header className={`${style.header} shift-header`}>
             <div className={`${style.headerItem} shift-headerItem`}>
                <div className={`${style.logoImg} shift-logoImg`}>{logoPomina}</div>
-               <span style={{ fontSize: '0.8rem', fontWeight: '600' }}>EAF</span>
+               <span style={{ fontSize: '0.8rem', fontWeight: '600' }}>Phân Xưởng {allData?.WorkShop}</span>
             </div>
             <div className={`${style.headerItem} ${style.headerItemBorderLR} shift-headerItem shift-headerItemBorderLR`}>
                <span className={`${style.headerTitle} shift-headerTitle`} style={{ fontSize: '1.5rem', fontWeight: 700 }}>
@@ -270,14 +273,22 @@ export default function DelayReport({ content, setModalImageOpen }) {
                </div>
                <ul className={`${style.list} attachmentWrap`} style={{ margin: 0, padding: 0, fontSize: '12px' }}>
                   {content.attachments?.[0] && (
-                     <ListItem>
-                        <ListItemIcon sx={{ minWidth: '15px' }}>
-                           <AttachFileIcon sx={{ maxWidth: '15px' }} className="attachment" />
-                        </ListItemIcon>
-                        <Link href={content.attachments?.[0].fileURL} target="_blank" download>
-                           Download File
-                        </Link>
-                     </ListItem>
+                     <ul className={`${style.list2} list hidden`}>
+                   
+                        {content?.attachments.length &&
+                           content.attachments.map((crr, fileIndex) => {
+                              return (
+                                 <li key={`fileIndex ${fileIndex}`} style={{ listStyle: 'none' }}>
+                                    <ListItemIcon sx={{ minWidth: '10px' }}>
+                                       <AttachFileIcon />
+                                    </ListItemIcon>
+                                    <Link href={crr.fileURL} target="_blank" download>
+                                       {crr?.name || 'download'}
+                                    </Link>
+                                 </li>
+                              );
+                           })}
+                     </ul>
                   )}
                </ul>
             </section>

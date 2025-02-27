@@ -6,6 +6,8 @@ import Header from './Header/Header';
 import LeftSide from './LeftSide/LeftSide';
 import RightSide from './RightSide/RightSide';
 import { handelOpenImageFile, handelOpenTextFile } from '../../FCComponent/browserFile';
+import { getFirebaseData } from '../../handelAction/getFirebaseData';
+
 
 export default function CreateMonthDocLayout() {
    const [jobState, setJobState] = useState([{ id: 1, images: [] }]);
@@ -15,9 +17,8 @@ export default function CreateMonthDocLayout() {
    const [equipmentStatusState, setEquipmentStatusState] = useState([{ id: 1, images: [] }]);
    const [equipmentState, setEquipmentState] = useState([]);
    const [snackBarOpen, setSnackBarOpen] = useState(false);
-   const [file, setFile] = useState();
+   const [file, setFile] = useState([]);
    let location = useLocation(); //dùng useLocation để lấy prop
-   const user = location.state.user;
 
    let auth = {};
    if (localStorage.getItem('user')) {
@@ -26,7 +27,7 @@ export default function CreateMonthDocLayout() {
       window.location.href = '/login';
    }
    ////////
-
+   const user = location.state.user;
    //TODO: handle add image
    const handleAddImage = (id, group) => {
       const handleImageUpdate = (state, setState) => {
@@ -87,7 +88,20 @@ export default function CreateMonthDocLayout() {
 
    //TODO: choose file
    const handleChooseFile = () => {
-      handelOpenTextFile(setFile);
+      try {
+         const checkFile = (newFileArray) => {
+            const tempArray = file.concat(newFileArray);
+
+            if (tempArray.length < 6) {
+               setFile([...file, ...newFileArray]);
+            } else {
+               alert('You can upload a maximum of 5 files!');
+            }
+         };
+         handelOpenTextFile(checkFile);
+      } catch (error) {
+         console.error(error);
+      }
    };
    //TODO_END: choose file
    return (
@@ -95,8 +109,14 @@ export default function CreateMonthDocLayout() {
          <Header
             auth={auth}
             mediaData={{
-               images: { jobImage: jobState, planImage: planState, proposeImage: proposeState, issueImage: issueState, equipmentStatusImage: equipmentStatusState},
-               attachments: [file],
+               images: {
+                  jobImage: jobState,
+                  planImage: planState,
+                  proposeImage: proposeState,
+                  issueImage: issueState,
+                  equipmentStatusImage: equipmentStatusState,
+               },
+               attachments: file,
             }}
          />
          <section className={style.contentWrap}>

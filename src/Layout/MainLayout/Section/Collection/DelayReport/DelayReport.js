@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import Modal from '../../../../../Modal/Modal'
 import { dbRT } from '../../../../../firebase/firebaseConfig'
 import { update } from 'firebase/database'
+import deleteFolderDataFromStorage from '../../../../../api/deleteFolderDataFromStorage';
 
 export default function DelayReport({ data, authEmailCurrent }) {
    const arrayData = []
@@ -34,20 +35,34 @@ function ElementDoc({ data, authEmailCurrent }) {
       }
    }
    const handelDelete = (ref) => {
-      const object = {}
-      const newReportRef = 'NewReport/' + ref.replace(/[^0-9]/g, '')
-      object[ref] = null
-      object[newReportRef] = null
-      // dung hàm update với giá trị null để xóa
-      update(dbRT, object)
-         .then((result) => {
-            window.location.href = '/'
-            alert('Xóa thành công !!!')
-         })
-         .catch((error) => {
-            alert('Lỗi', error)
-         })
-   }
+      try {
+         const object = {};
+         const newReportRef = 'NewReport/' + ref.replace(/[^0-9]/g, '');
+         object[ref] = null;
+         object[newReportRef] = null;
+         // dung hàm update với giá trị null để xóa
+         const callback = (result) => {
+            if (result == 'All files deleted successfully.') {
+               window.location.href = '/';
+               alert('Xóa thành công !!!');
+            }
+            else{
+               alert('Lỗi xóa file ! báo cáo đã được xóa, nhưng file và hình ảnh đính kèm không được xóa.')
+               window.location.href = '/';
+            }
+         };
+
+         update(dbRT, object)
+            .then((result) => {
+               deleteFolderDataFromStorage(data, callback);
+            })
+            .catch((error) => {
+               throw Error(error);
+            });
+      } catch (error) {
+         alert('Lỗi', error);
+      }
+   };
    ////////////////
    return (
       <>

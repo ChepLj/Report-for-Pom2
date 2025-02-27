@@ -4,7 +4,9 @@ import { Button } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import style from './LeftSide.module.css';
 
-export default function LeftSide({
+export default function 
+
+LeftSide({
    user,
    handleAddImage,
    jobState,

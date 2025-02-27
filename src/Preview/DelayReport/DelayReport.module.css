@@ -107,7 +107,10 @@
    box-sizing: border-box;
    margin: 5px;
 }
-
+.list2{
+   font-size: 0.6rem;
+   text-align: start;
+}
 .item {
    /* font-size: 14px; */
    font-size: 0.875rem;

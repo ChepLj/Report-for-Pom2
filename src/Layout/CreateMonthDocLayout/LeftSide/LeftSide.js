@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from 'react';
 import style from './LeftSide.module.css';
 
 export default function LeftSide({
-   user,
+   user ,
    handleAddImage,
    jobState,
    planState,
@@ -74,7 +74,7 @@ export default function LeftSide({
                      chọn Người báo cáo
                   </option>
 
-                  {user.map((crr, index) => {
+                  {user?.map((crr, index) => {
                      return (
                         <option value={crr} key={index}>
                            {crr}

@@ -1,60 +1,74 @@
-import style from './MonthReport.module.css'
-import { useRef, useState } from 'react'
-import Modal from '../../../../../Modal/Modal'
-import { dbRT } from '../../../../../firebase/firebaseConfig'
-import { update } from 'firebase/database'
+import style from './MonthReport.module.css';
+import { useRef, useState } from 'react';
+import Modal from '../../../../../Modal/Modal';
+import { dbRT } from '../../../../../firebase/firebaseConfig';
+import { update } from 'firebase/database';
+import deleteFolderDataFromStorage from '../../../../../api/deleteFolderDataFromStorage';
 
 export default function MonthReport({ data, authEmailCurrent }) {
-   const arrayData = []
+   const arrayData = [];
    if (data) {
-      for (const key in data) arrayData.push(data[key])
-      arrayData.reverse()
+      for (const key in data) arrayData.push(data[key]);
+      arrayData.reverse();
    }
    return (
       <section className={style.warp}>
          <div className={style.title}>Báo cáo tháng</div>
          <div className={style.elementsWarp}>
             {arrayData.map((crr, index) => {
-               return <ElementDoc data={crr} key={index} authEmailCurrent={authEmailCurrent} />
+               return <ElementDoc data={crr} key={index} authEmailCurrent={authEmailCurrent} />;
             })}
          </div>
       </section>
-   )
+   );
 }
 
 function ElementDoc({ data, authEmailCurrent }) {
-   const [state, setState] = useState({state: false, ref:''})
+   const [state, setState] = useState({ state: false, ref: '' });
    ////////////////////
    const handelConfirm = (ref) => {
-      let valueConfirm = prompt('Nhập mã sau để xóa ( pomina )')
+      let valueConfirm = prompt('Nhập mã sau để xóa ( pomina )');
       if (valueConfirm.trim() === 'pomina') {
-         handelDelete(ref)
+         handelDelete(ref);
       } else {
-         alert('Lỗi ! Mã xác thực không đúng !!!')
+         alert('Lỗi ! Mã xác thực không đúng !!!');
       }
-   }
+   };
    const handelDelete = (ref) => {
-      const object = {}
-      const newReportRef = 'NewReport/' + ref.replace(/[^0-9]/g, '')
-      object[ref] = null
-      object[newReportRef] = null
-      // dung hàm update với giá trị null để xóa
-      update(dbRT, object)
-         .then((result) => {
-            window.location.href = '/'
-            alert('Xóa thành công !!!')
-         })
-         .catch((error) => {
-            alert('Lỗi', error)
-         })
-   }
+      try {
+         const object = {};
+         const newReportRef = 'NewReport/' + ref.replace(/[^0-9]/g, '');
+         object[ref] = null;
+         object[newReportRef] = null;
+         // dung hàm update với giá trị null để xóa
+         const callback = (result) => {
+            if (result == 'All files deleted successfully.') {
+               window.location.href = '/';
+               alert('Xóa thành công !!!');
+            }
+            else{
+               alert('Lỗi xóa file ! báo cáo đã được xóa, nhưng file và hình ảnh đính kèm không được xóa.')
+               window.location.href = '/';
+            }
+         };
+
+         update(dbRT, object)
+            .then((result) => {
+               deleteFolderDataFromStorage(data, callback);
+            })
+            .catch((error) => {
+               throw Error(error);
+            });
+      } catch (error) {
+         alert('Lỗi', error);
+      }}
    ////////////////
    return (
       <>
          <section
             className={style.documentWarp}
             onClick={() => {
-               setState({state: true, ref: data.ref})
+               setState({ state: true, ref: data.ref });
             }}
          >
             <div className={style.document}>
@@ -71,9 +85,9 @@ function ElementDoc({ data, authEmailCurrent }) {
                <span
                   className={`${style.delete} material-symbols-outlined `}
                   onClick={(event) => {
-                     handelConfirm(data.ref)
+                     handelConfirm(data.ref);
                      // handelDelete(data.ref)
-                     event.stopPropagation()
+                     event.stopPropagation();
                   }}
                >
                   delete
@@ -87,10 +101,10 @@ function ElementDoc({ data, authEmailCurrent }) {
                upload={false}
                refDirection={state.ref}
                callBackClose={(value) => {
-                  setState(false)
+                  setState(false);
                }}
             />
          )}
       </>
-   )
+   );
 }

@@ -89,7 +89,7 @@ export default function Filter({ user, callback }) {
    //////////
    useEffect(() => {
       if (user && !hasRun) {
-         console.log("🚀 ~ useEffect ~ user:", user);
+         // console.log("🚀 ~ useEffect ~ user:", user);
          console.log('user');
          const nodeListTypeFilter = document.querySelectorAll(`.${style.buttonTypeFilter}`);
          const nodeListUserFilter = document.querySelectorAll(`.${style.buttonUserFilter}`);

@@ -1,11 +1,17 @@
 import noImage from '../../static/img/No_Image_Available.jpg';
 import { logoPomina } from '../../static/svg/sgv';
 import style from './MonthReport.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { Link, ListItem, ListItemIcon } from '@mui/material';
+
+import AllDataContext from '../../context/allDataContext';
+
 export default function MonthReport({ content, setModalImageOpen }) {
    console.log('🚀 ~ MonthReport ~ content:', content);
+
+   const { allData } = useContext(AllDataContext);
+
    const isVideoType = (type) => {
       if (type) {
          return type.startsWith('video/');
@@ -21,7 +27,7 @@ export default function MonthReport({ content, setModalImageOpen }) {
                <div className={`${style.address} address`}>
                   CÔNG TY CỔ PHẦN THÉP POMINA <br />
                   Bộ phận Bảo Trì Điện <br />
-                  Phân xưởng Luyện
+                  Phân xưởng {allData?.WorkShop}
                </div>
                <div className={`${style.logo} logo`}>
                   <div className={`${style.logoImg} logoImg`}>{logoPomina}</div>
@@ -349,14 +355,19 @@ export default function MonthReport({ content, setModalImageOpen }) {
             {content.attachments?.[0] && (
                <ul className={`${style.list} list hidden`}>
                   File đính kèm
-                  <ListItem>
-                     <ListItemIcon sx={{ minWidth: '15px' }}>
-                        <AttachFileIcon />
-                     </ListItemIcon>
-                     <Link href={content.attachments?.[0].fileURL} target="_blank" download>
-                        Download File
-                     </Link>
-                  </ListItem>
+                  {content?.attachments.length &&
+                        content.attachments.map((crr, fileIndex) => {
+                           return (
+                              <li key={`fileIndex ${fileIndex}`} style={{listStyle: 'none'}}>
+                                 <ListItemIcon sx={{ minWidth: '10px'}}>
+                                    <AttachFileIcon />
+                                 </ListItemIcon>
+                                 <Link href={crr.fileURL} target="_blank" download>
+                                    {crr?.name || 'download'}
+                                 </Link>
+                              </li>
+                           );
+                        })}
                </ul>
             )}
 
@@ -371,7 +382,9 @@ export default function MonthReport({ content, setModalImageOpen }) {
                </div>
             </section>
             <div className={`${style.auth} auth`}>{(content.authEmail ??= 'none')}</div>
-            <div className='reviewPaddingBottom' style={{ width: '100%', textAlign: 'center', paddingBottom: '5rem' }}>.</div>
+            <div className="reviewPaddingBottom" style={{ width: '100%', textAlign: 'center', paddingBottom: '5rem' }}>
+               .
+            </div>
          </section>
       </>
    );

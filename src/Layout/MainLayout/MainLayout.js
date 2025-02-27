@@ -1,14 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useContext } from 'react';
 import { getFirebaseData } from '../../handelAction/getFirebaseData';
 import Header from './Header/Header';
 import style from './MainLayout.module.css';
 import Collection from './Section/Collection/Collection';
 import Filter from './Section/Filter/Filter';
 import NewReport from './Section/NewReport/NewReport';
+import AllDataContext from '../../context/allDataContext'
+
+
+
 
 export default function MainLayout() {
    const [state, setState] = useState({ NewReport: '', Report: '' });
    const [filterState, setFilterState] = useState();
+   const {allData, setAllData} = useContext(AllDataContext)
+   // console.log("🚀 ~ MainLayout ~ allData:", allData)
 
    let auth = {};
    const now = new Date();
@@ -61,6 +67,7 @@ export default function MainLayout() {
             clearTimeout(reloadTimer); // Clear the timer on successful fetch
             elementLoadding.remove();
             setState(result.val());
+            setAllData(result.val())
          })
          .catch((error) => {
             clearTimeout(reloadTimer); // Clear the timer on error

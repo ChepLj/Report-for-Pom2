@@ -25,8 +25,10 @@ export default function RightSide({
    const arrayImageRender = [1, 2, 3, 4];
    const videoRefs = useRef([]);
    //TODO: handle delete File
-   const handleDeleteFile = (id, itemIndex) => {
-      setFile('');
+   const handleDeleteFile = (itemIndex) => {
+      const arr = [...file];
+      const newArray = arr.filter((_, index) => index !== itemIndex);
+      setFile(newArray);
    };
    //TODO: handle delete File
    //TODO: handle delete image

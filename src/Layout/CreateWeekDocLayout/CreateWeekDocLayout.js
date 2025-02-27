@@ -14,7 +14,7 @@ export default function CreateWeekDocLayout() {
    const [issueState, setIssueState] = useState([{ id: 1, images: [] }]);
    const [equipmentState, setEquipmentState] = useState([]);
    const [snackBarOpen, setSnackBarOpen] = useState(false);
-   const [file, setFile] = useState();
+   const [file, setFile] = useState([]);
 
    let location = useLocation(); //dùng useLocation để lấy prop
    const user = location.state.user;
@@ -83,7 +83,20 @@ export default function CreateWeekDocLayout() {
 
    //TODO: choose file
    const handleChooseFile = () => {
-      handelOpenTextFile(setFile);
+      try {
+         const checkFile = (newFileArray) => {
+            const tempArray = file.concat(newFileArray);
+
+            if (tempArray.length < 6) {
+               setFile([...file, ...newFileArray]);
+            } else {
+               alert('You can upload a maximum of 5 files!');
+            }
+         };
+         handelOpenTextFile(checkFile);
+      } catch (error) {
+         console.error(error);
+      }
    };
    //TODO_END: choose file
 
@@ -93,7 +106,7 @@ export default function CreateWeekDocLayout() {
             auth={auth}
             mediaData={{
                images: { jobImage: jobState, planImage: planState, proposeImage: proposeState, issueImage: issueState },
-               attachments: [file],
+               attachments: file,
             }}
          />
          <section className={style.contentWrap}>

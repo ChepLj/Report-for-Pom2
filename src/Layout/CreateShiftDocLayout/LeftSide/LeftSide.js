@@ -54,6 +54,9 @@ export default function LeftSide({}) {
                   <option value={'A'}>A</option>
                   <option value={'B'}>B</option>
                   <option value={'C'}>C</option>
+                  <option value={'D'}>D</option>
+                  <option value={'E'}>E</option>
+                  <option value={'F'}>F</option>
                </select>
             </div>
             <span className={style.space10}></span>

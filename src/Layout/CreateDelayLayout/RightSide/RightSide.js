@@ -28,8 +28,10 @@ export default function RightSide({
    const arrayImageRender = [1, 2, 3, 4];
    const videoRefs = useRef([]);
    //TODO: handle delete File
-   const handleDeleteFile = (id, itemIndex) => {
-      setFile('');
+   const handleDeleteFile = (itemIndex) => {
+      const arr = [...file];
+      const newArray = arr.filter((_, index) => index !== itemIndex);
+      setFile(newArray);
    };
    //TODO: handle delete File
    //TODO: handle delete image
@@ -138,24 +140,33 @@ export default function RightSide({
                   choose file
                </Button>
             </div>
-            <div style={{ color: 'green', fontWeight: 600, textAlign: 'start', margin: '5px' }}>{file?.name ? file.name : '...'}</div>
-            <div style={{ color: 'gray', fontStyle: 'italic', textAlign: 'start', margin: '5px' }}>
-               {file?.size ? (
-                  <span
-                     className={`material-symbols-outlined ${style.fileDeleteIcon}`}
-                     onClick={(e) => {
-                        handleDeleteFile();
-                     }}
-                  >
-                     delete
-                  </span>
-               ) : (
-                  ''
-               )}
+            {file?.length ?
+               file.map((fileCrr, fileIndex) => {
+                  return (
+                     <div key={fileIndex}>
+                        <div style={{ color: 'green', fontWeight: 600, textAlign: 'start', margin: '5px' }}>
+                           {fileCrr?.name ? fileCrr.name : '...'}
+                        </div>
+                        <div style={{ color: 'gray', fontStyle: 'italic', textAlign: 'start', margin: '5px' }}>
+                           {fileCrr?.size ? (
+                              <span
+                                 className={`material-symbols-outlined ${style.fileDeleteIcon}`}
+                                 onClick={(e) => {
+                                    handleDeleteFile(fileIndex);
+                                 }}
+                              >
+                                 delete
+                              </span>
+                           ) : (
+                              ''
+                           )}
 
-               <span style={{ padding: '5px' }}>type: {file?.type ? getKeyByValue(MIMEtype, file?.type) : '...'}</span>
-               <span style={{ padding: '5px' }}>size: {file?.size ? file.size : '...'} BYTE</span>
-            </div>
+                           <span style={{ padding: '5px' }}>type: {fileCrr?.type ? getKeyByValue(MIMEtype, fileCrr?.type) : '...'}</span>
+                           <span style={{ padding: '5px' }}>size: {fileCrr?.size ? fileCrr.size : '...'} BYTE</span>
+                        </div>
+                     </div>
+                  );
+               }):<i>(không có file nào được chọn)</i>}
          </div>
          <div className={style.rightSideFile}>
             <div className={style.rightSideFileHeader}>

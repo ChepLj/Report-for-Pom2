@@ -1,13 +1,16 @@
 import style from './ShiftReport.module.css';
 import { logoPomina, confirm } from '../../static/svg/sgv';
 import createConfirmShift from '../../handelAction/createDataPost/createConfirmShift';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { getFirebaseData } from './../../handelAction/getFirebaseData';
+import AllDataContext from '../../context/allDataContext';
+
+
 
 export default function ShiftReport({ content }) {
    console.log('🚀 ~ ShiftReport ~ content:', content);
    const [state, setState] = useState(content);
-
+   const { allData } = useContext(AllDataContext);
    const handelIDConfirm = (inputText) => {
       // *TODO: làm chức năng xác nhận bằng Mã định danh
       getFirebaseData('UserID').then((result) => {
@@ -72,7 +75,7 @@ export default function ShiftReport({ content }) {
          <header className={`${style.header} shift-header`}>
             <div className={`${style.headerItem} shift-headerItem`}>
                <div className={`${style.logoImg} shift-logoImg`}>{logoPomina}</div>
-               <span style={{ fontSize: '0.8rem', fontWeight: '600' }}>EAF</span>
+               <span style={{ fontSize: '0.8rem', fontWeight: '600' }}>Phân xưởng {allData?.WorkShop}</span>
             </div>
             <div className={`${style.headerItem} ${style.headerItemBorderLR} shift-headerItem shift-headerItemBorderLR`}>
                <span className={`${style.headerTitle} shift-headerTitle`} style={{ fontSize: '1.5rem', fontWeight: 700 }}>

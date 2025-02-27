@@ -15,6 +15,7 @@ import { update } from 'firebase/database';
 import { dbRT } from '../../firebase/firebaseConfig';
 
 export default function ProgressUpload({ reRender, mediaData, type }) {
+   // console.log('🚀 ~ ProgressUpload ~ mediaData:', mediaData);
    //TODO: mount
    console.log('%cProgressUpload Render', 'color:green');
    useEffect(() => {
@@ -27,9 +28,11 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
    // console.log('🚀 ~ ProgressUpload ~ state:', state);
    const idUpload = useRef(Date.now());
    // console.log('🚀 ~ ProgressUpload ~ state:', state);
-   const [fileProgressState, setFileProgressState] = useState({ bytesTransferred: '0', totalBytes: '0' });
+   // const [fileProgressState, setFileProgressState] = useState({ bytesTransferred: '0', totalBytes: '0' });
    const [imageBlobArray, setImageBlobArray] = useState([]);
-   // console.log('🚀 ~ ProgressUpload ~ imageBlobArray:', imageBlobArray);
+   console.log("🚀 ~ ProgressUpload ~ imageBlobArray:", imageBlobArray)
+   const [fileBlobArray, setFileBlobArray] = useState([]);
+   console.log("🚀 ~ ProgressUpload ~ fileBlobArray:", fileBlobArray)
 
    //TODO: make data
    useEffect(() => {
@@ -48,17 +51,14 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
                break;
             }
             case 'adminReport': {
-
                createAdminDataPost(handleImageBlobArray);
                break;
             }
             case 'delayReport': {
-
                createDelayDataPost(handleImageBlobArray);
                break;
             }
             case 'maintenReport': {
-               
                // createShiftDataPost(handleImageBlobArray);
                break;
             }
@@ -69,7 +69,6 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
 
    //TODO: create new Array image
    const handleImageBlobArray = (result) => {
-      console.log('🚀 ~ ProgressUpload ~ state:', result);
       const arrayTemp = [];
       for (let key in mediaData?.images) {
          const dataTypeTemp = mediaData.images[key];
@@ -90,7 +89,21 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
             }
          }
       }
+      //////////////////
+      //! handle file array
+      const fileArrayTemp = [];
+      let fileIndex = 1;
+
+      for (const item of mediaData.attachments) {
+         fileArrayTemp.push({
+            index: fileIndex,
+            file: item,
+            process: { bytesTransferred: '0', totalBytes: '0' },
+         });
+         fileIndex++;
+      }
       setImageBlobArray(arrayTemp);
+      setFileBlobArray(fileArrayTemp);
       setState(result);
    };
 
@@ -100,50 +113,60 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
    //TODO: Upload
    switch (state.state) {
       case 'file Upload': {
-         if (fileProgressState.bytesTransferred <= 0 && !state.uploadInProgress) {
-            setState((prevState) => ({ ...prevState, uploadInProgress: true }));
 
-            if (mediaData?.attachments[0]) {
-               const file = mediaData.attachments[0];
-               const temp = file.name.split('.');
-               const tag = temp[temp.length - 1];
-               const fileName = file.name + '.' + tag; //! làm sắn để sau này bổ sung tên tập tin từ người dùng nhâp vào
-               const ref = `REPORT/${state.data?.reportType}/${idUpload.current}/FILE/${fileName}`;
-
-               const callback = (messenger, result) => {
-                  if (messenger === 'Upload completed successfully') {
-                     state.data.attachments[0] = { fileRef: ref, fileURL: result };
-                     setState((prevState) => ({
-                        ...prevState,
-                        state: 'image Upload',
-                        uploadInProgress: false,
-                     }));
-                  } else if (messenger === 'Upload Failed') {
-                     setState((prevState) => ({ ...prevState, state: 'error', uploadInProgress: false }));
-                  }
-               };
-
-               if (file.type === '') {
-                  const tagTemp = temp[temp.length - 1];
-                  const newMetadata = {
-                     contentType: MIMEtype[tagTemp],
-                  };
-                  postDataToStorage(file, ref, fileName, callback, setFileProgressState, newMetadata);
-               } else {
-                  postDataToStorage(file, ref, fileName, callback, setFileProgressState);
-               }
-            } else {
+         console.log('file upload detected');
+         if (!state.uploadFileInProgress) {
+            setState((prevState) => ({ ...prevState, uploadFileInProgress: true }));
+            if (fileBlobArray.length === 0) {
                setState((prevState) => ({
-                  state: 'image Upload',
+                  state: 'image upload',
                   data: prevState.data,
-                  uploadInProgress: false,
+                  uploadFileInProgress: false,
                }));
+            } else {
+               const finishFileFileArrayCheck = [];
+               fileBlobArray.forEach((crr, index) => {
+                  // console.log('🚀 ~ fileBlobArray.forEach ~ crr:', crr);
+                  const file = crr.file;
+                  const temp = file.name.split('.');
+                  const tag = temp[temp.length - 1];
+                  const fileName = file.name + '.' + tag;
+
+                  const type = crr.file?.type; // Dynamic type
+
+                  const ref = `REPORT/${state.data?.reportType}/${idUpload.current}/FILE/${crr.index}/`;
+                  const callback = (messenger, result) => {
+                     if (messenger === 'Upload completed successfully') {
+                        state.data.attachments.push({ fileRef: ref + fileName, fileURL: result, type: type , name: file.name});
+
+                        finishFileFileArrayCheck.push(index);
+                        if (finishFileFileArrayCheck.length === fileBlobArray.length) {
+                           setState((prevState) => ({
+                              state: 'image upload',
+                              data: prevState.data,
+                              uploadFileInProgress: false,
+                           }));
+                        }
+                     } else if (messenger === 'Upload Failed') {
+                        setState('error');
+                     }
+                  };
+                  const handleProgressUpload = (progressState) => {
+                     const arrayTemp = [...fileBlobArray];
+                     arrayTemp[index].process.bytesTransferred = progressState.bytesTransferred;
+                     arrayTemp[index].process.totalBytes = progressState.totalBytes;
+                     setFileBlobArray(arrayTemp);
+                  };
+                  postDataToStorage(file, ref, fileName, callback, handleProgressUpload);
+               });
             }
          }
          break;
       }
 
-      case 'image Upload': {
+   
+
+      case 'image upload': {
          console.log('image upload detected');
          if (!state.uploadInProgress) {
             setState((prevState) => ({ ...prevState, uploadInProgress: true }));
@@ -156,9 +179,9 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
             } else {
                const finishArrayCheck = [];
                imageBlobArray.forEach((crr, index) => {
-                  console.log('🚀 ~ imageBlobArray.forEach ~ crr:', crr);
+                  // console.log('🚀 ~ imageBlobArray.forEach ~ crr:', crr);
                   const file = crr.image;
-                  const fileName = `Index ${index} : ${crr.line}.png`;
+                  const fileName = `Index${index}:${crr.line}.png`;
                   const group = crr.group; // Dynamic group
                   const id = crr.id; // Dynamic id
                   const type = crr.image?.type; // Dynamic type
@@ -175,7 +198,7 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
                            state.data.images[group][id] = [];
                         }
 
-                        state.data.images[group][id].push({ fileRef: ref, fileURL: result, type: type });
+                        state.data.images[group][id].push({ fileRef: ref + fileName, fileURL: result, type: type });
 
                         finishArrayCheck.push(index);
                         if (finishArrayCheck.length === imageBlobArray.length) {
@@ -218,25 +241,21 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
                objectDataNew.date = objectData.date;
                objectDataNew.type = state.data.reportType;
                updates[`NewReport/${idUpload.current}`] = objectDataNew;
-               if (state.data.reportType === 'AdminReport'){
+               if (state.data.reportType === 'AdminReport') {
                   updates[`Handover/Admin`] = objectData?.handover;
-               }
-               else if (state.data.reportType === 'ShiftReport'){
+               } else if (state.data.reportType === 'ShiftReport') {
                   updates[`Handover/Shift`] = objectData?.handover;
                }
-               //   for (const key in objectData) {
-               //     updates["Report"] = objectData[key];
-               //   }
 
-               // console.log(updates);
 
+               console.log("🚀 ~ updateDataFirebase ~ updates:", updates)
                return update(dbRT, updates);
             };
             const ref = `Report/${state.data.reportType}/${idUpload.current}`;
             updateDataFirebase(ref, state.data).then(() => {
                getFirebaseData(ref)
                   .then((result) => {
-                     // console.log(result.val())
+                     console.log(result.val())
                      reRender(result.val());
                   })
                   .catch((error) => {
@@ -274,17 +293,22 @@ export default function ProgressUpload({ reRender, mediaData, type }) {
             </div>
             <div className={style.item} style={{ color: state.state == 'file Upload' ? 'green' : '' }}>
                <div className={style.itemChildTitle}>Attachments</div>
-               <div className={style.listItem}>
-                  <span className={style.listItemText}>
-                     &diams;
-                     {mediaData?.attachments[0]?.name}
-                  </span>
-                  <span className={style.listItemData}>
-                     {fileProgressState?.bytesTransferred}/{fileProgressState?.totalBytes} Byte
-                  </span>
-               </div>
+               {
+                  fileBlobArray.map((crr, index) => {
+                     return (
+                        <div className={style.listItem} key={index}>
+                           <span className={style.listItemText}>
+                              &diams;
+                              {`Index ${index + 1} :     ${crr.file?.name}`}
+                           </span>
+                           <span className={style.listItemData}>
+                              {crr.process?.bytesTransferred}/{crr.process?.totalBytes} Byte
+                           </span>
+                        </div>
+                     );
+                  })}
             </div>
-            <div className={style.item} style={{ color: state.state == 'image Upload' ? 'green' : '' }}>
+            <div className={style.item} style={{ color: state.state == 'image upload' ? 'green' : '' }}>
                <div className={style.itemChildTitle}>Images</div>
                {imageBlobArray.map((crr, index) => {
                   return (

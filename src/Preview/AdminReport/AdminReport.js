@@ -1,18 +1,24 @@
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { useContext } from 'react';
 import noImage from '../../static/img/No_Image_Available.jpg';
 import { logoPomina } from '../../static/svg/sgv';
 import style from './AdminReport.module.css';
-import { useEffect, useState } from 'react';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
 import EquipmentTable from './EquipmentTable';
 
 import { Link, ListItem, ListItemIcon } from '@mui/material';
+
+import AllDataContext from '../../context/allDataContext';
+
 export default function AdminReport({ content, setModalImageOpen }) {
    console.log('🚀 ~ WeekReport ~ content:', content);
+
+   const { allData } = useContext(AllDataContext);
+
    const isVideoType = (type) => {
-      if(type){
-        return type.startsWith('video/') 
+      if (type) {
+         return type.startsWith('video/');
       }
-      return ''
+      return '';
    };
    return (
       <>
@@ -22,7 +28,7 @@ export default function AdminReport({ content, setModalImageOpen }) {
                <div className={`${style.address} address`}>
                   CÔNG TY CỔ PHẦN THÉP POMINA <br />
                   Bộ phận Bảo Trì Điện <br />
-                  Phân xưởng Luyện
+                  Phân xưởng {allData?.WorkShop}
                </div>
                <div className={`${style.logo} logo`}>
                   <div className={`${style.logoImg} logoImg`}>{logoPomina}</div>
@@ -30,11 +36,9 @@ export default function AdminReport({ content, setModalImageOpen }) {
                   <span>NHÀ MÁY LUYỆN PHÔI THÉP</span>
                </div>
             </header>
-            <div className={`${style.title} title`}>
-               Báo Cáo Hành Chính
-            </div>
-            <div style={{fontSize: '14px', color: 'red'}}>
-            {content.date.date} - {content.date.month} - {content.date.year}
+            <div className={`${style.title} title`}>Báo Cáo Hành Chính</div>
+            <div style={{ fontSize: '14px', color: 'red' }}>
+               {content.date.date} - {content.date.month} - {content.date.year}
             </div>
             <div className={`${style.user} user`}>{content.user}</div>
             <ul className={`${style.list} list`}>
@@ -52,7 +56,7 @@ export default function AdminReport({ content, setModalImageOpen }) {
                                     <div
                                        key={imgIndex}
                                        className={style.mediaContainer}
-                                       onClick={() => setModalImageOpen({ isOpen: true, data: content.images.jobImage[crr.id] , index: imgIndex})}
+                                       onClick={() => setModalImageOpen({ isOpen: true, data: content.images.jobImage[crr.id], index: imgIndex })}
                                     >
                                        {isVideo ? (
                                           <>
@@ -89,8 +93,7 @@ export default function AdminReport({ content, setModalImageOpen }) {
                   );
                })}
             </ul>
-      
- 
+
             <ul className={`${style.list} list`}>
                Ý kiến/Đề xuất
                {content?.propose?.map((crr, index) => {
@@ -147,7 +150,7 @@ export default function AdminReport({ content, setModalImageOpen }) {
                Công cụ /Vật tư sử dụng
                {/* <li className={`${style.item} get-table-width item`} style={{ marginTop: 0, listStyleType: 'none' }}></li>
                <EquipmentTable data={content.equipment} /> */}
-               <EquipmentTable data={{equipment: content.equipment, handover: content.handover}}/>
+               <EquipmentTable data={{ equipment: content.equipment, handover: content.handover }} />
             </ul>
             {content?.attachments?.[0] && (
                <ul className={`${style.list} list hidden`}>
@@ -174,7 +177,9 @@ export default function AdminReport({ content, setModalImageOpen }) {
                </div>
             </section>
             <div className={`${style.auth} auth`}>{(content.authEmail ??= 'none')}</div>
-            <div className='reviewPaddingBottom' style={{ width: '100%', textAlign: 'center', paddingBottom: '5rem' }}>.</div>
+            <div className="reviewPaddingBottom" style={{ width: '100%', textAlign: 'center', paddingBottom: '5rem' }}>
+               .
+            </div>
          </section>
       </>
    );
